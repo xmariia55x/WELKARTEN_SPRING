@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07-abr-2021, 11:34:23
+    Author     : yeray
+*/
+
+.global_inicio_sesion{
+    padding: 5% 35%;
+}
+
+.global_registro{
+    padding: 2% 25%;
+}
+
+.global_editar_perfil_usuario_eventos{
+    padding: 2% 25%;
+}
+
+.global_nuevo_evento{
+    padding: 2% 25%;
+}
+/*body{
+    background-color: #def3ff Azulito mono
+}*/
+
+img{
+    display: block;
+    margin: auto;
+}
+
+.registro {
+    text-align: center
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+header {
+    position: fixed; 
+    width: 100%; 
+    z-index: 100;
+}
+
+.contenido {
+    padding-top: 75px;
+}
+
+
