@@ -1,7 +1,7 @@
 <%-- 
     Document   : Administrador
     Created on : 25-abr-2021, 13:29:58
-    Author     : mariaa
+    Author     : mariaaa
 --%>
 
 <%@page import="GestorEventos2021.entity.Etiqueta"%>
