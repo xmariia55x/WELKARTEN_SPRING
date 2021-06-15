@@ -2,6 +2,10 @@
     Document   : Administrador
     Created on : 25-abr-2021, 13:29:58
     Author     : maria
+
+
+
+    LUIS ENRIQUE CONVOCA A MARIA DEL MONTE
 --%>
 
 <%@page import="GestorEventos2021.entity.Etiqueta"%>
@@ -127,7 +131,7 @@
                     %>
 
                     <div class="alert alert-warning" role="alert">
-                        PRECAUCIÓN: ¡No hay usuarios en el sistema!
+                        PRECAUCIï¿½N: ï¿½No hay usuarios en el sistema!
                     </div>
                     <%
                         }
@@ -154,7 +158,7 @@
                                 <div class="card-body p-4">
                                     <div class="col-md-4 mb-3">
 
-                                        Categoría del evento: 
+                                        Categorï¿½a del evento: 
                                         <br>
                                         <%
                                             for (Etiqueta etq : etiquetas) {
@@ -191,9 +195,9 @@
                     <table class="table">
                         <thead class = "table-primary">
                             <tr>
-                                <th scope="col">Título</th>
+                                <th scope="col">Tï¿½tulo</th>
                                 <th scope="col">Fecha de inicio</th>
-                                <th scope="col">Fecha límite para reservas</th>
+                                <th scope="col">Fecha lï¿½mite para reservas</th>
                                 <th scope="col">Coste entradas</th>
                                 <th scope="col">Aforo</th>
                                 <th scope="col">Editar</th>
@@ -224,7 +228,7 @@
                     } else { //no hay eventos
                     %>
                     <div class="alert alert-warning" role="alert">
-                        PRECAUCIÓN: ¡No hay eventos en el sistema!
+                        PRECAUCIï¿½N: ï¿½No hay eventos en el sistema!
                     </div>
 
                     <%
