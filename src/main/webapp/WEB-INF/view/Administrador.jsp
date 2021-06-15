@@ -5,7 +5,7 @@
 
 
 
-    LUIS ENRIQUE CONVOCA A MARIA DEL MONTE
+    LUIS ENRIQUE PONE A MORATA TITULAR
 --%>
 
 <%@page import="GestorEventos2021.entity.Etiqueta"%>
