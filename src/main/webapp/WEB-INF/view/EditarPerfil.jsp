@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : EditarPerfil
     Created on : 11-may-2021, 15:55:03
     Author     : maria
@@ -6,8 +7,10 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="GestorEventos2021.entity.Usuarioeventos"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +30,7 @@
       
         <div class="global_editar_perfil_usuario_eventos">
             <%
-                Usuario usuario = (Usuario) session.getAttribute("usuario");
+                Usuario usuario = (Usuario) request.getAttribute("usuario");
                 String strError = (String) request.getAttribute("error");
                 if (strError != null) {
                     if (strError.equals("contraseniaNoCoincide")) { %>
@@ -60,98 +63,188 @@
                     }
             %>
 
-            <form action="ServletEditarInformacionUsuario" method="POST">
-                <input type="hidden" name="idUsuario" value="<%= usuario.getId()%>" />
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label" >Nombre</label>
-                    <input type="text" name="nombre_usuario" class="form-control" id="nombre_usuario_registrado" value="<%= usuario.getNombre()%>" maxlength="50" required>
-                </div>
+<form:form method="post" action="aDondeNosVamos" modelAttribute="usuario">
 
-                <%
-                    if (esUsuarioEventos) {
+    <input type="hidden" name="idUsuario" value="<%= usuario.getId()%>" />
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label" >Nombre</label>
+        <input type="text" name="nombre_usuario" class="form-control" id="nombre_usuario_registrado" value="<%= usuario.getNombre()%>" maxlength="50" required>
+    </div>
 
-                %>
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Apellidos</label>
-                    <input type="text" name="apellidos_usuario" class="form-control" id="apellidos_usuario_registrado" value="<%= usuarioEventos.getApellidos()%>" maxlength="50" required>
-                </div>
-                <%
-                    }
-                %>
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label" >NIF</label>
-                    <input type="text" name="nif_usuario" class="form-control" id="nif_usuario_registrado" value="<%= usuario.getNif()%>" required size="9" maxlength="9">
-                </div> 
-                <%
-                    if (esUsuarioEventos) {
-                %> 
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Sexo</label> <br/>
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="radio_sexo" id="hombre" value="H" autocomplete="off" <%= seleccionH%>/>
-                        <label class="btn btn-outline-primary" for="hombre">Hombre</label>
+    <%
+        if (esUsuarioEventos) {
 
-                        <input type="radio" class="btn-check" name="radio_sexo" id="mujer" value="M" autocomplete="off" <%= seleccionM%>/>
-                        <label class="btn btn-outline-primary" for="mujer">Mujer</label>
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Apellidos</label>
+        <input type="text" name="apellidos_usuario" class="form-control" id="apellidos_usuario_registrado" value="<%= usuarioEventos.getApellidos()%>" maxlength="50" required>
+    </div>
+    <%
+        }
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label" >NIF</label>
+        <input type="text" name="nif_usuario" class="form-control" id="nif_usuario_registrado" value="<%= usuario.getNif()%>" required size="9" maxlength="9">
+    </div>
+    <%
+        if (esUsuarioEventos) {
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Sexo</label> <br/>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="radio_sexo" id="hombre" value="H" autocomplete="off" <%= seleccionH%>/>
+            <label class="btn btn-outline-primary" for="hombre">Hombre</label>
 
-                        <input type="radio" class="btn-check" name="radio_sexo" id="otro" value="O" autocomplete="off" <%= seleccionO%>/>
-                        <label class="btn btn-outline-primary" for="otro">Otro</label>
-                    </div> 
+            <input type="radio" class="btn-check" name="radio_sexo" id="mujer" value="M" autocomplete="off" <%= seleccionM%>/>
+            <label class="btn btn-outline-primary" for="mujer">Mujer</label>
 
-                </div>
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="birthday" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento_usuario" value="<%= fechaNacimiento%>" required>
-                </div> 
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Domicilio</label>
-                    <input type="text" name="domicilio_usuario" class="form-control" id="domicilio_usuario_registrado" maxlength="100" value="<%= usuarioEventos.getDomicilio()%>" required>
-                </div> 
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Ciudad</label>
-                    <input type="text" name="ciudad_usuario" class="form-control" id="ciudad_usuario_registrado" maxlength="50" value="<%= usuarioEventos.getCiudad()%>" required>
-                </div>
-                <%
-                    }
-                %>
-
-
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Correo electrónico</label>
-                    <input type="email" name="correo_usuario" class="form-control" id="email_usuario_registrado" maxlength="50" placeholder="email@example.com" value="<%= usuario.getCorreo()%>" required>
-                </div>
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
-                    <input type="password" name="contrasena1_usuario" class="form-control" id="contrasenia_usuario_registrado" maxlength="50" value="<%= usuario.getPassword()%>" required>
-                </div>
-
-                <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormPassword2" class="form-label">Repetir contraseña</label>
-                    <input type="password" name="contrasena2_usuario" class="form-control" id="contrasenia_usuario_registrado_repetida" maxlength="50" required>
-                </div>                
-                <%
-
-                    }
-
-                %>
-
-
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
-                </div>
-            </form>
-                <br>
-            <form action="ServletEliminarPerfil">
-                <!--<input type="hidden" name="idUsuario" value="<%= usuario.getId()%>" />-->
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-danger btn-lg">Eliminar perfil</button>
-                </div>
-            </form>
+            <input type="radio" class="btn-check" name="radio_sexo" id="otro" value="O" autocomplete="off" <%= seleccionO%>/>
+            <label class="btn btn-outline-primary" for="otro">Otro</label>
         </div>
-    </body>
+
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Fecha de nacimiento</label>
+        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento_usuario" value="<%= fechaNacimiento%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Domicilio</label>
+        <input type="text" name="domicilio_usuario" class="form-control" id="domicilio_usuario_registrado" maxlength="100" value="<%= usuarioEventos.getDomicilio()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Ciudad</label>
+        <input type="text" name="ciudad_usuario" class="form-control" id="ciudad_usuario_registrado" maxlength="50" value="<%= usuarioEventos.getCiudad()%>" required>
+    </div>
+    <%
+        }
+    %>
+
+
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" name="correo_usuario" class="form-control" id="email_usuario_registrado" maxlength="50" placeholder="email@example.com" value="<%= usuario.getCorreo()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Contraseña</label>
+        <input type="password" name="contrasena1_usuario" class="form-control" id="contrasenia_usuario_registrado" maxlength="50" value="<%= usuario.getPassword()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label class="form-label">Repetir contraseña</label>
+        <input type="password" name="contrasena2_usuario" class="form-control" id="contrasenia_usuario_registrado_repetida" maxlength="50" required>
+    </div>
+    <%
+
+        }
+
+    %>
+
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
+    </div>
+</form:form>
+
+<%--
+<form action="ServletEditarInformacionUsuario" method="POST">
+    <input type="hidden" name="idUsuario" value="<%= usuario.getId()%>" />
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label" >Nombre</label>
+        <input type="text" name="nombre_usuario" class="form-control" id="nombre_usuario_registrado" value="<%= usuario.getNombre()%>" maxlength="50" required>
+    </div>
+
+    <%
+        if (esUsuarioEventos) {
+
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label">Apellidos</label>
+        <input type="text" name="apellidos_usuario" class="form-control" id="apellidos_usuario_registrado" value="<%= usuarioEventos.getApellidos()%>" maxlength="50" required>
+    </div>
+    <%
+        }
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label" >NIF</label>
+        <input type="text" name="nif_usuario" class="form-control" id="nif_usuario_registrado" value="<%= usuario.getNif()%>" required size="9" maxlength="9">
+    </div>
+    <%
+        if (esUsuarioEventos) {
+    %>
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label">Sexo</label> <br/>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="radio_sexo" id="hombre" value="H" autocomplete="off" <%= seleccionH%>/>
+            <label class="btn btn-outline-primary" for="hombre">Hombre</label>
+
+            <input type="radio" class="btn-check" name="radio_sexo" id="mujer" value="M" autocomplete="off" <%= seleccionM%>/>
+            <label class="btn btn-outline-primary" for="mujer">Mujer</label>
+
+            <input type="radio" class="btn-check" name="radio_sexo" id="otro" value="O" autocomplete="off" <%= seleccionO%>/>
+            <label class="btn btn-outline-primary" for="otro">Otro</label>
+        </div>
+
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label for="birthday" class="form-label">Fecha de nacimiento</label>
+        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento_usuario" value="<%= fechaNacimiento%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label">Domicilio</label>
+        <input type="text" name="domicilio_usuario" class="form-control" id="domicilio_usuario_registrado" maxlength="100" value="<%= usuarioEventos.getDomicilio()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label">Ciudad</label>
+        <input type="text" name="ciudad_usuario" class="form-control" id="ciudad_usuario_registrado" maxlength="50" value="<%= usuarioEventos.getCiudad()%>" required>
+    </div>
+    <%
+        }
+    %>
+
+
+
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormEmail2" class="form-label">Correo electrónico</label>
+        <input type="email" name="correo_usuario" class="form-control" id="email_usuario_registrado" maxlength="50" placeholder="email@example.com" value="<%= usuario.getCorreo()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
+        <input type="password" name="contrasena1_usuario" class="form-control" id="contrasenia_usuario_registrado" maxlength="50" value="<%= usuario.getPassword()%>" required>
+    </div>
+
+    <div class="mb-3" style="text-align: left">
+        <label for="exampleDropdownFormPassword2" class="form-label">Repetir contraseña</label>
+        <input type="password" name="contrasena2_usuario" class="form-control" id="contrasenia_usuario_registrado_repetida" maxlength="50" required>
+    </div>
+    <%
+
+        }
+
+    %>
+
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
+    </div>
+</form>
+    <br>
+<form action="ServletEliminarPerfil">
+    <!--<input type="hidden" name="idUsuario" value="<%= usuario.getId()%>" />-->
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-danger btn-lg">Eliminar perfil</button>
+    </div>
+</form>
+--%>
+
+</div>
+</body>
 </html>

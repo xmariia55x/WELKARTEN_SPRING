@@ -5,19 +5,11 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.UsuarioeventosDTO;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -159,5 +151,17 @@ public class Usuarioeventos implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Usuarioeventos[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public UsuarioeventosDTO getDTO() {
+        UsuarioeventosDTO usuarioeventosDTO = new UsuarioeventosDTO();
+        usuarioeventosDTO.setUsuario(this.getUsuario());
+        usuarioeventosDTO.setApellidos(this.getApellidos());
+        usuarioeventosDTO.setCiudad(this.getCiudad());
+        usuarioeventosDTO.setDomicilio(this.getDomicilio());
+        usuarioeventosDTO.setId(this.getId());
+        usuarioeventosDTO.setSexo(this.getSexo());
+        usuarioeventosDTO.setFechaNacimiento(this.getFechaNacimiento());
+        return usuarioeventosDTO;
+    }
 }

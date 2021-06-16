@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : Registro
     Created on : 10-abr-2021, 13:02:12
     Author     : yeray
@@ -38,11 +39,14 @@
                     }
             }
             %>
-            <form action="ServletCrearUsuario" method="POST">
+            <form:form method="post" action="/guardarUsuario" modelAttribute="usuarioEDTO">
+                <form:hidden path="id"></form:hidden>
+
                 <div class="mb-3">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Nombre</label>
-                    <input type="text" name="nombre_usuario" class="form-control" id="nombre_usuario_registrado" maxlength="50" required>
+                    <label class="form-label">Nombre</label>
+                    <form:input path="" class="form-control" maxlength="50"></form:input>
                 </div>
+
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">Apellidos</label>
                     <input type="text" name="apellidos_usuario" class="form-control" id="apellidos_usuario_registrado" maxlength="50" required>
@@ -50,7 +54,7 @@
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">NIF</label>
                     <input type="text" name="nif_usuario" class="form-control" id="nif_usuario_registrado" required size="9" maxlength="9">
-                </div> 
+                </div>
 
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">Sexo</label> <br/>
@@ -63,23 +67,23 @@
 
                         <input type="radio" class="btn-check" name="radio_sexo" id="otro" value="O" autocomplete="off"/>
                         <label class="btn btn-outline-primary" for="otro">Otro</label>
-                    </div> 
-                
+                    </div>
+
                 </div>
                 <div class="mb-3">
                     <label for="birthday" class="form-label">Fecha de nacimiento</label>
                     <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento_usuario" required>
-                </div> 
+                </div>
 
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">Domicilio</label>
                     <input type="text" name="domicilio_usuario" class="form-control" id="domicilio_usuario_registrado" maxlength="100" required>
-                </div> 
+                </div>
 
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">Ciudad</label>
                     <input type="text" name="ciudad_usuario" class="form-control" id="ciudad_usuario_registrado" maxlength="50" required>
-                </div> 
+                </div>
 
                 <div class="mb-3">
                     <label for="exampleDropdownFormEmail2" class="form-label">Correo electrónico</label>
@@ -97,7 +101,8 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary btn-lg">Regístrate</button>
                 </div>
-            </form>
+            </form:form>
+
 
         </div>
     </body>

@@ -53,22 +53,22 @@ and open the template in the editor.
             
             <img src="images/ticket.png" width="200" height="200">
 
-            <form method = "POST" action="ServletIniciarSesion">
+            <form method = "POST" action="/autenticar">
                 <input type="hidden" name="ruta" value="" />
                 <input type="hidden" name="evento" value="" />
                 <div class="mb-3">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Correo electrónico</label>
+                    <label class="form-label">Correo electrónico</label>
                     <input type="email" name="email" class="form-control" id="email_usuario" placeholder="email@example.com">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
+                    <label class="form-label">Contraseña</label>
                     <input type="password" name="password" class="form-control" id="contrasenia_usuario">
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" id="btnInicioSesion" class="btn btn-primary btn-lg">Iniciar sesión</button>
 
                     <div class="registro">
-                        <a href="Registro.jsp">¿Aún no tienes cuenta? Regístrate</a>
+                        <a href="/registro">¿Aún no tienes cuenta? Regístrate</a>
                     </div>
                 </div>
             </form>
@@ -76,6 +76,5 @@ and open the template in the editor.
         </div>
         
     </body>
-    
-    
+
 </html>

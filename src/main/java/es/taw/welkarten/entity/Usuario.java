@@ -5,20 +5,11 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.UsuarioDTO;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -226,5 +217,22 @@ public class Usuario implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Usuario[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public UsuarioDTO getDTO() {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setConversacionList(this.getConversacionList());
+        usuarioDTO.setCorreo(this.getCorreo());
+        usuarioDTO.setEntradaList(this.getEntradaList());
+        usuarioDTO.setUsuarioeventos(this.getUsuarioeventos());
+        usuarioDTO.setEstudioList(this.getEstudioList());
+        usuarioDTO.setId(this.getId());
+        usuarioDTO.setConversacionList1(this.getConversacionList1());
+        usuarioDTO.setMensajeList(this.getMensajeList());
+        usuarioDTO.setNif(this.getNif());
+        usuarioDTO.setNombre(this.getNombre());
+        usuarioDTO.setPassword(this.getPassword());
+        usuarioDTO.setRol(this.getRol());
+        return usuarioDTO;
+    }
 }

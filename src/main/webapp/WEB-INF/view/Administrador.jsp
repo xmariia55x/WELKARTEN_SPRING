@@ -4,12 +4,15 @@
     Author     : mariaaa
 --%>
 
-<%@page import="GestorEventos2021.entity.Etiqueta"%>
+
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
+
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.entity.Etiqueta" %>
+
 <html>
     <head>
         <title>Administrador</title>
