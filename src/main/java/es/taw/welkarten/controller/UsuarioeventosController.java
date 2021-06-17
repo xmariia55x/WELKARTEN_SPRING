@@ -1,6 +1,7 @@
 package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dto.UsuarioeventosDTO;
+import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.UsuarioeventosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,17 @@ public class UsuarioeventosController {
     @PostMapping("/guardarUsuario")
     public String doGuardarUsuario(Model model, @ModelAttribute("usuarioEDTO") UsuarioeventosDTO usuarioEDTO,
                                    HttpSession session) {
-        return this.usuarioeventosService.guardarUsuarioeventos(model, usuarioEDTO, session);
+        String strError = "", strTo = "";
+        if(usuarioEDTO.getUsuario().getPassword().equals(usuarioEDTO.getContraseniaRepetida())){
+            Usuario usuario = this.usuarioeventosService.guardarUsuarioeventos(model, usuarioEDTO);
+            session.setAttribute("usuario",usuario);
+            strTo = "tabien";
+        } else {
+            strError = "v";
+            model.addAttribute("error", strError);
+            strTo =  "Registro";
 
+        }
+        return strTo;
     }
 }

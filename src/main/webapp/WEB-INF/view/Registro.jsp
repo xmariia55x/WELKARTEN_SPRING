@@ -33,7 +33,7 @@
                     }
             }
             %>
-            <form:form method="POST" action="/guardarUsuario" modelAttribute="usuarioEDTO">
+            <form:form method="POST" action="/usuarioeventos/guardarUsuario" modelAttribute="usuarioEDTO">
                 <form:hidden path="id"></form:hidden>
 
                 <div class="mb-3">

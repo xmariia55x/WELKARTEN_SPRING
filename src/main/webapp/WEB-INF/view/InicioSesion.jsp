@@ -68,7 +68,7 @@ and open the template in the editor.
                     <button type="submit" id="btnInicioSesion" class="btn btn-primary btn-lg">Iniciar sesión</button>
 
                     <div class="registro">
-                        <a href="/registro">¿Aún no tienes cuenta? Regístrate</a>
+                        <a href="/usuarioeventos/registro">¿Aún no tienes cuenta? Regístrate</a>
                     </div>
                 </div>
             </form>

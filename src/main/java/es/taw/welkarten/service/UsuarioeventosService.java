@@ -29,18 +29,15 @@ public class UsuarioeventosService {
         this.usuarioeventosRepository = usuarioeventosRepository;
     }
 
-    public String guardarUsuarioeventos(Model model, UsuarioeventosDTO usuarioEDTO, HttpSession session) {
+    public Usuario guardarUsuarioeventos(Model model, UsuarioeventosDTO usuarioEDTO) {
         Usuarioeventos usuario;
-        String strTo = "", strError = "";
+
         if (usuarioEDTO.getId() == null) {
             usuario = new Usuarioeventos();
         } else {
             usuario = this.usuarioeventosRepository.findById(usuarioEDTO.getId()).orElse(new Usuarioeventos());
         }
-
-        if(usuarioEDTO.getUsuario().getPassword().equals(usuarioEDTO.getContraseniaRepetida())){
             // Crear el usuario
-
             Usuario usuarioNormal = new Usuario();
             usuarioNormal.setId(0);
             usuarioNormal.setCorreo(usuarioEDTO.getUsuario().getCorreo());
@@ -77,14 +74,6 @@ public class UsuarioeventosService {
             this.usuarioRepository.save(usuarioExtraido);
             this.usuarioeventosRepository.save(usuario);
 
-            session.setAttribute("usuario",usuarioExtraido);
-            strTo = "tabien";
-        } else {
-            //Error
-            strError = "v";
-            model.addAttribute("error", strError);
-            strTo = "Registro";
-        }
-        return strTo;
+        return usuarioExtraido;
     }
 }
