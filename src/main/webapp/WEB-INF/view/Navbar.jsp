@@ -4,9 +4,10 @@
     Author     : yeray
 --%>
 
-<%@page import="GestorEventos2021.entity.Evento"%>
+
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
@@ -15,7 +16,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <div class="container-fluid">
             <a class="navbar-brand" href="ServletInicio">
-                <img src="images/logo_pequeno.png" alt="" width="200" height="50">
+                <img src="/images/logo_pequeno.png" alt="" width="200" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,10 +27,10 @@
                         <a class="nav-link active" href="ServletInicio">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="conocenos.jsp">Conócenos</a>
+                        <a class="nav-link active" href="/conocenos">Conócenos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="contactanos.jsp">Contáctanos</a>
+                        <a class="nav-link active" href="/contactanos">Contáctanos</a>
                     </li>
                 </ul>
                 <form class="d-flex" style="margin-right: 2em" action="ServletFiltrarEvento">

@@ -6,9 +6,11 @@ import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     public UsuarioRepository getUsuarioRepository() {
         return usuarioRepository;
@@ -26,5 +28,9 @@ public class UsuarioService {
         } else {
             return null;
         }
+    }
+
+    public List<Usuario> findUsuarios(){
+        return this.usuarioRepository.findAll();
     }
 }

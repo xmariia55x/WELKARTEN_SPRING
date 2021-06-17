@@ -3,13 +3,6 @@
     Created on : 25-abr-2021, 13:29:58
     Author     : maria
 
-
-
-    LUIS ENRIQUE PONE A MORATA TITULAR
-    LUIS ENRIQUE CONVOCA A MARIA DEL MONTE
-
-
-    zoi habi
 --%>
 
 
@@ -27,7 +20,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="administradorStyles.css" rel="stylesheet">
+        <link href="/css/administradorStyles.css" rel="stylesheet">
     </head>
 
     <body>

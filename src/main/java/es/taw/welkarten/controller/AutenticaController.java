@@ -52,11 +52,11 @@ public class AutenticaController{
             } else { //Usuario está en la BD
                 //Comprobamos el rol del usuario
                 switch (usuario.getRol()){
-                    case 1: strTo = "/administrador/init"; break;
-                    case 2: strTo = "/creadoreventos/init"; break;
-                    case 3: strTo = "/analista/init"; break;
-                    case 4: strTo = "/usuarioeventos/init"; break;
-                    default: strTo = "/teleoperador/init"; break;
+                    case 1: strTo = "redirect:/administrador/"; break;
+                    case 2: strTo = "redirect:/creadoreventos/"; break;
+                    case 3: strTo = "redirect:/analista/"; break;
+                    case 4: strTo = "redirect:/usuarioeventos/"; break;
+                    default: strTo = "redirect:/teleoperador/"; break;
                 }
                 session.setAttribute("usuario", usuario);
             }
