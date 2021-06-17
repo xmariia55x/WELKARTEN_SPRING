@@ -19,11 +19,10 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-
-    public UsuarioDTO comprobarCredenciales(String email, String password) {
+    public Usuario comprobarCredenciales(String email, String password) {
         Usuario usuario = this.usuarioRepository.findByEmailAndPassword(email, password);
         if (usuario != null) {
-            return usuario.getDTO();
+            return usuario;
         } else {
             return null;
         }

@@ -1,6 +1,7 @@
 package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dto.UsuarioDTO;
+import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ public class AutenticaController{
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/")
-    public String doInit() {
+    @GetMapping("/login")
+    public String doLogin(){
         return "InicioSesion";
     }
 
@@ -35,7 +36,7 @@ public class AutenticaController{
                                 @RequestParam("password") String password,
                                 Model model, HttpSession session) {
 
-        String strTo = null, strError = "";
+        String strTo = "", strError = "";
 
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {  // Error de autenticación por email o clave
             // vacíos o nulos.
@@ -43,15 +44,21 @@ public class AutenticaController{
             model.addAttribute("error", strError);
             strTo = "InicioSesion";
         } else {
-            UsuarioDTO usuario = this.usuarioService.comprobarCredenciales(email, password);
+            Usuario usuario = this.usuarioService.comprobarCredenciales(email, password);
             if (usuario == null) { // Error -- No se encuentra el usuario en la BD
                 strError = "n";
                 model.addAttribute("error", strError);
                 strTo = "InicioSesion";
             } else { //Usuario está en la BD
-                // Redirigimos al listado de clientes
+                //Comprobamos el rol del usuario
+                switch (usuario.getRol()){
+                    case 1: strTo = "/administrador/init"; break;
+                    case 2: strTo = "/creadoreventos/init"; break;
+                    case 3: strTo = "/analista/init"; break;
+                    case 4: strTo = "/usuarioeventos/init"; break;
+                    default: strTo = "/teleoperador/init"; break;
+                }
                 session.setAttribute("usuario", usuario);
-                strTo = "tabien";
             }
         }
         return strTo;

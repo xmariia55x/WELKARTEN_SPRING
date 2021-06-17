@@ -39,7 +39,7 @@
                 <br/>
                 <% if (usuario == null) { %>
                 <input type="button" class="btn btn-primary btn-lg" id="inicio_sesion_principal_button" value="Iniciar sesión" name="inicio_sesion_principal_button"
-                       onclick="location.href = 'InicioSesion.jsp'" />
+                       onclick="location.href = '/login'" />
                 <% } else { %>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
