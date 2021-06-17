@@ -5,6 +5,8 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.UsuarioDTO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -215,5 +217,22 @@ public class Usuario implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Usuario[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public UsuarioDTO getDTO() {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setConversacionList(this.getConversacionList());
+        usuarioDTO.setCorreo(this.getCorreo());
+        usuarioDTO.setEntradaList(this.getEntradaList());
+        usuarioDTO.setUsuarioeventos(this.getUsuarioeventos());
+        usuarioDTO.setEstudioList(this.getEstudioList());
+        usuarioDTO.setId(this.getId());
+        usuarioDTO.setConversacionList1(this.getConversacionList1());
+        usuarioDTO.setMensajeList(this.getMensajeList());
+        usuarioDTO.setNif(this.getNif());
+        usuarioDTO.setNombre(this.getNombre());
+        usuarioDTO.setPassword(this.getPassword());
+        usuarioDTO.setRol(this.getRol());
+        return usuarioDTO;
+    }
 }
