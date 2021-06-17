@@ -8,6 +8,8 @@ package es.taw.welkarten.entity;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -161,7 +163,8 @@ public class Usuarioeventos implements Serializable {
         usuarioeventosDTO.setDomicilio(this.getDomicilio());
         usuarioeventosDTO.setId(this.getId());
         usuarioeventosDTO.setSexo(this.getSexo());
-        usuarioeventosDTO.setFechaNacimiento(this.getFechaNacimiento());
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        usuarioeventosDTO.setFechaNacimiento(formato.format(this.getFechaNacimiento()));
         return usuarioeventosDTO;
     }
 }

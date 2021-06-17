@@ -9,9 +9,10 @@ public class UsuarioeventosDTO {
     private String apellidos;
     private String domicilio;
     private String ciudad;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     private String sexo;
     private Usuario usuario;
+    private String contraseniaRepetida;
 
     public UsuarioeventosDTO() {
 
@@ -49,11 +50,11 @@ public class UsuarioeventosDTO {
         this.ciudad = ciudad;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -71,5 +72,13 @@ public class UsuarioeventosDTO {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getContraseniaRepetida() {
+        return contraseniaRepetida;
+    }
+
+    public void setContraseniaRepetida(String contraseniaRepetida) {
+        this.contraseniaRepetida = contraseniaRepetida;
     }
 }
