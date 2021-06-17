@@ -5,14 +5,12 @@ import es.taw.welkarten.service.UsuarioeventosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/usuarioeventos")
 public class UsuarioeventosController {
     private UsuarioeventosService usuarioeventosService;
 
@@ -32,6 +30,6 @@ public class UsuarioeventosController {
     public String doGuardarUsuario(Model model, @ModelAttribute("usuarioEDTO") UsuarioeventosDTO usuarioEDTO,
                                    HttpSession session) {
         return this.usuarioeventosService.guardarUsuarioeventos(model, usuarioEDTO, session);
-        //return "tabien";
+
     }
 }
