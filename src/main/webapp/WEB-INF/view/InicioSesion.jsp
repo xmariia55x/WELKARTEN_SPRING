@@ -12,7 +12,7 @@ and open the template in the editor.
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
         <title>Iniciar sesión</title>
     </head>
         
@@ -51,7 +51,7 @@ and open the template in the editor.
             %>
             
             
-            <img src="images/ticket.png" width="200" height="200">
+            <img src="/images/ticket.png" width="200" height="200">
 
             <form method = "POST" action="/autenticar">
                 <input type="hidden" name="ruta" value="" />
