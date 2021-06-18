@@ -6,8 +6,8 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="GestorEventos2021.entity.Usuarioeventos"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
         <!--<link href="styleVerPerfil.css" rel="stylesheet">-->
-        <link href="styles.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
         <title>Nuevo usuario</title>
     </head>
     <body>
@@ -68,7 +68,7 @@
                 %>
                 <input type="hidden" name="id" value="<%= id%>"/>
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label" >Nombre</label>
+                    <label class="form-label" >Nombre</label>
                     <input type="text" name="nombre_usuario" class="form-control" value="<%= nombre%>" maxlength="50" required>
                 </div>
 
@@ -77,7 +77,7 @@
 
                 %>
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Apellidos</label>
+                    <label class="form-label">Apellidos</label>
                     <input type="text" name="apellidos_usuario" class="form-control" value="<%= apellidos%>" maxlength="50" required>
                 </div>    
                 <% 
@@ -85,7 +85,7 @@
                 %>
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label" >NIF</label>
+                    <label class="form-label" >NIF</label>
                     <input type="text" name="nif_usuario" class="form-control" value="<%= nif%>" size="9" maxlength="9" required>
                 </div> 
 
@@ -94,7 +94,7 @@
                     
                 %>
                     <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Sexo</label> <br/>
+                    <label class="form-label">Sexo</label> <br/>
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check" name="radio_sexo" id="hombre" value="H" autocomplete="off" <%= sexoH%>/>
                         <label class="btn btn-outline-primary" for="hombre">Hombre</label>
@@ -109,17 +109,17 @@
                 </div>
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="birthday" class="form-label">Fecha de nacimiento</label>
+                    <label class="form-label">Fecha de nacimiento</label>
                     <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento_usuario" value="<%= fechaNacimiento%>" required>
                 </div> 
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Domicilio</label>
+                    <label class="form-label">Domicilio</label>
                     <input type="text" name="domicilio_usuario" class="form-control" maxlength="100" value="<%= domicilio%>" required>
                 </div> 
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Ciudad</label>
+                    <label class="form-label">Ciudad</label>
                     <input type="text" name="ciudad_usuario" class="form-control" maxlength="50" value="<%= ciudad%>" required>
                 </div>
                 <% 
@@ -158,17 +158,17 @@
                     }
                 %>
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Correo electrónico</label>
+                    <label class="form-label">Correo electrónico</label>
                     <input type="email" name="correo_usuario" class="form-control" maxlength="50" value="<%= correo%>" placeholder="email@example.com" required>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
+                    <label class="form-label">Contraseña</label>
                     <input type="password" name="contrasena1_usuario" class="form-control" value="<%= contrasenia%>" maxlength="50" required>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormPassword2" class="form-label">Repetir contraseña</label>
+                    <label class="form-label">Repetir contraseña</label>
                     <input type="password" name="contrasena2_usuario" class="form-control" maxlength="50" required>
                 </div>                
 

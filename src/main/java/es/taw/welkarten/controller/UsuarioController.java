@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,17 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    @GetMapping("/verPerfil")
+    public String doRedirigirMiPerfil(){
+        return "VerPerfil";
+    }
+
+    @GetMapping("/cerrarSesion")
+    public String doCerrarSesion(HttpSession session){
+        //Una vez el usuario haya cerrado sesion, lo mandamos a la pagina de inicio
+        //Si en la pag de inicio se cargan los eventos, cambiar esto por el servlet
+        session.invalidate();
+
+        return "redirect:/";
+    }
 }

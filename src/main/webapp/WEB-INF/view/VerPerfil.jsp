@@ -6,15 +6,15 @@
 
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Usuarioeventos"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styleVerPerfil.css" rel="stylesheet">
+        <link href="/css/styleVerPerfil.css" rel="stylesheet">
         <title>Mi perfil</title>
     </head>
     <body>
@@ -25,7 +25,7 @@
         <br>
         <br>
         <%
-    Usuario usuario = (Usuario)session.getAttribute("usuario");   
+    Usuario usuario = (Usuario)session.getAttribute("usuario");
     if (usuario == null) {
     }else {   
         String rol = "";

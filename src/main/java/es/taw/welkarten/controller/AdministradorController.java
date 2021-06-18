@@ -47,4 +47,14 @@ public class AdministradorController {
         model.addAttribute("listaEtiquetas", listaEtiquetas);
         return "Administrador";
     }
+
+    @GetMapping("/crearUsuarioAdministrador")
+    public String doRedirigirCrearUsuario(){
+        return "CrearUsuarioAdministrador";
+    }
+
+    @GetMapping("/crearEventoAdministrador")
+    public String doRedirigirCrearEvento(){
+        return "CrearEditarEvento";
+    }
 }
