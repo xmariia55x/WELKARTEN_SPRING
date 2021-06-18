@@ -1,11 +1,12 @@
-<%-- 
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+<%@ page import="java.util.List" %><%--
     Document   : PeticionesTeleoperador
     Created on : 25-abr-2021, 13:44:24
     Author     : adric
 --%>
 
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="java.util.List"%>
+
+
 <html>
     <head>
         <title>PETICIONES</title>

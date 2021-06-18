@@ -5,8 +5,9 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+
 <html>
     <head>
         <title>TELEOPERADOR</title>
@@ -19,7 +20,7 @@
     
     <%
         Usuario user = (Usuario)session.getAttribute("usuario");
-        List <Conversacion> conversaciones = (List) request.getAttribute("listaConversaciones");
+        List <Conversacion> conversaciones = (List<Conversacion>) request.getAttribute("conversaciones");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -30,12 +31,12 @@
                 <div class="filtros">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="filtroTeleoperador" name="filtroTeleoperador" placeholder="Password">
-                    <label for="text">Filtrar teleoperador</label>
+                    <label>Filtrar teleoperador</label>
                 </div>
                 
                 <div class="form-floating">
                     <input type="text" class="form-control" id="filtroUsuario" name ="filtroUsuario" placeholder="Password">
-                    <label for="text">Filtrar usuario</label>
+                    <label>Filtrar usuario</label>
                 </div>
                 
                 </div>
@@ -88,7 +89,7 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                 
                 <input type="button" class="btn btn-primary btn-lg" id="peticiones_teleoperador" value="Peticiones" name="peticiones_teleoperador"
-                                       onclick="location.href = 'ServletCargarPeticiones'" />
+                                       onclick="location.href = '/teleoperador/cargaPeticiones'" />
                    
                 <input type="button" class="btn btn-primary btn-lg" id="chats_teleoperador" value="Ver mis chats" name="chats_teleoperador"
                                        onclick="location.href = 'ServletListarMisChats'" />
