@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private List<Estudio> estudioList;
     private List<Evento> eventoList;
     private List<Mensaje> mensajeList;
-
+    private String contraseniaRepetida;
     public UsuarioDTO() {
 
     }
@@ -125,5 +125,13 @@ public class UsuarioDTO {
 
     public void setMensajeList(List<Mensaje> mensajeList) {
         this.mensajeList = mensajeList;
+    }
+
+    public String getContraseniaRepetida() {
+        return contraseniaRepetida;
+    }
+
+    public void setContraseniaRepetida(String contraseniaRepetida) {
+        this.contraseniaRepetida = contraseniaRepetida;
     }
 }

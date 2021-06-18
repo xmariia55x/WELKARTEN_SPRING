@@ -1,6 +1,7 @@
 package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dao.UsuarioRepository;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.entity.Usuarioeventos;
@@ -40,7 +41,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/editarPerfil")
-    public String doRedirigirEditarPerfil(){
+    public String doRedirigirEditarPerfil(HttpSession session, Model model){
+        /*if(((Usuario)session.getAttribute("usuario")).getUsuarioeventos() != null){
+            UsuarioeventosDTO usuarioEDTO = ((Usuario)session.getAttribute("usuario")).getUsuarioeventos().getDTO();
+            model.addAttribute("usuarioEventosDTO", usuarioEDTO);
+        }*/
+
+        UsuarioDTO usuarioDTO = ((Usuario) session.getAttribute("usuario")).getDTO();
+        model.addAttribute("usuarioDTO", usuarioDTO);
         return "EditarPerfil";
     }
 
