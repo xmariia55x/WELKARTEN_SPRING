@@ -1,10 +1,9 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Etiquetasevento"%>
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
+<%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -18,7 +17,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles2.css" rel="stylesheet">
+        <link href="/css/styles2.css" rel="stylesheet">
     </head>
     <%
         Integer registrado = (Integer) request.getAttribute("registrado");
@@ -195,7 +194,7 @@ and open the template in the editor.
                                         <p class="card-text"><%=etiquetas%></p>
                                         <p class="card-text"><%=moneyFormat.format(e.getCosteEntrada())%>&#8364</p>
                                         <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                                        <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                        <a href="/usuarioeventos/evento/id/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                     </div>
                                 </div>
                             </div>
