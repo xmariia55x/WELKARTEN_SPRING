@@ -43,4 +43,9 @@ public class UsuarioeventosController {
         }
         return strTo;
     }
+
+    @GetMapping("/evento/id/{id}")
+    public String doInfoEvento(){
+        return null;
+    }
 }
