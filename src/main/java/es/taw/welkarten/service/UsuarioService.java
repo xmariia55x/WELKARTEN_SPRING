@@ -33,4 +33,8 @@ public class UsuarioService {
     public List<Usuario> findUsuarios(){
         return this.usuarioRepository.findAll();
     }
+
+    public void eliminar(Usuario usuario) {
+        this.usuarioRepository.delete(usuario);
+    }
 }

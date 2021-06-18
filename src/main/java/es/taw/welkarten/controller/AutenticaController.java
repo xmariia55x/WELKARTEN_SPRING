@@ -55,7 +55,7 @@ public class AutenticaController{
                     case 1: strTo = "redirect:/administrador/"; break;
                     case 2: strTo = "redirect:/creadoreventos/"; break;
                     case 3: strTo = "redirect:/analista/"; break;
-                    case 4: strTo = "redirect:/usuarioeventos/"; break;
+                    case 4: strTo = "redirect:/"; break;
                     default: strTo = "redirect:/teleoperador/"; break;
                 }
                 session.setAttribute("usuario", usuario);

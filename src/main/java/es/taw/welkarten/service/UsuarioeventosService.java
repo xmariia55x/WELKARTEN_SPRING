@@ -76,4 +76,8 @@ public class UsuarioeventosService {
 
         return usuarioExtraido;
     }
+
+    public void eliminar(Usuarioeventos usuarioEventos) {
+        this.usuarioeventosRepository.delete(usuarioEventos);
+    }
 }

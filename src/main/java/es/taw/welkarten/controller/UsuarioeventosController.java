@@ -34,7 +34,7 @@ public class UsuarioeventosController {
         if(usuarioEDTO.getUsuario().getPassword().equals(usuarioEDTO.getContraseniaRepetida())){
             Usuario usuario = this.usuarioeventosService.guardarUsuarioeventos(model, usuarioEDTO);
             session.setAttribute("usuario",usuario);
-            strTo = "/usuarioeventos/init";
+            strTo = "redirect:/";
         } else {
             strError = "v";
             model.addAttribute("error", strError);

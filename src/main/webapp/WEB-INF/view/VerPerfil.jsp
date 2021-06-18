@@ -46,8 +46,28 @@
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
-                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="f-w-600"><%= usuario.getNombre()%></h6>
+
+
+                                <%
+                                    if(usuario.getUsuarioeventos() != null && usuario.getUsuarioeventos().getSexo().equals("M")){
+                                %>
+                                <div class="m-b-25"><img src="https://img.icons8.com/bubbles/100/000000/user-female.png" class="img-radius"></div>
+                                    <%
+                                    } else if (usuario.getUsuarioeventos() != null && usuario.getUsuarioeventos().getSexo().equals("H")){
+                                    %>
+                                <div class="m-b-25"><img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"></div>
+
+                                        <%
+                                        } else {
+                                        %>
+                                <div class="m-b-25"><img src="https://img.icons8.com/bubbles/75/000000/gender-neutral-user.png" class="img-radius"></div>
+
+                                            <%
+                                                }
+                                            %>
+
+
+                                            <h6 class="f-w-600"><%= usuario.getNombre()%></h6>
                                 <p><%=rol%></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                         </div>
@@ -110,7 +130,7 @@
 }
 }%>
 <div id="divfix">
-            <button type="button" class="w-100 btn btn-lg btn-primary" onclick="location.href = 'ServletCargarPerfil'">Editar perfil</button>
+            <button type="button" class="w-100 btn btn-lg btn-primary" onclick="location.href = '/usuario/editarPerfil'">Editar perfil</button>
         </div>
     </body>
 </html>
