@@ -1,6 +1,7 @@
-<%@page import="GestorEventos2021.entity.Usuario"%>
-<%@page import="GestorEventos2021.entity.Estudio"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+
+<%@ page import="es.taw.welkarten.entity.Estudio" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,7 +22,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
     
         <%
             Usuario user = (Usuario) session.getAttribute("usuario");
-            List <Estudio> estudios = (List) request.getAttribute("listaEstudios");
+            List <Estudio> estudios = (List) request.getAttribute("estudios");
             
         %>
     
@@ -67,10 +68,10 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                                 <tr>
                                     <td> <%= e.getId() %> </td>                                    
                                     <td> <%= e.getDescripcion()%> </td>
-                                    <td><button class="btn btn-outline-primary copia" type="button" onclick="location.href = 'ServletCopiarEstudio?id=<%=e.getId()%>'">  Hacer copia</button></td>
-                                    <td><button class="btn btn-outline-primary modificar" type="button" onclick="location.href = 'ServletModificarEstudio?id=<%=e.getId()%>'">  Modificar</button></td>
-                                    <td><button class="btn btn-outline-primary info" type="button" onclick="location.href = 'ServletInfoEstudio?id=<%=e.getId()%>'">Info</button></td>
-                                    <td><button class="btn btn-outline-danger eliminar" type="button" onclick="location.href = 'ServletEliminarEstudio?id=<%=e.getId()%>'">Eliminar</button></td>>
+                                    <td><button class="btn btn-outline-primary copia" type="button" onclick="location.href = '/analista/copiar/<%=e.getId()%>'">  Hacer copia</button></td>
+                                    <td><button class="btn btn-outline-primary modificar" type="button" onclick="location.href = '/analista/modificar/<%=e.getId()%>'">  Modificar</button></td>
+                                    <td><button class="btn btn-outline-primary info" type="button" onclick="location.href = '/analista/info/<%=e.getId()%>'">Info</button></td>
+                                    <td><button class="btn btn-outline-danger eliminar" type="button" onclick="location.href = '/analista/eliminar/<%=e.getId()%>'">Eliminar</button></td>>
                                 </tr>
                                 <%}
                                     %>
@@ -78,7 +79,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                     </table>
 
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'ServletLinkCrearEstudio'">Crear estudio</button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="location.href = '/analista/crear'">Crear estudio</button>
                 </div>
             </div>
         </form>
