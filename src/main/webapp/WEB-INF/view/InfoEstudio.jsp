@@ -6,7 +6,6 @@
 
 
 
-<%@page import="GestorEventos2021.entity.Estudio"%>
 <%-- 
 <%@page import="GestorEventos2021.entity.Estudio"%>
 <%@page import="GestorEventos2021.entity.Estudio"%>
@@ -75,11 +74,9 @@
 
 
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Mensaje"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Estudio" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -92,8 +89,8 @@
     </head>
     
     <%
-        HttpSession sessionEstudio = request.getSession();
-        Estudio e = (Estudio)sessionEstudio.getAttribute("estudio");
+
+        Estudio e = (Estudio)request.getAttribute("estudio");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -105,10 +102,10 @@
         <div style="padding: 2% 15%;">
 
 
-            <div class="card mb-3"  max-width: 1400px;">
+            <div class="card mb-3"  style="max-width: 1400px" >
                  <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="images/stats.png"  style="max-width: 400px;">
+                        <img src="/images/stats.png"  style="max-width: 400px;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body" style="padding: 2% 20%;text-align: left;">

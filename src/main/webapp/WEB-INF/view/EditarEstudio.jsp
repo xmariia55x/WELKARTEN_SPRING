@@ -1,11 +1,9 @@
-<%-- 
+<%@ page import="es.taw.welkarten.entity.Estudio" %><%--
     Document   : CrearEditarEstudio
     Created on : 12-may-2021, 16:48:13
     Author     : david
 --%>
 
-<%@page import="GestorEventos2021.entity.Estudio"%>
-<%@page import="GestorEventos2021.entity.Estudio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +18,7 @@
         <title>Editar Estudio</title>
     </head>
     <%
-        HttpSession sessionEstudio = request.getSession();
-        Estudio e = (Estudio)sessionEstudio.getAttribute("estudio");         
+        Estudio e = (Estudio)request.getAttribute("estudio");
        
         
     %>
