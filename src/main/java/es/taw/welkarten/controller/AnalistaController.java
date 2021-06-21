@@ -1,19 +1,22 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.EstudioDTO;
 import es.taw.welkarten.entity.Estudio;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.AnalistaService;
+import es.taw.welkarten.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/analista")
 public class AnalistaController {
     private AnalistaService analistaService;
+
 
     @Autowired
     public void setAnalistaService(AnalistaService analistaService) {
@@ -65,13 +68,41 @@ public class AnalistaController {
 
     @GetMapping("/modificar/{id}")
     public String toModificar(@PathVariable ("id") Integer id, Model model){
-
-        model.addAttribute("estudio",this.analistaService.findById(id));
-
+        Estudio estudio =this.analistaService.findById(id);
+        model.addAttribute("estudio",estudio);
+        EstudioDTO estudioDTO = new EstudioDTO();
+        estudioDTO.setId(estudio.getId());
+        estudioDTO.setCorreo(estudio.getAnalista().getCorreo());
+        estudioDTO.setDescripcion(estudio.getDescripcion());
+        estudioDTO.setResultado(estudio.getResultado());
+        model.addAttribute("estudioDTO",estudioDTO);
         return "EditarEstudio";
     }
 
+    @GetMapping("/crear")
+    public String toCrear(Model model){
 
+        model.addAttribute("eventos",this.analistaService.findAllEventos());
+        EstudioDTO estudioDTO = new EstudioDTO();
+        model.addAttribute("estudioDTO",estudioDTO);
+        return "CrearEstudio";
+
+    }
+
+    @PostMapping("/crearDTO")
+    public String doGuardar(Model model, @ModelAttribute("estudioDTO") EstudioDTO estudioDTO,HttpSession session){
+
+        this.analistaService.doGuardarEstudio(model,estudioDTO,session);
+
+        return "redirect:/analista/";
+    }
+
+    @PostMapping("/modiDTO")
+    public String doModi(Model model, @ModelAttribute("estudioDTO") EstudioDTO estudioDTO){
+
+        //this.analistaService.doGuardarEstudio();
+        return "redirect:/analista/";
+    }
 }
 
 
