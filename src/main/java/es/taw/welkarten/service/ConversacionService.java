@@ -1,17 +1,30 @@
 package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.ConversacionRepository;
+import es.taw.welkarten.dao.MensajeRepository;
 import es.taw.welkarten.entity.Conversacion;
+import es.taw.welkarten.entity.Mensaje;
 import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ConversacionService {
     private ConversacionRepository conversacionRepository;
+    private MensajeRepository mensajeRepository;
+
+    public MensajeRepository getMensajeRepository() {
+        return mensajeRepository;
+    }
+
+    @Autowired
+    public void setMensajeRepository(MensajeRepository mensajeRepository) {
+        this.mensajeRepository = mensajeRepository;
+    }
 
     public ConversacionRepository getConversacionRepository() {
         return conversacionRepository;
@@ -57,6 +70,23 @@ public class ConversacionService {
         if(optConversacion.isPresent()) {
             Conversacion c = optConversacion.get();
             this.conversacionRepository.delete(c);
+        }
+    }
+
+    public void iniciarConversacion(Integer id, Usuario usuario) {
+        Optional<Conversacion> optConversacion = this.conversacionRepository.findById(id);
+        if(optConversacion.isPresent()) {
+            Conversacion c = optConversacion.get();
+            Mensaje m = new Mensaje();
+            m.setConversacion(c);
+            m.setCuerpo("Buenas, le atiene un teleoperador de Welkarten");
+            m.setEmisor(usuario);
+            m.setFecha(new Date());
+            m.setHora(new Date());
+            this.mensajeRepository.save(m);
+
+            c.getMensajeList().add(m);
+            this.conversacionRepository.save(c);
         }
     }
 }

@@ -46,7 +46,7 @@
                                         <th scope="row">1</th>
                                         <td><%= c.getTeleoperador().getNombre() %></td>
                                         <td><%= c.getUsuario().getNombre() %></td>
-                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = 'ServletAddMensaje?id=<%= c.getId() %>'">Aceptar Peticion</button></td>
+                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = '/teleoperador/iniciarConversacion/<%= c.getId() %>'">Aceptar Peticion</button></td>
                                         </tr> 
                             <%        
                                     }

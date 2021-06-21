@@ -84,6 +84,10 @@ public class TeleoperadorController {
         return "chat";
     }
 
-
-
+    @GetMapping("/iniciarConversacion/{id}")
+    public String doIniciarConversacion(@PathVariable("id") Integer id, HttpSession session) {
+        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        this.conversacionService.iniciarConversacion(id, usuario);
+        return"redirect:/teleoperador/";
+    }
 }
