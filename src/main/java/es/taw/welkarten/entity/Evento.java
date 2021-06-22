@@ -5,24 +5,12 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EventoDTO;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -261,5 +249,29 @@ public class Evento implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Evento[ id=" + id + " ]";
     }
-    
+
+
+    @Transient
+    public EventoDTO getDTO() {
+        EventoDTO dto = new EventoDTO();
+
+
+        dto.setAforo(aforo);
+        dto.setCreador(creador);
+        dto.setAsientosFila(asientosFila);
+        dto.setCosteEntrada(costeEntrada);
+        dto.setDescripcion(descripcion);
+        dto.setEntradaList(entradaList);
+        dto.setEntradasMax(entradasMax);
+        dto.setEtiquetaseventoList(etiquetaseventoList);
+        dto.setFechaInicio(fechaInicio);
+        dto.setFechaReserva(fechaReserva);
+        dto.setFilas(filas);
+        dto.setHora(hora);
+        dto.setId(id);
+        dto.setLugar(lugar);
+        dto.setTitulo(titulo);
+
+        return dto;
+    }
 }

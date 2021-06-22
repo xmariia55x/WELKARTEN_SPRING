@@ -3,20 +3,20 @@ package es.taw.welkarten.controller;
 import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dto.BusquedaAvanzadaEvento;
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.FiltroConversacion;
 import es.taw.welkarten.entity.Conversacion;
+import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.BusquedaAvanzadaService;
+import es.taw.welkarten.service.EtiquetaService;
 import es.taw.welkarten.service.EventoService;
 import es.taw.welkarten.service.UsuarioeventosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,6 +32,13 @@ public class CreadoreventosController {
     private UsuarioRepository usuarioRepository;
 
     private BusquedaAvanzadaService busquedaAvanzadaService;
+
+    private EtiquetaService etiquetaService;
+
+    @Autowired
+    public void setEtiquetaService(EtiquetaService etiquetaService) {
+        this.etiquetaService = etiquetaService;
+    }
 
     @Autowired
     public void setBusquedaAvanzadaService(BusquedaAvanzadaService busquedaAvanzadaService) {
@@ -76,8 +83,30 @@ public class CreadoreventosController {
         return "CreadorEventos";
     }
 
+    @GetMapping("/editarEvento/{id}")
+    public String doEditar (@PathVariable("id") Integer id, Model model) {
 
+        EventoDTO evento = this.eventoService.buscarEvento(id);
+        List<Etiqueta> etiquetas = this.etiquetaService.findEtiquetas();
+        model.addAttribute("etiquetas", etiquetas);
+        model.addAttribute("evento", evento);
 
+        return "CrearEditarEventoCreador";
+    }
+
+    @GetMapping("/nuevoEvento")
+    public String doNuevoEvento (Model model) {
+        List<Etiqueta> etiquetas = this.etiquetaService.findEtiquetas();
+        EventoDTO evento = new EventoDTO();
+        model.addAttribute("evento", evento);
+        return "CrearEditarEventoCreador";
+    }
+
+    @PostMapping("/guardar")
+    public String doGuardar (@ModelAttribute("evento") EventoDTO evento) {
+        this.eventoService.guardarCliente(evento);
+        return "redirect:/customer/";
+    }
 
     /*
 
