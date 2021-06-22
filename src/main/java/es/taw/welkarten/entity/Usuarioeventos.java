@@ -9,6 +9,7 @@ import es.taw.welkarten.dto.UsuarioeventosDTO;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.*;
@@ -129,6 +130,23 @@ public class Usuarioeventos implements Serializable {
         this.usuario = usuario;
     }
 
+    public String getFechaNacimientoString() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaNacimientoString = df.format(fechaNacimiento);
+        return fechaNacimientoString;
+    }
+
+    public void setFechaNacimientoString(String fechaNacimiento) {
+        Date fechaNacimientoDate = null;
+        try {
+            fechaNacimientoDate = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNacimiento);
+            this.fechaNacimiento = fechaNacimientoDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,14 +175,14 @@ public class Usuarioeventos implements Serializable {
     @Transient
     public UsuarioeventosDTO getDTO() {
         UsuarioeventosDTO usuarioeventosDTO = new UsuarioeventosDTO();
-        usuarioeventosDTO.setUsuario(this.getUsuario());
+        //usuarioeventosDTO.setUsuario(this.getUsuario().getDTO());
         usuarioeventosDTO.setApellidos(this.getApellidos());
         usuarioeventosDTO.setCiudad(this.getCiudad());
         usuarioeventosDTO.setDomicilio(this.getDomicilio());
         usuarioeventosDTO.setId(this.getId());
         usuarioeventosDTO.setSexo(this.getSexo());
-        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        usuarioeventosDTO.setFechaNacimiento(formato.format(this.getFechaNacimiento()));
+
+        usuarioeventosDTO.setFechaNacimiento(this.getFechaNacimiento());
         return usuarioeventosDTO;
     }
 }

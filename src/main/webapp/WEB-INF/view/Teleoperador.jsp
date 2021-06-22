@@ -1,12 +1,14 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : Teleoperador
     Created on : 25-abr-2021, 12:20:13
     Author     : adric
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+
 <html>
     <head>
         <title>TELEOPERADOR</title>
@@ -19,34 +21,31 @@
     
     <%
         Usuario user = (Usuario)session.getAttribute("usuario");
-        List <Conversacion> conversaciones = (List) request.getAttribute("listaConversaciones");
+        List <Conversacion> conversaciones = (List<Conversacion>) request.getAttribute("conversaciones");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
             <jsp:include page="Navbar.jsp" />
             
-            
-            <form action="ServletListarConversaciones"> 
+            <form:form action="/teleoperador/filtrarConversacion" method="post" modelAttribute="filtro">
                 <div class="filtros">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="filtroTeleoperador" name="filtroTeleoperador" placeholder="Password">
-                    <label for="text">Filtrar teleoperador</label>
+                    <form:input path="teleoperador" class="form-control" id="filtroTeleoperador" name="filtroTeleoperador" placeholder="Password"></form:input>
+                    <label>Filtrar teleoperador</label>
                 </div>
-                
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="filtroUsuario" name ="filtroUsuario" placeholder="Password">
-                    <label for="text">Filtrar usuario</label>
-                </div>
-                
+                    <div class="form-floating">
+                        <form:input path="usuario" type="text" class="form-control" id="filtroUsuario" name ="filtroUsuario" placeholder="Password"></form:input>
+                        <label>Filtrar usuario</label>
+                    </div>
                 </div>
                 <br/>
-                
+
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-primary btn-lg" id="filtrarTele" value="Filtrar" name="filtrarTele"/>
-                </div>                    
-            </form>
-            
-            
+                    <input type="submit" class="btn btn-primary btn-lg" value="Filtrar" name="filtrarTele"/>
+                </div>
+
+            </form:form>
+
                 <!-- TABLA DE CONVERSACIONES -->
                 <div style="padding: 2% 15%">
                     <table class="table">
@@ -71,8 +70,8 @@
                                         <td><%= c.getId() %></td>
                                         <td><%= c.getTeleoperador().getNombre() %></td>
                                         <td><%= c.getUsuario().getNombre() %></td>
-                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = 'ServletInfoConversacion?id=<%= c.getId() %>'">Info</button></td>
-                                        <td><button class="btn btn-outline-danger" type="submit" onclick="location.href = 'ServletEliminarConversacion?id=<%= c.getId() %>'">Eliminar</button></td>
+                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = '/teleoperador/infoConversacion/<%= c.getId() %>'">Info</button></td>
+                                        <td><button class="btn btn-outline-danger" type="submit" onclick="location.href = '/teleoperador/eliminarConversacion/<%= c.getId() %>'">Eliminar</button></td>
                                         </tr>
                             <%
                                     }
@@ -88,10 +87,10 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                 
                 <input type="button" class="btn btn-primary btn-lg" id="peticiones_teleoperador" value="Peticiones" name="peticiones_teleoperador"
-                                       onclick="location.href = 'ServletCargarPeticiones'" />
+                                       onclick="location.href = '/teleoperador/cargaPeticiones'" />
                    
                 <input type="button" class="btn btn-primary btn-lg" id="chats_teleoperador" value="Ver mis chats" name="chats_teleoperador"
-                                       onclick="location.href = 'ServletListarMisChats'" />
+                                       onclick="location.href = '/teleoperador/listaMisChats'" />
                 </div>
               
                 <br/>

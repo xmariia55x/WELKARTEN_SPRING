@@ -1,11 +1,11 @@
-<%-- 
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Conversacion" %><%--
     Document   : chat
     Created on : 13-may-2021, 13:14:44
     Author     : adric
 --%>
 
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

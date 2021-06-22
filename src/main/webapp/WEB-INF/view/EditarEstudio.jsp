@@ -1,11 +1,10 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="es.taw.welkarten.entity.Estudio" %><%--
     Document   : CrearEditarEstudio
     Created on : 12-may-2021, 16:48:13
     Author     : david
 --%>
 
-<%@page import="GestorEventos2021.entity.Estudio"%>
-<%@page import="GestorEventos2021.entity.Estudio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +19,7 @@
         <title>Editar Estudio</title>
     </head>
     <%
-        HttpSession sessionEstudio = request.getSession();
-        Estudio e = (Estudio)sessionEstudio.getAttribute("estudio");         
+        Estudio e = (Estudio)request.getAttribute("estudio");
        
         
     %>
@@ -47,25 +45,26 @@
        <!--- FORMULARIO PARA EDITAR UN ESTUDIO --->
        
        <div class="global_editar_estudio" style="padding: 2% 15%">
-           <form name="CrearEditarEventoForm" action="ServletGuardarEstudio">
+           <form:form method="post" modelAttribute="estudioDTO" action="/analista/crearDTO">
+               <form:hidden path="id"></form:hidden>
                 <div class="mb-3">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Correo del analista</label>
-                    <input type="text" name="nombre_analista" class="form-control" id="nombre_analista" value="<%= e.getAnalista().getCorreo() %>">
+                    <label  class="form-label">Correo del analista</label>
+                    <form:input type="text"  path="correo" class="form-control" ></form:input>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Descripción del estudio</label>
-                    <input type="text" name="descripcion_estudio" class="form-control" id="descripcion_estudio" value="<%= e.getDescripcion()%>">
+                    <label  class="form-label">Descripción del estudio</label>
+                    <form:input type="text" path="descripcion" class="form-control" ></form:input>
                 </div>
 
                 <div class="mb-3">
-                    <label for="birthday" class="form-label">Resultado del estudio</label>
-                    <input type="text" class="form-control" id="resultado_estudio" name="resultado_estudio" value="<%= e.getResultado() %>">
+                    <label  class="form-label">Resultado del estudio</label>
+                    <form:input type="text" path="resultado" class="form-control" ></form:input>
                 </div> 
 
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary btn-lg" >Guardar estudio</button>
                 </div>
-             </form>
+             </form:form>
         </div>
        
     </body>

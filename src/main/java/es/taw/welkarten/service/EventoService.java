@@ -21,13 +21,18 @@ public class EventoService {
         this.eventoRepository = eventoRepository;
     }
 
+    public List<EventoDTO> findEventos() {
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        List<Evento> eventos = this.eventoRepository.findAll();
+        for (Evento event : eventos) {
+            eventosDTO.add(event.getDTO());
+        }
+        return eventosDTO;
+    }
     public Evento findEvento(Integer id){
         return this.eventoRepository.findById(id).get();
     }
 
-    public List<Evento> findEventos(){
-        return this.eventoRepository.findAll();
-    }
 
     public List<Evento> findEventosNoCaducados(){
         return this.eventoRepository.findByEventosNoCaducados(new Date(), new Time(Calendar.getInstance().getTime().getTime()));

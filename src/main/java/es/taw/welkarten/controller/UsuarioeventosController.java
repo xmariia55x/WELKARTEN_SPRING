@@ -1,5 +1,6 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
@@ -40,9 +41,9 @@ public class UsuarioeventosController {
                                    HttpSession session) {
         String strError = "", strTo = "";
         if(usuarioEDTO.getUsuario().getPassword().equals(usuarioEDTO.getContraseniaRepetida())){
-            Usuario usuario = this.usuarioeventosService.guardarUsuarioeventos(model, usuarioEDTO);
+            UsuarioDTO usuario = this.usuarioeventosService.guardarUsuarioeventos(usuarioEDTO);
             session.setAttribute("usuario",usuario);
-            strTo = "/usuarioeventos/init";
+            strTo = "redirect:/";
         } else {
             strError = "v";
             model.addAttribute("error", strError);

@@ -22,4 +22,11 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     //Eventos esta semana
     @Query("SELECT e FROM Evento e WHERE e.fechaInicio >= :fechaHoy AND e.fechaInicio <= :fechaSemana ORDER BY e.fechaInicio ASC")
     public List<Evento> findByEventosEstaSemana(@Param("fechaHoy") Date fechaHoy, @Param("fechaSemana") Date fechaSemana);
+
+    @Query("SELECT e FROM Evento e WHERE e.titulo = :titulo")
+    public Evento findByTitulo(String titulo);
+
+    //Eventos de un creadorEventos
+    @Query("SELECT e FROM Evento e WHERE e.creador.id = :creador")
+    public List<Evento> findByCreadorEventos(@Param("creador") Integer creador);
 }

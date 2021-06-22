@@ -5,19 +5,13 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EtiquetaDTO;
+import es.taw.welkarten.dto.EtiquetaseventoDTO;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -109,5 +103,20 @@ public class Etiqueta implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Etiqueta[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public EtiquetaDTO getDTO(){
+        EtiquetaDTO dto = new EtiquetaDTO();
+
+        dto.setId(this.getId());
+        dto.setNombre(this.getNombre());
+
+        List<EtiquetaseventoDTO> lista = new ArrayList<>();
+        for(Etiquetasevento etq : this.getEtiquetaseventoList()){
+            lista.add(etq.getDTO());
+        }
+
+        dto.setEtiquetaseventoList(lista);
+        return dto;
+    }
 }

@@ -1,11 +1,12 @@
-<%-- 
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+<%@ page import="java.util.List" %><%--
     Document   : PeticionesTeleoperador
     Created on : 25-abr-2021, 13:44:24
     Author     : adric
 --%>
 
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="java.util.List"%>
+
+
 <html>
     <head>
         <title>PETICIONES</title>
@@ -45,7 +46,7 @@
                                         <th scope="row">1</th>
                                         <td><%= c.getTeleoperador().getNombre() %></td>
                                         <td><%= c.getUsuario().getNombre() %></td>
-                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = 'ServletAddMensaje?id=<%= c.getId() %>'">Aceptar Peticion</button></td>
+                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = '/teleoperador/iniciarConversacion/<%= c.getId() %>'">Aceptar Peticion</button></td>
                                         </tr> 
                             <%        
                                     }

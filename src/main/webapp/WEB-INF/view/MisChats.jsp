@@ -4,8 +4,9 @@
     Author     : adric
 --%>
 
-<%@page import="GestorEventos2021.entity.Conversacion"%>
+
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,7 +45,7 @@
                                         <th scope="row">1</th>
                                         <td><%= c.getTeleoperador().getNombre() %></td>
                                         <td><%= c.getUsuario().getNombre() %></td>
-                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = 'ServletLinkChat?id=<%= c.getId() %>'">Abrir chat</button></td>
+                                        <td><button class="btn btn-outline-primary" type="submit" onclick="location.href = '/teleoperador/linkChat/<%= c.getId() %>'">Abrir chat</button></td>
                                         </tr> 
                             <%        
                                     }

@@ -1,7 +1,9 @@
-<%@page import="GestorEventos2021.entity.Evento"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
-<%@page import="GestorEventos2021.entity.Estudio"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -23,7 +25,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
         <%
             Usuario user = (Usuario) session.getAttribute("usuario");
             //List <Estudio> estudios = (List) request.getAttribute("listaEstudios");
-            List<Evento> eventos = (List) request.getAttribute("eventos");
+            List<EventoDTO> eventos = (List) request.getAttribute("eventos");
             
         %>
     
@@ -35,7 +37,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <!---HAS QUITAO ESTE<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
+         Option 2: Separate Popper and Bootstrap JS -->
         <!--
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
@@ -51,24 +53,24 @@ and open the template in the editor.fcxddxdnjnjjnjnj
        
         
         
-         <div class="global_nuevo_evento">
+         <div class="global_nuevo_evento" style="padding: 2%">
               <h1>Estudio sobre los asistentes de un evento</h1> <br/>
-              
-             <form name="CrearEditarUsuarioForm" action="ServletCrearEstudio">
-                 
+             <form:form method="post" action="/analista/crearDTO" modelAttribute="estudioDTO">
+                <form:hidden path="id"></form:hidden>
+
                 <div class="mb-3">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Selecciona el evento a estudiar</label>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="selectEvento" >
+                    <label  class="form-label">Selecciona el evento a estudiar</label>
+                    <form:select path="nombreEvento" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="selectEvento" >
                         
                     
                     <%
-                                for(Evento e : eventos){
+                                for(EventoDTO e : eventos){
                                 %>
                             <li><a class="dropdown-item" >
                                     <option value="<%=e.getTitulo()%>"> <%=e.getTitulo()%>  </option>
                             <%}
                                 %>
-                     </select>           
+                     </form:select>
                         
                      </div>
                 
@@ -76,29 +78,28 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                     
                     
                         
-                              <label for="exampleDropdownFormEmail2" class="form-label">Selecciona el signo</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="selectSigno" >
+                              <label  class="form-label">Selecciona el signo</label>
+                        <form:select path="signo" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"  >
                             <option value="<"> <  </option>
                             <option value="="> =  </option>
                             <option value=">"> >  </option>
-                        </select>
+                        </form:select>
                 </div>
 
                  <div class="mb-3"  >
-                    <label for="exampleDropdownFormEmail2" class="form-label">Introduce la edad:</label>
-                    <input type="text" width="20" name="edad" class="form-control" id="edad"  required>                
+                    <label  class="form-label">Introduce la edad:</label>
+                    <form:input path="edad" type="text" width="20" name="edad" class="form-control" required="true"></form:input>
                 </div>
                  
                  <div class="mb-3" >
-                    <label for="exampleDropdownFormEmail2" class="form-label">Introduce la descripción del estudio:</label>
-                    <input type="text" width="20" name="descripcion" class="form-control" id="descripcion"  required>                
+                    <label  class="form-label">Introduce la descripciï¿½n del estudio:</label>
+                     <form:input path="descripcion" type="text" width="20" name="descripcion" class="form-control" required="true"></form:input>
                 </div>
                 
                  <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary btn-lg">Crear estudio</button>
                 </div>
-                 
-            </form>
+            </form:form>
         </div>
         
         

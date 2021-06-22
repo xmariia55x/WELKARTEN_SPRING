@@ -5,25 +5,16 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EtiquetaseventoDTO;
+import es.taw.welkarten.dto.EventoDTO;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -261,5 +252,31 @@ public class Evento implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Evento[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public EventoDTO getDTO(){
+        EventoDTO eventoDTO = new EventoDTO();
+        eventoDTO.setAforo(this.getAforo());
+        eventoDTO.setAsientosFila(this.getAsientosFila());
+        eventoDTO.setCosteEntrada(this.getCosteEntrada());
+        eventoDTO.setCreador(this.getCreador());
+        eventoDTO.setDescripcion(this.getDescripcion());
+        eventoDTO.setEntradasMax(this.getEntradasMax());
+
+        List<EtiquetaseventoDTO> lista = new ArrayList<>();
+        for(Etiquetasevento etq : this.getEtiquetaseventoList()){
+            lista.add(etq.getDTO());
+        }
+
+        eventoDTO.setEtiquetaseventoList(lista);
+        eventoDTO.setFechaInicio(this.getFechaInicio());
+        eventoDTO.setFechaReserva(this.getFechaReserva());
+        eventoDTO.setFilas(this.getFilas());
+        eventoDTO.setHora(this.getHora());
+        eventoDTO.setLugar(this.getLugar());
+        eventoDTO.setId(this.getId());
+        eventoDTO.setTitulo(this.getTitulo());
+        return eventoDTO;
+    }
+
 }

@@ -11,14 +11,8 @@ public class UsuarioDTO {
     private String correo;
     private String password;
     private int rol;
-    private List<Conversacion> conversacionList;
-    private List<Conversacion> conversacionList1;
-    private Usuarioeventos usuarioeventos;
-    private List<Entrada> entradaList;
-    private List<Estudio> estudioList;
-    private List<Evento> eventoList;
-    private List<Mensaje> mensajeList;
-
+    private UsuarioeventosDTO usuarioeventos;
+    private String contraseniaRepetida;
     public UsuarioDTO() {
 
     }
@@ -71,59 +65,19 @@ public class UsuarioDTO {
         this.rol = rol;
     }
 
-    public List<Conversacion> getConversacionList() {
-        return conversacionList;
+    public String getContraseniaRepetida() {
+        return contraseniaRepetida;
     }
 
-    public void setConversacionList(List<Conversacion> conversacionList) {
-        this.conversacionList = conversacionList;
+    public void setContraseniaRepetida(String contraseniaRepetida) {
+        this.contraseniaRepetida = contraseniaRepetida;
     }
 
-    public List<Conversacion> getConversacionList1() {
-        return conversacionList1;
-    }
-
-    public void setConversacionList1(List<Conversacion> conversacionList1) {
-        this.conversacionList1 = conversacionList1;
-    }
-
-    public Usuarioeventos getUsuarioeventos() {
+    public UsuarioeventosDTO getUsuarioeventos() {
         return usuarioeventos;
     }
 
-    public void setUsuarioeventos(Usuarioeventos usuarioeventos) {
+    public void setUsuarioeventos(UsuarioeventosDTO usuarioeventos) {
         this.usuarioeventos = usuarioeventos;
-    }
-
-    public List<Entrada> getEntradaList() {
-        return entradaList;
-    }
-
-    public void setEntradaList(List<Entrada> entradaList) {
-        this.entradaList = entradaList;
-    }
-
-    public List<Estudio> getEstudioList() {
-        return estudioList;
-    }
-
-    public void setEstudioList(List<Estudio> estudioList) {
-        this.estudioList = estudioList;
-    }
-
-    public List<Evento> getEventoList() {
-        return eventoList;
-    }
-
-    public void setEventoList(List<Evento> eventoList) {
-        this.eventoList = eventoList;
-    }
-
-    public List<Mensaje> getMensajeList() {
-        return mensajeList;
-    }
-
-    public void setMensajeList(List<Mensaje> mensajeList) {
-        this.mensajeList = mensajeList;
     }
 }

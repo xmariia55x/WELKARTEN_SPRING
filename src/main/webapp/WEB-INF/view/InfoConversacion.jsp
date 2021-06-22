@@ -5,11 +5,11 @@
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Mensaje"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Conversacion"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+<%@ page import="es.taw.welkarten.entity.Mensaje" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
