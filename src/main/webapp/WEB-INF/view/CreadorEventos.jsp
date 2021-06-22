@@ -28,6 +28,13 @@ and open the template in the editor.
 
         <style>
 
+            .carta {
+                float: left;
+                padding: 0.5% 2%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             .row {
                 display: flex;
                 margin-left:-5px;
