@@ -126,7 +126,7 @@ and open the template in the editor.
                                         <p class="card-text"><%=etiquetas%></p>
                                         <p class="card-text"><%=moneyFormat.format(e.getCosteEntrada())%>&#8364</p>
                                         <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                                        <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                        <a href="/usuarioeventos/evento/id/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@ and open the template in the editor.
                                         <p class="card-text"><%=etiquetas%></p>
                                         <p class="card-text"><%=moneyFormat.format(e.getCosteEntrada())%>&#8364</p>
                                         <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                                        <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                        <a href="/usuarioeventos/evento/id/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                     </div>
                                 </div>
                             </div>

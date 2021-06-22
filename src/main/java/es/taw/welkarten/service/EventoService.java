@@ -21,6 +21,10 @@ public class EventoService {
         this.eventoRepository = eventoRepository;
     }
 
+    public Evento findEvento(Integer id){
+        return this.eventoRepository.findById(id).get();
+    }
+
     public List<Evento> findEventos(){
         return this.eventoRepository.findAll();
     }
