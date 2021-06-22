@@ -13,6 +13,10 @@
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.entity.Etiqueta" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioeventosDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaDTO" %>
 
 <html>
     <head>
@@ -30,10 +34,10 @@
         <br>
 
         <%
-            Usuario administrador = (Usuario) session.getAttribute("usuario");
-            List<Usuario> usuarios = (List<Usuario>) request.getAttribute("listaUsuarios");
-            List<Evento> eventos = (List<Evento>) request.getAttribute("listaEventos");
-            List<Etiqueta> etiquetas = (List<Etiqueta>) request.getAttribute("listaEtiquetas");
+            UsuarioDTO administrador = (UsuarioDTO) session.getAttribute("usuario");
+            List<UsuarioDTO> usuarios = (List<UsuarioDTO>) request.getAttribute("listaUsuarios");
+            List<EventoDTO> eventos = (List<EventoDTO>) request.getAttribute("listaEventos");
+            List<EtiquetaDTO> etiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         %>
         <h4 class="display-4" style="text-align: center">Panel de control de usuarios y eventos</h4>
@@ -42,12 +46,15 @@
 
 
         <div class="usuarios">
-
+            <!-- BOTONACO DE CREAR USUARIOS -->
+            <div class="row-auto">
+                <input type="submit" class="btn btn-primary mb-3 btn-lg" value="Crear usuario" onclick="location.href = '/administrador/crearUsuarioAdministrador'"/>
+            </div>
             <div class="row text-center">
 
                 <%
                     if (usuarios != null && !usuarios.isEmpty()) {
-                    for(Usuario user : usuarios) {
+                    for(UsuarioDTO user : usuarios) {
                         String rol = "";
 
                         if (user.getRol() == 1) {
@@ -107,12 +114,14 @@
         </div>
 
           <div class="eventos">
-
+              <div class="row-auto">
+                  <input type="submit" class="btn btn-primary mb-3 btn-lg" value="Crear evento" onclick="location.href = '/administrador/crearEventoAdministrador'"/>
+              </div>
                 <div class="row text-center">
 
             <%
                 if (eventos != null && !eventos.isEmpty()) {
-                for(Evento event : eventos) {
+                for(EventoDTO event : eventos) {
                     String fechaInicio = formatter.format(event.getFechaInicio());
                     String fechaLimite = formatter.format(event.getFechaReserva());
             %>

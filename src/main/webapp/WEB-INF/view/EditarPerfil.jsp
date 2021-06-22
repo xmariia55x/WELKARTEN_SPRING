@@ -9,6 +9,7 @@
 <%@page import="java.text.DateFormat" %>
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -32,7 +33,7 @@
 
 <div class="global_editar_perfil_usuario_eventos">
     <%
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
         String strError = (String) request.getAttribute("error");
         boolean esUsuarioEventos = false;
         if (strError != null) {
@@ -51,7 +52,8 @@
         }
     %>
 
-    <form:form method="POST" action="/usuario/guardarInformacion" modelAttribute="usuarioDTO">
+    <form:form method="POST" action="/usuario/guardarInformacionPerfil" modelAttribute="usuarioDTO">
+        <form:hidden path="id"></form:hidden>
         <div class="mb-3">
             <label class="form-label">Nombre</label>
             <form:input path="nombre" class="form-control" maxlength="50" required="required"></form:input>
@@ -91,8 +93,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Fecha de nacimiento</label>
-            <form:input type="date" path="usuarioeventos.fechaNacimiento" class="form-control"
-                        required="required"></form:input>
+
+            <form:input type="date" path="usuarioeventos.fechaNacimiento" class="form-control" required="required"></form:input>
         </div>
 
         <div class="mb-3">

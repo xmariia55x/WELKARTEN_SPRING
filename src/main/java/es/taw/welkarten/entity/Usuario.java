@@ -221,14 +221,9 @@ public class Usuario implements Serializable {
     @Transient
     public UsuarioDTO getDTO() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setConversacionList(this.getConversacionList());
         usuarioDTO.setCorreo(this.getCorreo());
-        usuarioDTO.setEntradaList(this.getEntradaList());
-        usuarioDTO.setUsuarioeventos(this.getUsuarioeventos());
-        usuarioDTO.setEstudioList(this.getEstudioList());
+        usuarioDTO.setUsuarioeventos(this.getUsuarioeventos().getDTO());
         usuarioDTO.setId(this.getId());
-        usuarioDTO.setConversacionList1(this.getConversacionList1());
-        usuarioDTO.setMensajeList(this.getMensajeList());
         usuarioDTO.setNif(this.getNif());
         usuarioDTO.setNombre(this.getNombre());
         usuarioDTO.setPassword(this.getPassword());

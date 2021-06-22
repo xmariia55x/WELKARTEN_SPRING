@@ -1,5 +1,8 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.EtiquetaDTO;
+import es.taw.welkarten.dto.EventoDTO;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
@@ -38,9 +41,9 @@ public class AdministradorController {
 
     @GetMapping("/")
     public String doInicializarAdmin(Model model){
-        List<Usuario> listaUsuarios = this.usuarioService.findUsuarios();
-        List<Evento> listaEventos = this.eventoService.findEventos();
-        List<Etiqueta> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        List<UsuarioDTO> listaUsuarios = this.usuarioService.findUsuarios();
+        List<EventoDTO> listaEventos = this.eventoService.findEventos();
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
 
         model.addAttribute("listaUsuarios", listaUsuarios);
         model.addAttribute("listaEventos", listaEventos);
@@ -54,7 +57,14 @@ public class AdministradorController {
     }
 
     @GetMapping("/crearEventoAdministrador")
-    public String doRedirigirCrearEvento(){
-        return "CrearEditarEvento";
+    public String doRedirigirCrearEvento(Model model){
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        EventoDTO eventoDTO = new EventoDTO();
+
+        model.addAttribute("listaEtiquetas", listaEtiquetas);
+        model.addAttribute("eventoDTO", eventoDTO);
+        return "CrearEditarEventoAdministrador";
     }
+
+
 }

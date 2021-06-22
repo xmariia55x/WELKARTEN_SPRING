@@ -25,4 +25,8 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     @Query("SELECT e FROM Evento e WHERE e.titulo = :titulo")
     public Evento findByTitulo(String titulo);
+
+    //Eventos de un creadorEventos
+    @Query("SELECT e FROM Evento e WHERE e.creador.id = :creador")
+    public List<Evento> findByCreadorEventos(@Param("creador") Integer creador);
 }
