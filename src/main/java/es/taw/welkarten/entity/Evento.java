@@ -7,11 +7,16 @@ package es.taw.welkarten.entity;
 
 import es.taw.welkarten.dto.EventoDTO;
 
+import es.taw.welkarten.dto.EtiquetaseventoDTO;
+import es.taw.welkarten.dto.EventoDTO;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -251,27 +256,32 @@ public class Evento implements Serializable {
     }
 
 
+
+
     @Transient
-    public EventoDTO getDTO() {
-        EventoDTO dto = new EventoDTO();
+    public EventoDTO getDTO(){
+        EventoDTO eventoDTO = new EventoDTO();
+        eventoDTO.setAforo(this.getAforo());
+        eventoDTO.setAsientosFila(this.getAsientosFila());
+        eventoDTO.setCosteEntrada(this.getCosteEntrada());
+        eventoDTO.setCreador(this.getCreador());
+        eventoDTO.setDescripcion(this.getDescripcion());
+        eventoDTO.setEntradasMax(this.getEntradasMax());
 
+        List<EtiquetaseventoDTO> lista = new ArrayList<>();
+        for(Etiquetasevento etq : this.getEtiquetaseventoList()){
+            lista.add(etq.getDTO());
+        }
 
-        dto.setAforo(aforo);
-        dto.setCreador(creador);
-        dto.setAsientosFila(asientosFila);
-        dto.setCosteEntrada(costeEntrada);
-        dto.setDescripcion(descripcion);
-        dto.setEntradaList(entradaList);
-        dto.setEntradasMax(entradasMax);
-        dto.setEtiquetaseventoList(etiquetaseventoList);
-        dto.setFechaInicio(fechaInicio);
-        dto.setFechaReserva(fechaReserva);
-        dto.setFilas(filas);
-        dto.setHora(hora);
-        dto.setId(id);
-        dto.setLugar(lugar);
-        dto.setTitulo(titulo);
-
-        return dto;
+        eventoDTO.setEtiquetaseventoList(lista);
+        eventoDTO.setFechaInicio(this.getFechaInicio());
+        eventoDTO.setFechaReserva(this.getFechaReserva());
+        eventoDTO.setFilas(this.getFilas());
+        eventoDTO.setHora(this.getHora());
+        eventoDTO.setLugar(this.getLugar());
+        eventoDTO.setId(this.getId());
+        eventoDTO.setTitulo(this.getTitulo());
+        return eventoDTO;
     }
+
 }

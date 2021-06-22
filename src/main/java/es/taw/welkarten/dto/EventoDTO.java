@@ -5,6 +5,9 @@ import es.taw.welkarten.entity.Etiquetasevento;
 import es.taw.welkarten.entity.Usuario;
 
 import javax.persistence.Basic;
+import es.taw.welkarten.entity.Etiquetasevento;
+import es.taw.welkarten.entity.Usuario;
+
 import java.util.Date;
 import java.util.List;
 
@@ -124,27 +127,27 @@ public class EventoDTO {
         this.lugar = lugar;
     }
 
-    public List<Etiquetasevento> getEtiquetaseventoList() {
-        return etiquetaseventoList;
-    }
-
-    public void setEtiquetaseventoList(List<Etiquetasevento> etiquetaseventoList) {
-        this.etiquetaseventoList = etiquetaseventoList;
-    }
-
-    public List<Entrada> getEntradaList() {
-        return entradaList;
-    }
-
-    public void setEntradaList(List<Entrada> entradaList) {
-        this.entradaList = entradaList;
-    }
-
     public Usuario getCreador() {
         return creador;
     }
 
     public void setCreador(Usuario creador) {
         this.creador = creador;
+    }
+
+    public String getSeleccionAsientos() {
+        return seleccionAsientos;
+    }
+
+    public void setSeleccionAsientos(String seleccionAsientos) {
+        this.seleccionAsientos = seleccionAsientos;
+    }
+
+    public List<EtiquetaseventoDTO> getEtiquetaseventoList() {
+        return etiquetaseventoList;
+    }
+
+    public void setEtiquetaseventoList(List<EtiquetaseventoDTO> etiquetaseventoList) {
+        this.etiquetaseventoList = etiquetaseventoList;
     }
 }

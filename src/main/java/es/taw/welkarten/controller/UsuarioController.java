@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,7 @@ public class UsuarioController {
             model.addAttribute("usuarioEventosDTO", usuarioEDTO);
         }*/
 
-        UsuarioDTO usuarioDTO = ((Usuario) session.getAttribute("usuario")).getDTO();
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("usuario");
         model.addAttribute("usuarioDTO", usuarioDTO);
         return "EditarPerfil";
     }
@@ -62,10 +63,10 @@ public class UsuarioController {
 
     @GetMapping("/borrarPerfil")
     public String doBorrarPerfil(HttpSession session){
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
 
         if(usuario.getUsuarioeventos() != null){
-            Usuarioeventos usuarioEventos = usuario.getUsuarioeventos();
+            UsuarioeventosDTO usuarioEventos = usuario.getUsuarioeventos();
             //Eliminar al usuario de eventos primero
             this.usuarioeventosService.eliminar(usuarioEventos);
         }
@@ -74,4 +75,22 @@ public class UsuarioController {
 
         return "redirect:/";
     }
+
+    @PostMapping("/guardarInformacionPerfil")
+    public String doGuardarInformacionPerfilActualizado(HttpSession session, Model model,
+                                                        @ModelAttribute("usuarioDTO") UsuarioDTO usuarioDTO){
+        String strError = "", strTo = "";
+        if(usuarioDTO.getPassword().equals(usuarioDTO.getContraseniaRepetida())){
+            UsuarioDTO usuario = this.usuarioService.guardarUsuario(usuarioDTO);
+            session.setAttribute("usuario",usuario);
+            strTo = "redirect:/verPerfil";
+        } else {
+            strError = "contraseniaNoCoincide";
+            model.addAttribute("error", strError);
+            strTo =  "EditarPerfil";
+
+        }
+        return strTo;
+    }
+
 }

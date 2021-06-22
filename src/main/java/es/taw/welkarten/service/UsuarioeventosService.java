@@ -2,6 +2,7 @@ package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.entity.Usuarioeventos;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UsuarioeventosService {
@@ -29,7 +31,7 @@ public class UsuarioeventosService {
         this.usuarioeventosRepository = usuarioeventosRepository;
     }
 
-    public Usuario guardarUsuarioeventos(Model model, UsuarioeventosDTO usuarioEDTO) {
+    public UsuarioDTO guardarUsuarioeventos(UsuarioeventosDTO usuarioEDTO) {
         Usuarioeventos usuario;
 
         if (usuarioEDTO.getId() == null) {
@@ -48,7 +50,7 @@ public class UsuarioeventosService {
 
             //Se guarda el usuario nuevo
             this.usuarioRepository.save(usuarioNormal);
-
+            UsuarioDTO dtoDevuelto = usuarioNormal.getDTO();
             //Se extrae el usuario que hemos guardado
             Usuario usuarioExtraido = this.usuarioRepository.findByCorreo(usuarioEDTO.getUsuario().getCorreo());
 
@@ -58,14 +60,8 @@ public class UsuarioeventosService {
 
             //usuario.setId(usuarioNormal.getId());
             usuario.setId(usuarioExtraido.getId());
-            String fechaNacimiento = usuarioEDTO.getFechaNacimiento();
-            try {
-                Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento);
-                //2000-04-17
-                usuario.setFechaNacimiento(fecha);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            Date fechaNacimiento = usuarioEDTO.getFechaNacimiento();
+            usuario.setFechaNacimiento(fechaNacimiento);
 
             usuario.setSexo(usuarioEDTO.getSexo());
             usuario.setUsuario(usuarioExtraido);
@@ -73,11 +69,16 @@ public class UsuarioeventosService {
 
             this.usuarioRepository.save(usuarioExtraido);
             this.usuarioeventosRepository.save(usuario);
+            dtoDevuelto = usuarioExtraido.getDTO();
 
-        return usuarioExtraido;
+            return dtoDevuelto;
     }
 
-    public void eliminar(Usuarioeventos usuarioEventos) {
-        this.usuarioeventosRepository.delete(usuarioEventos);
+    public void eliminar(UsuarioeventosDTO usuarioEventos) {
+        Optional<Usuarioeventos> usuarioeventosOptional = this.usuarioeventosRepository.findById(usuarioEventos.getId());
+        if(usuarioeventosOptional.isPresent()){
+            Usuarioeventos usuarioEliminar = usuarioeventosOptional.get();
+            this.usuarioeventosRepository.delete(usuarioEliminar);
+        }
     }
 }
