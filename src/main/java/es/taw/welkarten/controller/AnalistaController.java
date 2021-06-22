@@ -1,10 +1,12 @@
 package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dto.EstudioDTO;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Estudio;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.AnalistaService;
 import es.taw.welkarten.service.EventoService;
+import es.taw.welkarten.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/analista")
 public class AnalistaController {
     private AnalistaService analistaService;
+
 
 
     @Autowired
@@ -32,18 +35,7 @@ public class AnalistaController {
     @GetMapping("/copiar/{id}")
     public String doCopiar(@PathVariable("id") Integer id, Model model) {
 
-        Estudio estudio = this.analistaService.findById(id);
-        Estudio nuevo = new Estudio();
-        nuevo.setAnalista(estudio.getAnalista());
-        nuevo.setDescripcion(estudio.getDescripcion() + "(Copia)");
-        nuevo.setResultado(estudio.getResultado());
-
-        Usuario analista = estudio.getAnalista();
-        analista.getEstudioList().add(nuevo);
-
-
-        this.analistaService.guardarEstudio(nuevo);
-
+        this.analistaService.copiarEstudio(id);
         return "redirect:/analista/";
     }
 
@@ -51,28 +43,29 @@ public class AnalistaController {
     @GetMapping("/eliminar/{id}")
     public String doEliminar(@PathVariable("id") Integer id, Model model) {
 
-        Estudio estudio = this.analistaService.findById(id);
-        estudio.getAnalista().getEstudioList().remove(estudio);
-        this.analistaService.eliminarEstudio(estudio);
 
+        this.analistaService.eliminarEstudio(id);
         return "redirect:/analista/";
     }
 
 
     @GetMapping("/info/{id}")
     public String toInfo(@PathVariable ("id") Integer id, Model model){
+        EstudioDTO estudioDTO=this.analistaService.findByIdDTO(id);
+        UsuarioDTO usuarioDTO = this.analistaService.findByCorreoUsuarioDTO(estudioDTO.getCorreo());
 
-        model.addAttribute("estudio",this.analistaService.findById(id));
+        model.addAttribute("estudio",estudioDTO);
+        model.addAttribute("usuario",usuarioDTO);
         return "InfoEstudio";
     }
 
     @GetMapping("/modificar/{id}")
     public String toModificar(@PathVariable ("id") Integer id, Model model){
-        Estudio estudio =this.analistaService.findById(id);
+        EstudioDTO estudio =this.analistaService.findByIdDTO(id);
         model.addAttribute("estudio",estudio);
         EstudioDTO estudioDTO = new EstudioDTO();
         estudioDTO.setId(estudio.getId());
-        estudioDTO.setCorreo(estudio.getAnalista().getCorreo());
+        //estudioDTO.setCorreo(estudio.getAnalista().getCorreo());
         estudioDTO.setDescripcion(estudio.getDescripcion());
         estudioDTO.setResultado(estudio.getResultado());
         model.addAttribute("estudioDTO",estudioDTO);

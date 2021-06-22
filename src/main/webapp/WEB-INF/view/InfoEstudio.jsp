@@ -77,6 +77,8 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Estudio" %>
+<%@ page import="es.taw.welkarten.dto.EstudioDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -90,7 +92,8 @@
     
     <%
 
-        Estudio e = (Estudio)request.getAttribute("estudio");
+        EstudioDTO e = (EstudioDTO)request.getAttribute("estudio");
+        UsuarioDTO u = (UsuarioDTO) request.getAttribute("usuario");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -110,9 +113,9 @@
                     <div class="col-md-8">
                         <div class="card-body" style="padding: 2% 20%;text-align: left;">
                             <h5 class="card-title">Información del estudio <%= e.getId()%></h5>
-                            <p class="card-text">Usuario: <%= e.getAnalista().getNombre()%></p>
-                            <p class="card-text"><small class="text-muted">Correo: <%= e.getAnalista().getCorreo()%></small></p> 
-                            <p class="card-text"><small class="text-muted">NIF: <%= e.getAnalista().getNif()%></small></p> 
+                            <p class="card-text">Usuario: <%= u.getNombre()%></p>
+                            <p class="card-text"><small class="text-muted">Correo: <%= u.getCorreo()%></small></p>
+                            <p class="card-text"><small class="text-muted">NIF: <%= u.getNif()%></small></p>
                             <p class="card-text">Estudio: </p>
                             <p class="card-text"><small class="text-muted">Descripción: <%= e.getDescripcion()%></small></p> 
                             <p class="card-text"><small class="text-muted">Resultado: <%= e.getResultado()%></small></p> 
