@@ -9,8 +9,8 @@ public class EstudioDTO {
     private String nombreEvento;
     private String signo;
     private Integer edad;
-    private Usuario analista;
     private String correo;
+
     public EstudioDTO(){
 
     }
@@ -70,12 +70,12 @@ public class EstudioDTO {
     public void setEdad(Integer edad) {
         this.edad = edad;
     }
-
+/*
     public Usuario getAnalista() {
         return analista;
     }
 
     public void setAnalista(Usuario analista) {
         this.analista = analista;
-    }
+    }*/
 }

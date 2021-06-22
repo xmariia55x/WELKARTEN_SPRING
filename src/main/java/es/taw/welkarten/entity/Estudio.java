@@ -5,18 +5,10 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EstudioDTO;
+
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -121,5 +113,15 @@ public class Estudio implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Estudio[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public EstudioDTO getDTO(){
+        EstudioDTO estudioDTO = new EstudioDTO();
+        estudioDTO.setId(this.getId());
+        estudioDTO.setCorreo(this.getAnalista().getCorreo());
+        estudioDTO.setResultado(this.getResultado());
+        estudioDTO.setDescripcion(this.getDescripcion());
+        return estudioDTO;
+    }
+
 }

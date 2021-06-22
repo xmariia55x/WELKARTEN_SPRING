@@ -2,6 +2,8 @@
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 
 <%@ page import="es.taw.welkarten.entity.Estudio" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
+<%@ page import="es.taw.welkarten.dto.EstudioDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,8 +23,12 @@ and open the template in the editor.fcxddxdnjnjjnjnj
     </head>
     
         <%
+            //------
+            //Cambia esto que tiene que ser DTO cuando ya lo cambien !!!!!
+            //------
+
             Usuario user = (Usuario) session.getAttribute("usuario");
-            List <Estudio> estudios = (List) request.getAttribute("estudios");
+            List <EstudioDTO> estudios = (List) request.getAttribute("estudios");
             
         %>
     
@@ -63,7 +69,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                         <tbody>
                             
                             <%
-                                for(Estudio e: estudios) {
+                                for(EstudioDTO e: estudios) {
                                 %>
                                 <tr>
                                     <td> <%= e.getId() %> </td>                                    
@@ -73,7 +79,8 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                                     <td><button class="btn btn-outline-primary info" type="button" onclick="location.href = '/analista/info/<%=e.getId()%>'">Info</button></td>
                                     <td><button class="btn btn-outline-danger eliminar" type="button" onclick="location.href = '/analista/eliminar/<%=e.getId()%>'">Eliminar</button></td>>
                                 </tr>
-                                <%}
+                                <%
+                                }
                                     %>
                         </tbody>
                     </table>

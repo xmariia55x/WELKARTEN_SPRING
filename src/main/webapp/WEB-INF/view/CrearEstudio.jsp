@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -24,7 +25,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
         <%
             Usuario user = (Usuario) session.getAttribute("usuario");
             //List <Estudio> estudios = (List) request.getAttribute("listaEstudios");
-            List<Evento> eventos = (List) request.getAttribute("eventos");
+            List<EventoDTO> eventos = (List) request.getAttribute("eventos");
             
         %>
     
@@ -63,7 +64,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                         
                     
                     <%
-                                for(Evento e : eventos){
+                                for(EventoDTO e : eventos){
                                 %>
                             <li><a class="dropdown-item" >
                                     <option value="<%=e.getTitulo()%>"> <%=e.getTitulo()%>  </option>
