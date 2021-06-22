@@ -2,12 +2,16 @@ package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.ConversacionRepository;
 import es.taw.welkarten.dao.MensajeRepository;
+import es.taw.welkarten.dao.UsuarioRepository;
+import es.taw.welkarten.dto.ConversacionDTO;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Mensaje;
 import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +20,16 @@ import java.util.Optional;
 public class ConversacionService {
     private ConversacionRepository conversacionRepository;
     private MensajeRepository mensajeRepository;
+    private UsuarioRepository usuarioRepository;
+
+    public UsuarioRepository getUsuarioRepository() {
+        return usuarioRepository;
+    }
+
+    @Autowired
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public MensajeRepository getMensajeRepository() {
         return mensajeRepository;
@@ -35,7 +49,7 @@ public class ConversacionService {
         this.conversacionRepository = conversacionRepository;
     }
 
-    public List<Conversacion> findConversaciones(String filtroTeleoperador, String filtroUsuario) {
+    public List<ConversacionDTO> findConversaciones(String filtroTeleoperador, String filtroUsuario) {
         List<Conversacion> conversaciones;
         if(filtroTeleoperador != null && filtroTeleoperador.length() > 0 && filtroUsuario != null && filtroUsuario.length() > 0) {
             conversaciones = this.conversacionRepository.findConversacionesByTeleoperadorAndUsuario(filtroTeleoperador, filtroUsuario);
@@ -46,23 +60,23 @@ public class ConversacionService {
         } else {
             conversaciones = this.conversacionRepository.findAll();
         }
-        return conversaciones;
+        return this.convertirAListaDTO(conversaciones);
     }
 
 
-    public List<Conversacion> findPeticionesTeleoperador(Usuario usuario) {
+    public List<ConversacionDTO> findPeticionesTeleoperador(UsuarioDTO usuario) {
         List<Conversacion> peticiones = this.conversacionRepository.findPeticionesTeleoperador(usuario.getId());
-        return peticiones;
+        return this.convertirAListaDTO(peticiones);
     }
 
-    public List<Conversacion> findPeticionesUsuario(Usuario usuario) {
+    public List<ConversacionDTO> findPeticionesUsuario(UsuarioDTO usuario) {
         List<Conversacion> peticiones = this.conversacionRepository.findPeticionesUsuario(usuario.getId());
-        return peticiones;
+        return this.convertirAListaDTO(peticiones);
     }
 
-    public Conversacion findConversacion(Integer id) {
+    public ConversacionDTO findConversacion(Integer id) {
         Optional<Conversacion> optConversacion = this.conversacionRepository.findById(id);
-        return optConversacion.get();
+        return optConversacion.get().getDTO();
     }
 
     public void eliminarConversacion(Integer id) {
@@ -73,14 +87,15 @@ public class ConversacionService {
         }
     }
 
-    public void iniciarConversacion(Integer id, Usuario usuario) {
+    public void iniciarConversacion(Integer id, UsuarioDTO usuario) {
         Optional<Conversacion> optConversacion = this.conversacionRepository.findById(id);
-        if(optConversacion.isPresent()) {
+        Optional<Usuario> optUsuario = this.usuarioRepository.findById(usuario.getId());
+        if(optConversacion.isPresent() && optUsuario.isPresent()) {
             Conversacion c = optConversacion.get();
             Mensaje m = new Mensaje();
             m.setConversacion(c);
             m.setCuerpo("Buenas, le atiene un teleoperador de Welkarten");
-            m.setEmisor(usuario);
+            m.setEmisor(optUsuario.get());
             m.setFecha(new Date());
             m.setHora(new Date());
             this.mensajeRepository.save(m);
@@ -88,5 +103,18 @@ public class ConversacionService {
             c.getMensajeList().add(m);
             this.conversacionRepository.save(c);
         }
+    }
+
+    public List<ConversacionDTO> convertirAListaDTO(List<Conversacion> lista) {
+        if(lista != null) {
+            List<ConversacionDTO> listaDTO = new ArrayList<>();
+            for(Conversacion c : lista) {
+                listaDTO.add(c.getDTO());
+            }
+            return listaDTO;
+        } else  {
+            return null;
+        }
+
     }
 }

@@ -5,21 +5,11 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.MensajeDTO;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -150,5 +140,16 @@ public class Mensaje implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Mensaje[ id=" + id + " ]";
     }
-    
+
+    @Transient
+    public MensajeDTO getDTO() {
+        MensajeDTO dto = new MensajeDTO();
+        dto.setId(this.getId());
+        dto.setCuerpo(this.getCuerpo());
+        dto.setFecha(this.getFecha());
+        dto.setHora(this.getHora());
+        //dto.setConversacion(this.getConversacion().getDTO());
+        dto.setEmisor(this.getEmisor().getDTO());
+        return dto;
+    }
 }

@@ -1,9 +1,10 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.ConversacionDTO;
 import es.taw.welkarten.dto.FiltroConversacion;
-import es.taw.welkarten.entity.Conversacion;
-import es.taw.welkarten.entity.Mensaje;
-import es.taw.welkarten.entity.Usuario;
+import es.taw.welkarten.dto.MensajeDTO;
+import es.taw.welkarten.dto.UsuarioDTO;
+
 import es.taw.welkarten.service.ConversacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class TeleoperadorController {
 
     @PostMapping("/filtrarConversacion")
     public String doFiltrarConversacion(@ModelAttribute("filtro") FiltroConversacion filtro, Model model) {
-        List<Conversacion> conversaciones = this.conversacionService.findConversaciones(filtro.getTeleoperador(), filtro.getUsuario());
+        List<ConversacionDTO> conversaciones = this.conversacionService.findConversaciones(filtro.getTeleoperador(), filtro.getUsuario());
         model.addAttribute("conversaciones", conversaciones);
         model.addAttribute("filtro", filtro);
         return "Teleoperador";
@@ -43,16 +44,16 @@ public class TeleoperadorController {
 
     @GetMapping("/cargaPeticiones")
     public String doCargarPeticiones(Model model, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        List<Conversacion> peticiones = this.conversacionService.findPeticionesTeleoperador(usuario);
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        List<ConversacionDTO> peticiones = this.conversacionService.findPeticionesTeleoperador(usuario);
         model.addAttribute("listaPeticiones", peticiones);
         return "PeticionesTeleoperador";
     }
 
     @GetMapping("/listaMisChats")
     public String doListarMisChats(Model model, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        List<Conversacion> misChats;
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        List<ConversacionDTO> misChats;
         if(usuario.getRol() == 5) {
             misChats = this.conversacionService.findPeticionesTeleoperador(usuario);
         } else {
@@ -64,8 +65,8 @@ public class TeleoperadorController {
 
     @GetMapping("/infoConversacion/{id}")
     public String doInfoConversacion(Model model, @PathVariable("id") Integer id) {
-        Conversacion c = this.conversacionService.findConversacion(id);
-        List<Mensaje> listaMensajes = c.getMensajeList();
+        ConversacionDTO c = this.conversacionService.findConversacion(id);
+        List<MensajeDTO> listaMensajes = c.getMensaje();
         model.addAttribute("conversacion", c);
         model.addAttribute("listaMensajes", listaMensajes);
         return "InfoConversacion";
@@ -79,15 +80,25 @@ public class TeleoperadorController {
 
     @GetMapping("/linkChat/{id}")
     public String doLinkChat(@PathVariable("id") Integer id, Model model) {
-        Conversacion c = this.conversacionService.findConversacion(id);
+        ConversacionDTO c = this.conversacionService.findConversacion(id);
         model.addAttribute("conversacion", c);
         return "chat";
     }
 
     @GetMapping("/iniciarConversacion/{id}")
     public String doIniciarConversacion(@PathVariable("id") Integer id, HttpSession session) {
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
         this.conversacionService.iniciarConversacion(id, usuario);
         return"redirect:/teleoperador/";
+    }
+
+    @PostMapping("/shoutPost/{id}")
+    public String doShoutPost() {
+        return "cipote";
+    }
+
+    @GetMapping("/shoutGet")
+    public String doShoutGet() {
+        return "cipote";
     }
 }

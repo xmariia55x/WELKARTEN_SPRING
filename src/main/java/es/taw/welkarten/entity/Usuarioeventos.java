@@ -175,14 +175,14 @@ public class Usuarioeventos implements Serializable {
     @Transient
     public UsuarioeventosDTO getDTO() {
         UsuarioeventosDTO usuarioeventosDTO = new UsuarioeventosDTO();
-        //usuarioeventosDTO.setUsuario(this.getUsuario().getDTO());
         usuarioeventosDTO.setApellidos(this.getApellidos());
         usuarioeventosDTO.setCiudad(this.getCiudad());
         usuarioeventosDTO.setDomicilio(this.getDomicilio());
         usuarioeventosDTO.setId(this.getId());
         usuarioeventosDTO.setSexo(this.getSexo());
-
         usuarioeventosDTO.setFechaNacimiento(this.getFechaNacimiento());
+        //eso estaba comentado(?)
+        //usuarioeventosDTO.setUsuario(this.getUsuario().getDTO());
         return usuarioeventosDTO;
     }
 }

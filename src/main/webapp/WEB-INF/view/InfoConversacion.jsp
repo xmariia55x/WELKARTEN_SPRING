@@ -8,8 +8,11 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Conversacion" %>
-<%@ page import="es.taw.welkarten.entity.Mensaje" %>
+
+
+<%@ page import="es.taw.welkarten.dto.ConversacionDTO" %>
+<%@ page import="es.taw.welkarten.dto.MensajeDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,9 +25,9 @@
     </head>
 
     <%
-        Usuario user = (Usuario) session.getAttribute("usuario");
-        Conversacion conversacion = (Conversacion) request.getAttribute("conversacion");
-        List<Mensaje> mensajes = (List<Mensaje>) request.getAttribute("listaMensajes");
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("usuario");
+        ConversacionDTO conversacion = (ConversacionDTO) request.getAttribute("conversacion");
+        List<MensajeDTO> mensajes = (List<MensajeDTO>) request.getAttribute("listaMensajes");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -71,7 +74,7 @@
                 <tbody>
                     <%
                         int i = 1;
-                        for (Mensaje m : mensajes) {
+                        for (MensajeDTO m : mensajes) {
                     %>
                     <tr>
                         <th scope="row"><%= i%></th>
