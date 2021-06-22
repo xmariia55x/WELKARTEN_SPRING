@@ -2,6 +2,7 @@ package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.entity.Evento;
+import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,9 @@ public class EventoService {
     public List<Evento> findEventosHoy(){
         return this.eventoRepository.findByEventosHoy(new Date());
     }
+
+    public List<Evento> findEventosCreadorEventos(Integer idcreador){ return this.eventoRepository.findByCreadorEventos(idcreador); }
+
 
     public List<Evento> findEventosEstaSemana(){
         Date fechaHoy = new Date();

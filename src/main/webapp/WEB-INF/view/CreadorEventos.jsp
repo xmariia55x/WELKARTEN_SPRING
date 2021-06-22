@@ -1,8 +1,11 @@
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Etiquetasevento"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
+
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Usuario"%>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -127,7 +130,7 @@ and open the template in the editor.
 
         <!-- CONTENIDO -->
 
-        <form action="ServletBusquedaAvanzadaEventos"> 
+        <form:form modelAttribute="busqueda" action="/creadoreventos/busquedaavanzada" method="post">
             <section class="intro">
                 <div class="bg-image h-100">
                     <div class="mask d-flex align-items-center h-100">
@@ -138,8 +141,7 @@ and open the template in the editor.
                                         <div class="card-header">
                                             <div class="input-group input-group-lg">
 
-                                                <input type="text" name="nombre" class="form-control form-control-lg rounded" placeholder="Buscar" value=""    
-                                                       aria-label="nombre" aria-describedby="basic-addon2" />
+                                                <form:input path="nombre" class="form-control" id="filtroCreadorEventos" name="filtroCreadorEventos"></form:input>
 
                                                 <button type="submit" class="btn btn-primary" onclick="ServletBusquedaAvanzadaEventos" >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -150,33 +152,32 @@ and open the template in the editor.
                                             </div>
                                         </div>
 
-                                        <label class="accordion">Búsqueda avanzada</label>
+                                        <label class="accordion">Busqueda avanzada</label>
                                         <div class="panel">
                                             <div class="card-body p-4">
                                                 <h6 class="text-muted text-uppercase mt-3 mb-4"></h6>
                                                 <div class="row">
-                                                    <div class="col-md-4 mb-3">                                     
-                                                        Precio Máximo : <input type="text" name="precio" class="form-control"  value=""                                                       
+                                                    <div class="col-md-4 mb-3">
+                                                        Precio Maximo : <form:input path="precio" class="form-control" id="filtroCreadorEventos" name="filtroCreadorEventos"></form:input>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
 
-                                                    Aforo Máximo : <input type="text" name="aforo" class="form-control" value=""                         
+                                                    Aforo Maximo : <form:input path="aforo" class="form-control" id="filtroCreadorEventos" name="filtroCreadorEventos"></form:input>
 
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
 
-                                                Creador del Evento : <select name="creador">
-                                                    <option value=""></option>
-                                                    <%                                                    for (Usuario u : creadores) {
-                                                    %>
-                                                    <option value="<%= u.getId()%>"> <%= u.getNombre()%> </option>
-                                                    <%
-                                                        }
-                                                    %>
+                                                Creador del Evento : <form:select path="creador">
 
-                                                </select>
+                                                <form:option value=""></form:option>
+                                                <form:options items="${creadores}" itemLabel="nombre" itemValue="id"></form:options>
+
+
+                                            </form:select>
+
+
 
 
 
@@ -201,55 +202,61 @@ and open the template in the editor.
             </section>
 
 
-        </form>
+        </form:form>
 
 
 
 
         <div id="divfix">
             <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Crear nuevo Evento</button> -->
-            <a href="ServletCargarEventoEditarAdministrador" class="btn btn-primary">Crear nuevo Evento</a>
+            <a href="/CrearEditarEvento" class="btn btn-primary">Crear nuevo Evento</a>
         </div>
+
 
 
         <div class="column">
             <div class="row">
 
 
-                <div class="tab-pane fade show active" id="nav-todos" role="tabpanel" aria-labelledby="nav-todos-tab">
+
+                <div class="tab-pane fade show active" id="filtrados" role="tabpanel" aria-labelledby="nav-todos-tab">
                     <div class="contenido">
                         <%
-                            if (!primeraCarga) {
-                        %> <h1 class="display-4">Resultados de la búsqueda</h1><%
-                            if (eventosFiltrados == null || eventosFiltrados.isEmpty()) {
-                        %> <h2> No hay resultados</h2><%
-                                } else {
-                                    for (Evento e : eventosFiltrados) {
-                                        List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
-                                        String etiquetas = "";
-                                        for (int i = 0; i < listaEtiquetas.size(); i++) {
-                                            etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
-                                            if (i < listaEtiquetas.size() - 1) {
-                                                etiquetas += ", ";
-                                            }
-                                        }
-                        %>
+
+                        %> <h1 class="display-4">Resultados de la busqueda</h1><%
+                        if (eventosFiltrados == null || eventosFiltrados.isEmpty()) {
+                    %> <h2> No hay resultados</h2><%
+                    } else {
+                        for (Evento e : eventosFiltrados) {
+                            List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                            String etiquetas = "";
+                            for (int i = 0; i < listaEtiquetas.size(); i++) {
+                                etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
+                                if (i < listaEtiquetas.size() - 1) {
+                                    etiquetas += ", ";
+                                }
+                            }
+
+
+                    %>
+
+
                         <div class="carta">
                             <div class="card" style="width: 18rem;">
-                                <img src="images/ticket.png" class="card-img-top" alt="Evento"/> 
+                                <img src="images/ticket.png" class="card-img-top" alt="Evento"/>
                                 <div class="card-body">
                                     <h5 class="card-title"><%=e.getTitulo()%></h5>
                                     <p class="card-text"><%=e.getLugar()%></p>
                                     <p class="card-text"><%=formatoFecha.format(e.getFechaInicio()) + " " + formatoHora.format(e.getHora())%></p>
                                     <p class="card-text"><%=etiquetas%></p>
-                                    <!-- Cambiar id 1 por //evento.getEventoId()// -->
+
                                     <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                 </div>
                             </div>
                         </div>
                         <%      }
-                                }
-                            }
+                        }
+
                             sesion.setAttribute("primeraCarga", false);
                         %>
                     </div>
@@ -261,11 +268,10 @@ and open the template in the editor.
 
 
 
-
             <div class="row">
                 <h1 class="display-4">Mis Eventos</h1>
 
-                <div class="tab-pane fade show active" id="nav-todos" role="tabpanel" aria-labelledby="nav-todos-tab">
+                <div class="tab-pane fade show active" id="misEventos" role="tabpanel" aria-labelledby="nav-todos-tab">
                     <div class="contenido">
                         <% if (misEventos == null || misEventos.isEmpty()) { %>
                         <h2>No hay resultados</h2>
@@ -309,11 +315,11 @@ and open the template in the editor.
 
             <div class="row">
 
-                <h1 class="display-4">Eventos Próximos</h1>
+                <h1 class="display-4">Eventos Proximos</h1>
 
 
 
-                <div class="tab-pane fade show active" id="nav-todos" role="tabpanel" aria-labelledby="nav-todos-tab">
+                <div class="tab-pane fade show active" id="proximos" role="tabpanel" aria-labelledby="nav-todos-tab">
                     <div class="contenido">
                         <% if (eventosProximos == null || eventosProximos.isEmpty()) { %>
                         <h2>No hay resultados</h2>
