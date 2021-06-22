@@ -9,9 +9,9 @@ public class UsuarioeventosDTO {
     private String apellidos;
     private String domicilio;
     private String ciudad;
-    private String fechaNacimiento;
+    private Date fechaNacimiento;
     private String sexo;
-    private Usuario usuario;
+    private UsuarioDTO usuario;
     private String contraseniaRepetida;
 
     public UsuarioeventosDTO() {
@@ -50,13 +50,6 @@ public class UsuarioeventosDTO {
         this.ciudad = ciudad;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
 
     public String getSexo() {
         return sexo;
@@ -66,19 +59,27 @@ public class UsuarioeventosDTO {
         this.sexo = sexo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public String getContraseniaRepetida() {
         return contraseniaRepetida;
     }
 
     public void setContraseniaRepetida(String contraseniaRepetida) {
         this.contraseniaRepetida = contraseniaRepetida;
+    }
+
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Date getFechaNacimiento(){
+        return fechaNacimiento;
     }
 }

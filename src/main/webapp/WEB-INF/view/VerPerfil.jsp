@@ -8,6 +8,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioeventosDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,7 +27,7 @@
         <br>
         <br>
         <%
-    Usuario usuario = (Usuario)session.getAttribute("usuario");
+    UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
     if (usuario == null) {
     }else {   
         String rol = "";
@@ -85,7 +87,7 @@
                                     </div>
                                 </div>
         <% if(usuario.getRol() == 4) { 
-            Usuarioeventos usuarioEventos = usuario.getUsuarioeventos();
+            UsuarioeventosDTO usuarioEventos = usuario.getUsuarioeventos();
             String sexo = "Hombre";
             if(usuarioEventos.getSexo().equals("M")) sexo = "Mujer";
             else if(usuarioEventos.getSexo().equals("O")) sexo = "Otro";

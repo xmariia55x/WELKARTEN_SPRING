@@ -1,6 +1,7 @@
 package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.EventoRepository;
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +24,13 @@ public class EventoService {
         this.eventoRepository = eventoRepository;
     }
 
-    public List<Evento> findEventos(){
-        return this.eventoRepository.findAll();
+    public List<EventoDTO> findEventos(){
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        List<Evento> eventos = this.eventoRepository.findAll();
+        for(Evento event : eventos){
+            eventosDTO.add(event.getDTO());
+        }
+        return eventosDTO;
     }
 
     public List<Evento> findEventosNoCaducados(){

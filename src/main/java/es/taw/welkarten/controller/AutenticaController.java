@@ -44,7 +44,7 @@ public class AutenticaController{
             model.addAttribute("error", strError);
             strTo = "InicioSesion";
         } else {
-            Usuario usuario = this.usuarioService.comprobarCredenciales(email, password);
+            UsuarioDTO usuario = this.usuarioService.comprobarCredenciales(email, password);
             if (usuario == null) { // Error -- No se encuentra el usuario en la BD
                 strError = "n";
                 model.addAttribute("error", strError);

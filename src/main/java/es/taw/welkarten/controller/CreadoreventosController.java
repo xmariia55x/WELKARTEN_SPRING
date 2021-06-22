@@ -2,12 +2,12 @@ package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
-import es.taw.welkarten.dto.BusquedaAvanzadaEvento;
+
 import es.taw.welkarten.dto.FiltroConversacion;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
-import es.taw.welkarten.service.BusquedaAvanzadaService;
+
 import es.taw.welkarten.service.EventoService;
 import es.taw.welkarten.service.UsuarioeventosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,12 @@ public class CreadoreventosController {
 
     private UsuarioRepository usuarioRepository;
 
-    private BusquedaAvanzadaService busquedaAvanzadaService;
+    //private BusquedaAvanzadaService busquedaAvanzadaService;
 
-    @Autowired
+    /*@Autowired
     public void setBusquedaAvanzadaService(BusquedaAvanzadaService busquedaAvanzadaService) {
         this.busquedaAvanzadaService = busquedaAvanzadaService;
-    }
+    }*/
 
     @Autowired
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
@@ -52,13 +52,13 @@ public class CreadoreventosController {
 
 
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String doCreadorEventos(Model model, HttpSession session) {
         BusquedaAvanzadaEvento busqueda = new BusquedaAvanzadaEvento();
         return this.doBusquedaAvanzada(busqueda, model, session);
-    }
+    }*/
 
-    @PostMapping("/busquedaavanzada")
+    /*@PostMapping("/busquedaavanzada")
     public String doBusquedaAvanzada(@ModelAttribute("busqueda") BusquedaAvanzadaEvento busqueda, Model model, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
@@ -74,7 +74,7 @@ public class CreadoreventosController {
         model.addAttribute("misEventos", listaEventosPropios);
         model.addAttribute("creadores", creadores);
         return "CreadorEventos";
-    }
+    }*/
 
 
 
