@@ -90,4 +90,14 @@ public class TeleoperadorController {
         this.conversacionService.iniciarConversacion(id, usuario);
         return"redirect:/teleoperador/";
     }
+
+    @PostMapping("/shoutPost/{id}")
+    public String doShoutPost() {
+        return "cipote";
+    }
+
+    @GetMapping("/shoutGet")
+    public String doShoutGet() {
+        return "cipote";
+    }
 }

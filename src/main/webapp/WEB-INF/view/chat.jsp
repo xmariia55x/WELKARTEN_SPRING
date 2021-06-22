@@ -64,7 +64,7 @@
     function postMessage() {
         var xmlhttp = new XMLHttpRequest();
         //xmlhttp.open("POST", "shoutServlet?t="+new Date(), false);
-        xmlhttp.open("POST", "shoutServlet?id=<%=conversacion.getId()%>", false);
+        xmlhttp.open("POST", "teleoperador/shoutPost/<%=conversacion.getId()%>", false);
         xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         var nameText = escape(document.getElementById("name").value);
         var messageText = escape(document.getElementById("message").value);
@@ -84,7 +84,7 @@
                 }
             }
             //xmlhttp.open("GET", "shoutServlet?t="+new Date(), true);
-            xmlhttp.open("GET", "shoutServlet", true);
+            xmlhttp.open("GET", "/teleoperador/shoutGet", true);
             xmlhttp.send();
         }
     }
