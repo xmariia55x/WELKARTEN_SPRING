@@ -5,21 +5,13 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.ConversacionDTO;
+import es.taw.welkarten.dto.MensajeDTO;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -113,6 +105,23 @@ public class Conversacion implements Serializable {
     @Override
     public String toString() {
         return "GestorEventos2021.entity.Conversacion[ id=" + id + " ]";
+    }
+
+    @Transient
+    public ConversacionDTO getDTO() {
+        ConversacionDTO dto = new ConversacionDTO();
+        dto.setId(this.getId());
+        dto.setTeleoperador(this.getTeleoperador().getDTO());
+        dto.setUsuario(this.getUsuario().getDTO());
+
+        //Lista de mensajes
+        List<MensajeDTO> lista = new ArrayList<>();
+        for(Mensaje m : this.getMensajeList()) {
+            lista.add(m.getDTO());
+        }
+        dto.setMensaje(lista);
+
+        return dto;
     }
     
 }

@@ -7,6 +7,7 @@
 
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Conversacion" %>
+<%@ page import="es.taw.welkarten.dto.ConversacionDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     </head>
     <%
-        List<Conversacion> misChats = (List<Conversacion>)request.getAttribute("misChats");
+        List<ConversacionDTO> misChats = (List<ConversacionDTO>)request.getAttribute("misChats");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -38,8 +39,8 @@
                         </thead>
                         <tbody>
                             <%
-                                for(Conversacion c : misChats) {
-                                    if(!c.getMensajeList().isEmpty()) {
+                                for(ConversacionDTO c : misChats) {
+                                    if(!c.getMensaje().isEmpty()) {
                             %>            
                                         <tr>
                                         <th scope="row">1</th>

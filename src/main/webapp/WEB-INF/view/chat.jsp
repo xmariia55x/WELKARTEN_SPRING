@@ -1,5 +1,5 @@
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Conversacion" %><%--
+<%@ page import="es.taw.welkarten.dto.ConversacionDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %><%--
     Document   : chat
     Created on : 13-may-2021, 13:14:44
     Author     : adric
@@ -20,8 +20,8 @@
         <title>CHAT</title>
     </head>
     <%
-        Usuario user = (Usuario) session.getAttribute("usuario");
-        Conversacion conversacion = (Conversacion) request.getAttribute("conversacion");
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("usuario");
+        ConversacionDTO conversacion = (ConversacionDTO) request.getAttribute("conversacion");
     %>    
 
     <body onload="getMessages();">
