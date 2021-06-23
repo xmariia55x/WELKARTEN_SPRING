@@ -143,6 +143,9 @@ public class UsuarioService {
         conversacion.setUsuario(usuario);
         this.conversacionRepository.save(conversacion);
 
+        usuario.getConversacionList1().add(conversacion);
+        teleoperador.getConversacionList().add(conversacion);
+
         String done = "Conversación creada con éxito";
         return done;
     }
