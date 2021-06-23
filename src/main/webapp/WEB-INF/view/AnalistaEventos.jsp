@@ -27,7 +27,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
             //Cambia esto que tiene que ser DTO cuando ya lo cambien !!!!!
             //------
 
-            Usuario user = (Usuario) session.getAttribute("usuario");
+            UsuarioDTO user = (UsuarioDTO) session.getAttribute("usuario");
             List <EstudioDTO> estudios = (List) request.getAttribute("estudios");
             
         %>

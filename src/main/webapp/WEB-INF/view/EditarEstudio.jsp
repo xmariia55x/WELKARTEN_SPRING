@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="es.taw.welkarten.entity.Estudio" %><%--
+<%@ page import="es.taw.welkarten.entity.Estudio" %>
+<%@ page import="es.taw.welkarten.dto.EstudioDTO" %><%--
     Document   : CrearEditarEstudio
     Created on : 12-may-2021, 16:48:13
     Author     : david
@@ -19,7 +20,7 @@
         <title>Editar Estudio</title>
     </head>
     <%
-        Estudio e = (Estudio)request.getAttribute("estudio");
+        EstudioDTO e = (EstudioDTO)request.getAttribute("estudio");
        
         
     %>
