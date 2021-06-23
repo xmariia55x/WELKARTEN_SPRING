@@ -65,7 +65,7 @@ public class AnalistaController {
         model.addAttribute("estudio",estudio);
         EstudioDTO estudioDTO = new EstudioDTO();
         estudioDTO.setId(estudio.getId());
-        //estudioDTO.setCorreo(estudio.getAnalista().getCorreo());
+        estudioDTO.setCorreo(estudio.getCorreo());
         estudioDTO.setDescripcion(estudio.getDescripcion());
         estudioDTO.setResultado(estudio.getResultado());
         model.addAttribute("estudioDTO",estudioDTO);
@@ -75,7 +75,7 @@ public class AnalistaController {
     @GetMapping("/crear")
     public String toCrear(Model model){
 
-        model.addAttribute("eventos",this.analistaService.findAllEventos());
+        model.addAttribute("eventos",this.analistaService.findAllEventosDTO());
         EstudioDTO estudioDTO = new EstudioDTO();
         model.addAttribute("estudioDTO",estudioDTO);
         return "CrearEstudio";
@@ -91,9 +91,9 @@ public class AnalistaController {
     }
 
     @PostMapping("/modiDTO")
-    public String doModi(Model model, @ModelAttribute("estudioDTO") EstudioDTO estudioDTO){
+    public String doModi(Model model, @ModelAttribute("estudioDTO") EstudioDTO estudioDTO,HttpSession session){
 
-        //this.analistaService.doGuardarEstudio();
+        this.analistaService.doGuardarEstudio(model,estudioDTO,session);
         return "redirect:/analista/";
     }
 }

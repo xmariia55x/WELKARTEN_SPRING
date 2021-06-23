@@ -1,6 +1,4 @@
 
-<%@page import="GestorEventos2021.entity.Usuario"%>
-
     <head>
 
         <title>Formulario de contacto</title>
@@ -173,7 +171,7 @@
             if(done != null) {
         %>        
                 <div class="alert alert-success" role="alert">
-                Conversación creada con éxito
+                Conversaci&oacute;n creada con &eacute;xito
                 </div>
         <%
             }    
@@ -181,7 +179,7 @@
                 if(strError.equals("v")) {
                     %>
                     <div class="alert alert-danger" role="alert">
-                    ERROR: Debe iniciar sesión para poder contactarnos
+                    ERROR: Debe iniciar sesi&oacute;n para poder contactarnos
                     </div>
                     <%    
                 } else if(strError.equals("i")) {
@@ -194,13 +192,15 @@
                 }   
             %>
         
-        <div class="d-grid gap-2 col-6 mx-auto">
+        <div class="d-grid gap-2 col-6 mx-auto gridazo">
                    
-        <input type="button" class="btn btn-primary btn-lg" id="btnContacto" value="¿Quiere ponerse en contacto con un teleoperador?" name="btnContacto"
-                                       onclick="location.href = 'ServletCrearConversacion'" />
+        <input type="button" class="btn btn-primary btn-lg" id="btnContacto" value="Quiere ponerse en contacto con un teleoperador?" name="btnContacto"
+                                       onclick="location.href = '/crearConversacion'" />
+
+            <p class="fw-light">NOTA: Para poder contactarnos, debe estar registrado como usuario o ser un creador de eventos</p>
+
         </div>
-        
-        <p class="fw-light">NOTA: Para poder contactarnos, debe estar registrado como usuario o ser un creador de eventos</p>
+
         
         <!--
         <div class="contact_form">
@@ -208,7 +208,7 @@
             <div class="formulario">    
                 <br/>
                 <h1>Formulario de contacto</h1>
-                <h3>Escríbenos y en breve nos pondremos en contacto contigo</h3>
+                <h3>Escrï¿½benos y en breve nos pondremos en contacto contigo</h3>
 
 
                 <form action="submeter-formulario.php" method="post">       
@@ -229,7 +229,7 @@
                     </p>
 
                     <p>
-                        <label for="telefone" class="colocar_telefono">Teléfono
+                        <label for="telefone" class="colocar_telefono">Telï¿½fono
                         </label>
                         <input type="tel" name="introducir_telefono" id="telefono" >
                     </p>    
@@ -251,7 +251,7 @@
                         <label for="mensaje" class="colocar_mensaje">Mensaje
                             <span class="obligatorio">*</span>
                         </label>                     
-                        <textarea name="introducir_mensaje" class="texto_mensaje" id="mensaje" required="obligatorio" placeholder="Deja aquí tu comentario..."></textarea> 
+                        <textarea name="introducir_mensaje" class="texto_mensaje" id="mensaje" required="obligatorio" placeholder="Deja aquï¿½ tu comentario..."></textarea> 
                     </p>                    
 
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>

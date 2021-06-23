@@ -4,6 +4,7 @@ import es.taw.welkarten.dao.ConversacionRepository;
 import es.taw.welkarten.dao.MensajeRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dto.ConversacionDTO;
+import es.taw.welkarten.dto.MensajeDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Mensaje;
@@ -103,6 +104,23 @@ public class ConversacionService {
             c.getMensajeList().add(m);
             this.conversacionRepository.save(c);
         }
+    }
+
+    public void guardarMensaje(Integer idConversacion, Integer idUsuario, String cuerpo) {
+        Mensaje m = new Mensaje();
+        Conversacion conversacion = this.conversacionRepository.findById(idConversacion).get();
+        Usuario usuario = this.usuarioRepository.findById(idUsuario).get();
+
+        m.setConversacion(conversacion);
+        m.setCuerpo(cuerpo);
+        m.setEmisor(usuario);
+        m.setFecha(new Date());
+        m.setHora(new Date());
+
+        this.mensajeRepository.save(m);
+
+        conversacion.getMensajeList().add(m);
+        this.conversacionRepository.save(conversacion);
     }
 
     public List<ConversacionDTO> convertirAListaDTO(List<Conversacion> lista) {

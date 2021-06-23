@@ -1,9 +1,11 @@
 package es.taw.welkarten.service;
 
+import es.taw.welkarten.dao.ConversacionRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Entrada;
+import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.entity.Usuarioeventos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,16 @@ import java.util.Optional;
 public class UsuarioService {
     private UsuarioRepository usuarioRepository;
     private UsuarioeventosRepository usuarioeventosRepository;
+    private ConversacionRepository conversacionRepository;
+
+    public ConversacionRepository getConversacionRepository() {
+        return conversacionRepository;
+    }
+
+    @Autowired
+    public void setConversacionRepository(ConversacionRepository conversacionRepository) {
+        this.conversacionRepository = conversacionRepository;
+    }
 
     public UsuarioRepository getUsuarioRepository() {
         return usuarioRepository;
@@ -61,6 +73,16 @@ public class UsuarioService {
             Usuario usuarioEliminar = usuarioOptional.get();
             this.usuarioRepository.delete(usuarioEliminar);
         }
+    }
+
+    public List<UsuarioDTO> findTeleoperadores() {
+        List<UsuarioDTO> listaTeleoperadores = new ArrayList<>();
+        List<Usuario> lista = this.usuarioRepository.findByRol(5);
+        for(Usuario u : lista) {
+            listaTeleoperadores.add(u.getDTO());
+        }
+
+        return listaTeleoperadores;
     }
 
     public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
@@ -108,5 +130,20 @@ public class UsuarioService {
         }
 
         return usuarioDTOdevuelto;
+    }
+
+    public String crearConversacion(Integer idTele, Integer idUser) {
+        Usuario teleoperador = this.usuarioRepository.findById(idTele).get();
+        Usuario usuario = this.usuarioRepository.findById(idUser).get();
+
+        //Creo la conversacion sin lista de mensajes
+        Conversacion conversacion = new Conversacion();
+
+        conversacion.setTeleoperador(teleoperador);
+        conversacion.setUsuario(usuario);
+        this.conversacionRepository.save(conversacion);
+
+        String done = "Conversación creada con éxito";
+        return done;
     }
 }
