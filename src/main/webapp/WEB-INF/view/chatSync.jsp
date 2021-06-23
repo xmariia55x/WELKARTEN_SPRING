@@ -26,7 +26,6 @@
         <form id="usernameForm" name="usernameForm">
             <div class="form-group">
                 <br/>
-                <img src="/images/chatnombre.png">
                 <br/>
                 <input type="text" value="<%= usuario.getNombre() %>" id="name" placeholder="Nome"
                        autocomplete="off" class="form-control" readonly="readonly" />
