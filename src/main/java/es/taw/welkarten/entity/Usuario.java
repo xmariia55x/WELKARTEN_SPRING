@@ -222,12 +222,15 @@ public class Usuario implements Serializable {
     public UsuarioDTO getDTO() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setCorreo(this.getCorreo());
-        usuarioDTO.setUsuarioeventos(this.getUsuarioeventos().getDTO());
         usuarioDTO.setId(this.getId());
         usuarioDTO.setNif(this.getNif());
         usuarioDTO.setNombre(this.getNombre());
         usuarioDTO.setPassword(this.getPassword());
         usuarioDTO.setRol(this.getRol());
+        //Adri: Todo lo que no sea de eventos no tiene usuarioeventos
+        if(usuarioDTO.getRol() == 4) {
+            usuarioDTO.setUsuarioeventos(this.getUsuarioeventos().getDTO());
+        }
         return usuarioDTO;
     }
 }
