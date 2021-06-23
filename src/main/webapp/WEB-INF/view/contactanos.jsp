@@ -192,13 +192,15 @@
                 }   
             %>
         
-        <div class="d-grid gap-2 col-6 mx-auto">
+        <div class="d-grid gap-2 col-6 mx-auto gridazo">
                    
-        <input type="button" class="btn btn-primary btn-lg" id="btnContacto" value="�Quiere ponerse en contacto con un teleoperador?" name="btnContacto"
+        <input type="button" class="btn btn-primary btn-lg" id="btnContacto" value="Quiere ponerse en contacto con un teleoperador?" name="btnContacto"
                                        onclick="location.href = '/crearConversacion'" />
+
+            <p class="fw-light">NOTA: Para poder contactarnos, debe estar registrado como usuario o ser un creador de eventos</p>
+
         </div>
-        
-        <p class="fw-light">NOTA: Para poder contactarnos, debe estar registrado como usuario o ser un creador de eventos</p>
+
         
         <!--
         <div class="contact_form">
