@@ -3,6 +3,7 @@ package es.taw.welkarten.service;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
 import es.taw.welkarten.dto.UsuarioDTO;
+import es.taw.welkarten.entity.Entrada;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.entity.Usuarioeventos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class UsuarioService {
         //Se extrae el usuario que hemos guardado
         Usuario usuarioExtraido = this.usuarioRepository.findByCorreo(usuarioDTO.getCorreo());
         UsuarioDTO usuarioDTOdevuelto = usuarioExtraido.getDTO();
-        if(usuarioExtraido.getUsuarioeventos() != null){
+        if(usuarioExtraido.getUsuarioeventos() != null && usuarioExtraido.getRol() == 4){
             Usuarioeventos usuarioEventos = usuarioExtraido.getUsuarioeventos();
             usuarioEventos.setApellidos(usuarioDTO.getUsuarioeventos().getApellidos());
             usuarioEventos.setDomicilio(usuarioDTO.getUsuarioeventos().getDomicilio());
