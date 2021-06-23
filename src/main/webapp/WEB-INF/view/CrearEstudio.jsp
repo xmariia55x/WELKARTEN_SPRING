@@ -4,6 +4,7 @@
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -23,7 +24,8 @@ and open the template in the editor.fcxddxdnjnjjnjnj
     </head>
     
         <%
-            Usuario user = (Usuario) session.getAttribute("usuario");
+            //Cambia esto que es DTO
+            UsuarioDTO user = (UsuarioDTO) session.getAttribute("usuario");
             //List <Estudio> estudios = (List) request.getAttribute("listaEstudios");
             List<EventoDTO> eventos = (List) request.getAttribute("eventos");
             
