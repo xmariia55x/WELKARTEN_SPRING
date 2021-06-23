@@ -2,9 +2,7 @@ package es.taw.welkarten.controller;
 
 import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
-import es.taw.welkarten.dto.BusquedaAvanzadaEvento;
-import es.taw.welkarten.dto.EventoDTO;
-import es.taw.welkarten.dto.FiltroConversacion;
+import es.taw.welkarten.dto.*;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
@@ -68,7 +66,7 @@ public class CreadoreventosController {
     @PostMapping("/busquedaavanzada")
     public String doBusquedaAvanzada(@ModelAttribute("busqueda") BusquedaAvanzadaEvento busqueda, Model model, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
         List<Evento> listaEventosEstaSemana = this.eventoService.findEventosEstaSemana();
         List<Evento> listaEventosPropios = this.eventoService.findEventosCreadorEventos(usuario.getId());
         List<Usuario> creadores = this.usuarioRepository.findByRol(2);
@@ -87,7 +85,7 @@ public class CreadoreventosController {
     public String doEditar (@PathVariable("id") Integer id, Model model) {
 
         EventoDTO evento = this.eventoService.buscarEvento(id);
-        List<Etiqueta> etiquetas = this.etiquetaService.findEtiquetas();
+        List<EtiquetaDTO> etiquetas = this.etiquetaService.findEtiquetas();
         model.addAttribute("etiquetas", etiquetas);
         model.addAttribute("evento", evento);
 
@@ -96,7 +94,7 @@ public class CreadoreventosController {
 
     @GetMapping("/nuevoEvento")
     public String doNuevoEvento (Model model) {
-        List<Etiqueta> etiquetas = this.etiquetaService.findEtiquetas();
+        List<EtiquetaDTO> etiquetas = this.etiquetaService.findEtiquetas();
         EventoDTO evento = new EventoDTO();
         model.addAttribute("evento", evento);
         return "CrearEditarEventoCreador";
@@ -104,9 +102,10 @@ public class CreadoreventosController {
 
     @PostMapping("/guardar")
     public String doGuardar (@ModelAttribute("evento") EventoDTO evento) {
-        this.eventoService.guardarCliente(evento);
+       // this.eventoService.guardarCliente(evento);
         return "redirect:/customer/";
     }
+
 
     /*
 

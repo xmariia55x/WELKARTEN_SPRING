@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -71,7 +72,7 @@ and open the template in the editor.
         <!-- FORMULARIO PARA CREAR O EDITAR UN NUEVO EVENTO -->
         <div class="global_nuevo_evento">
 
-            <form:form action="/creadoreventos/guardar">
+            <form:form action="/creadoreventos/guardar" modelattribute="evento" method="post">
                 
                 <%
                     if (error != null && error.equals("etiquetasIncorrectas")) {
@@ -100,48 +101,49 @@ and open the template in the editor.
                     
                 
                 <div class="mb-3" style="text-align: left">
-                    <label for="exampleDropdownFormEmail2" class="form-label">Nombre del evento</label>
-                    <input type="text" name="nombre_evento" class="form-control" value="<%= nombre%>" required>
+                    <label for="exampleDropdownFormEmail2" class="form-label" >Nombre del evento</label>
+                    <form:input path="nombre" required="required" class="form-control"></form:input>
+
                 </div>
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label">Descripción del evento</label>
-                    <input type="text" name="descripcion_evento" class="form-control" value="<%= descripcion%>" required>
+                    <form:input path="descripcion" required="required" class="form-control"></form:input>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
                     <label for="birthday" class="form-label">Fecha del evento</label>
-                    <input type="date" class="form-control" id="fecha_evento" value="<%= fechaEvento%>" name="fecha_evento" required>
+                    <form:input path="fechaInicio" required="required" class="form-control"></form:input>
                 </div> 
 
                 <div class="mb-3" style="text-align: left">
                     <label for="inputMDEx1" class="form-label">Hora del evento</label>
-                    <input type="time" name="hora_evento" id="inputMDEx1" value="<%= hora%>" class="form-control" required>
+                    <form:input path="hora" required="required" class="form-control"></form:input>
 
                 </div>
 
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label">Lugar del evento</label>
-                    <input type="text" name="lugar_evento" value="<%= lugar %>" class="form-control" required>
+                    <form:input path="lugar" required="required" class="form-control"></form:input>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
                     <label for="birthday" class="form-label">Fecha límite para comprar entradas</label>
-                    <input type="date" class="form-control" name="fecha_limite_entradas" value="<%= fechaLimite%>" required>
+                    <form:input path="fechaReserva" required="required" class="form-control"></form:input>
                 </div> 
 
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label">Coste de la entrada</label>
-                    <input type="text" name="coste_entrada_evento" class="form-control" value="<%= coste%>" required>
+                    <form:input path="costeEntrada" required="required" class="form-control"></form:input>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label">Número máximo de entradas por persona</label>
-                    <input type="text" name="maximo_entradas" class="form-control" value="<%= numMaxEntradas%>" required >
+                    <form:input path="entradasMax" required="required" class="form-control"></form:input>
                 </div>
 
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label">Aforo máximo del evento</label>
-                    <input type="text" name="aforo_evento" class="form-control" value="<%=aforo%>" required >
+                    <form:input path="aforo" required="required" class="form-control"></form:input>
                 </div>
 
                 <div style="text-align: left">
@@ -170,8 +172,10 @@ and open the template in the editor.
                 <br>
                 <div class="mb-3" style="text-align: left">
                     <label for="exampleDropdownFormEmail2" class="form-label" <% if(edicion){ %> readonly <%}%> >Asientos</label> <br/>
-                    <input class="form-check-input" type="radio" name="seleccion_asientos" value="S" <%= asientoS%> <% if(edicion && asientoN.equals("checked")){ %> disabled <%}%> />Sí<br>
-                    <input class="form-check-input" type="radio" name="seleccion_asientos" value="N" <%= asientoN%> <% if(edicion && asientoS.equals("checked")){ %> disabled <%}%> />No<br>
+                    <form:radiobutton path="seleccionAsientos" class="form-check-input" value="S" <%= asientoS%> <% if(edicion && asientoN.equals("checked")){ %> disabled <%}%> />Sí <br>
+                    <form:radiobutton path="seleccionAsientos" class="form-check-input" value="N" <%= asientoS%> <% if(edicion && asientoN.equals("checked")){ %> disabled <%}%> />No <br>
+
+
                 </div>
 
                 <div class="mb-3" style="text-align: left">

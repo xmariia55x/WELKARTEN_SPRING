@@ -25,10 +25,9 @@ public class EventoDTO {
     private Integer asientosFila;
     private Date hora;
     private String lugar;
-    private List<Etiquetasevento> etiquetaseventoList;
-    private List<Entrada> entradaList;
+    private List<EtiquetaseventoDTO> etiquetaseventoList;
     private Usuario creador;
-
+    private String seleccionAsientos;
     public EventoDTO(){}
 
     public Integer getId() {
