@@ -5,6 +5,7 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EntradaDTO;
 import es.taw.welkarten.dto.EtiquetaseventoDTO;
 import es.taw.welkarten.dto.EventoDTO;
 
@@ -276,6 +277,13 @@ public class Evento implements Serializable {
         eventoDTO.setLugar(this.getLugar());
         eventoDTO.setId(this.getId());
         eventoDTO.setTitulo(this.getTitulo());
+
+        List<EntradaDTO> listaEntradas = new ArrayList<>();
+        for (Entrada e : this.getEntradaList()){
+            listaEntradas.add(e.getDTOSinEventoyUsuario());
+        }
+        eventoDTO.setEntradaList(listaEntradas);
+
         return eventoDTO;
     }
 

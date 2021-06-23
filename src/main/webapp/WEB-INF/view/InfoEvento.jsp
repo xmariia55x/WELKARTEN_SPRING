@@ -9,6 +9,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,14 +35,14 @@
         </script>
     </head>
     <%
-        Evento evento = (Evento) request.getAttribute("evento");
+        EventoDTO evento = (EventoDTO) request.getAttribute("evento");
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
         String fecha = formato.format(evento.getFechaInicio());
         DecimalFormat moneyFormat1 = new DecimalFormat("#.00");
         String precio = moneyFormat1.format(evento.getCosteEntrada());
         String desactivado = "";
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

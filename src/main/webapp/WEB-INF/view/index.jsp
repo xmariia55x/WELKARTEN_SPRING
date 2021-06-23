@@ -4,6 +4,8 @@
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaseventoDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,9 +23,9 @@ and open the template in the editor.
     </head>
     <%
         Integer registrado = (Integer) request.getAttribute("registrado");
-        List<Evento> listaEventos = (List<Evento>) request.getAttribute("listaEventos");
-        List<Evento> listaEventosHoy = (List<Evento>) request.getAttribute("listaEventosHoy");
-        List<Evento> listaEventosEstaSemana = (List<Evento>) request.getAttribute("listaEventosEstaSemana");
+        List<EventoDTO> listaEventos = (List<EventoDTO>) request.getAttribute("listaEventos");
+        List<EventoDTO> listaEventosHoy = (List<EventoDTO>) request.getAttribute("listaEventosHoy");
+        List<EventoDTO> listaEventosEstaSemana = (List<EventoDTO>) request.getAttribute("listaEventosEstaSemana");
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
@@ -106,8 +108,8 @@ and open the template in the editor.
                         <% if (listaEventos == null || listaEventos.isEmpty()) { %>
                                 <h2>No hay resultados</h2>
                         <% } else {
-                                for (Evento e : listaEventos) {
-                                    List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                                for (EventoDTO e : listaEventos) {
+                                    List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                                     String etiquetas = "";
                                     for (int i = 0; i < listaEtiquetas.size(); i++) {
                                         etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
@@ -140,8 +142,8 @@ and open the template in the editor.
                         <% if (listaEventosHoy == null || listaEventosHoy.isEmpty()) { %>
                                 <h2>No hay resultados</h2>
                         <% } else {
-                                for (Evento e : listaEventosHoy) {
-                                    List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                                for (EventoDTO e : listaEventosHoy) {
+                                    List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                                     String etiquetas = "";
                                     for (int i = 0; i < listaEtiquetas.size(); i++) {
                                         etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
@@ -174,8 +176,8 @@ and open the template in the editor.
                         <% if (listaEventosEstaSemana == null || listaEventosEstaSemana.isEmpty()) { %>
                                 <h2>No hay resultados</h2>
                         <% } else {
-                                for (Evento e : listaEventosEstaSemana) {
-                                    List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                                for (EventoDTO e : listaEventosEstaSemana) {
+                                    List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                                     String etiquetas = "";
                                     for (int i = 0; i < listaEtiquetas.size(); i++) {
                                         etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();

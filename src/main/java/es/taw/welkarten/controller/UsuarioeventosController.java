@@ -1,5 +1,6 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
 import es.taw.welkarten.entity.Evento;
@@ -55,7 +56,7 @@ public class UsuarioeventosController {
 
     @GetMapping("/evento/id/{id}")
     public String doInfoEvento(@PathVariable("id") Integer id, Model model){
-        Evento evento = this.eventoService.findEvento(id);
+        EventoDTO evento = this.eventoService.findEvento(id);
         model.addAttribute("evento", evento);
         return "InfoEvento";
     }

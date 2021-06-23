@@ -96,7 +96,7 @@ public class Etiquetasevento implements Serializable {
     public EtiquetaseventoDTO getDTO(){
         EtiquetaseventoDTO etiqueta = new EtiquetaseventoDTO();
         etiqueta.setEtiqueta(this.getEtiqueta().getDTO());
-        etiqueta.setEvento(this.getEvento().getDTO());
+        //etiqueta.setEvento(this.getEvento().getDTO());
         etiqueta.setId(this.getId());
         return etiqueta;
     }

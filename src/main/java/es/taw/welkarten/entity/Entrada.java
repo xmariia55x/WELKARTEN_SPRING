@@ -5,6 +5,9 @@
  */
 package es.taw.welkarten.entity;
 
+import es.taw.welkarten.dto.EntradaDTO;
+import es.taw.welkarten.dto.EtiquetaseventoDTO;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -139,5 +142,14 @@ public class Entrada implements Serializable {
     public String toString() {
         return "GestorEventos2021.entity.Entrada[ id=" + id + " ]";
     }
-    
+
+    public EntradaDTO getDTOSinEventoyUsuario(){
+        EntradaDTO entradaDTO = new EntradaDTO();
+        entradaDTO.setId(this.getId());
+        entradaDTO.setNumero(this.getNumero());
+        entradaDTO.setFila(this.getFila());
+        entradaDTO.setAsiento(this.getAsiento());
+
+        return entradaDTO;
+    }
 }

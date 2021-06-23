@@ -24,6 +24,7 @@ public class EtiquetaDTO {
         this.nombre = nombre;
     }
 
+
     public List<EtiquetaseventoDTO> getEtiquetaseventoList() {
         return etiquetaseventoList;
     }

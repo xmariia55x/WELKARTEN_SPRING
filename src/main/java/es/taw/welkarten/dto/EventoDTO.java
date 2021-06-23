@@ -1,5 +1,6 @@
 package es.taw.welkarten.dto;
 
+import es.taw.welkarten.entity.Entrada;
 import es.taw.welkarten.entity.Etiquetasevento;
 import es.taw.welkarten.entity.Usuario;
 
@@ -21,7 +22,8 @@ public class EventoDTO {
     private String lugar;
     private List<EtiquetaseventoDTO> etiquetaseventoList;
     private Usuario creador;
-    private String seleccionAsientos;
+    //private String seleccionAsientos;
+    private List<EntradaDTO> entradaList;
 
     public EventoDTO(){
 
@@ -131,6 +133,7 @@ public class EventoDTO {
         this.creador = creador;
     }
 
+    /* COMENTADO POR YERAY: ESTO PARA QUE? NO ESTA EN LA ENTIDAD
     public String getSeleccionAsientos() {
         return seleccionAsientos;
     }
@@ -138,6 +141,7 @@ public class EventoDTO {
     public void setSeleccionAsientos(String seleccionAsientos) {
         this.seleccionAsientos = seleccionAsientos;
     }
+    */
 
     public List<EtiquetaseventoDTO> getEtiquetaseventoList() {
         return etiquetaseventoList;
@@ -145,5 +149,13 @@ public class EventoDTO {
 
     public void setEtiquetaseventoList(List<EtiquetaseventoDTO> etiquetaseventoList) {
         this.etiquetaseventoList = etiquetaseventoList;
+    }
+
+    public List<EntradaDTO> getEntradaList() {
+        return entradaList;
+    }
+
+    public void setEntradaList(List<EntradaDTO> entradaList) {
+        this.entradaList = entradaList;
     }
 }

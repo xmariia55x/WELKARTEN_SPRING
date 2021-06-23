@@ -1,5 +1,6 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class InicioController {
 
     @GetMapping("/")
     public String doInicio(Model model){
-        List<Evento> listaEventos = this.eventoService.findEventosNoCaducados();
-        List<Evento> listaEventosHoy = this.eventoService.findEventosHoy();
-        List<Evento> listaEventosEstaSemana = this.eventoService.findEventosEstaSemana();
+        List<EventoDTO> listaEventos = this.eventoService.findEventosNoCaducados();
+        List<EventoDTO> listaEventosHoy = this.eventoService.findEventosHoy();
+        List<EventoDTO> listaEventosEstaSemana = this.eventoService.findEventosEstaSemana();
 
         model.addAttribute("listaEventos", listaEventos);
         model.addAttribute("listaEventosHoy", listaEventosHoy);
