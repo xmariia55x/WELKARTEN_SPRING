@@ -111,12 +111,14 @@ public class Etiqueta implements Serializable {
         dto.setId(this.getId());
         dto.setNombre(this.getNombre());
 
+        /*
         List<EtiquetaseventoDTO> lista = new ArrayList<>();
         for(Etiquetasevento etq : this.getEtiquetaseventoList()){
             lista.add(etq.getDTO());
         }
 
         dto.setEtiquetaseventoList(lista);
+        */
         return dto;
     }
 }

@@ -82,7 +82,7 @@ public class TeleoperadorController {
     public String doLinkChat(@PathVariable("id") Integer id, Model model) {
         ConversacionDTO c = this.conversacionService.findConversacion(id);
         model.addAttribute("conversacion", c);
-        return "chat";
+        return "chatSync";
     }
 
     @GetMapping("/iniciarConversacion/{id}")
@@ -92,13 +92,4 @@ public class TeleoperadorController {
         return"redirect:/teleoperador/";
     }
 
-    @PostMapping("/shoutPost/{id}")
-    public String doShoutPost() {
-        return "cipote";
-    }
-
-    @GetMapping("/shoutGet")
-    public String doShoutGet() {
-        return "cipote";
-    }
 }

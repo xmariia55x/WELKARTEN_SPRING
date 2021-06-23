@@ -1,8 +1,11 @@
 package es.taw.welkarten.controller;
 
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
+import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
+import es.taw.welkarten.service.EventoService;
 import es.taw.welkarten.service.UsuarioeventosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,12 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/usuarioeventos")
 public class UsuarioeventosController {
     private UsuarioeventosService usuarioeventosService;
+    private EventoService eventoService;
+
+    @Autowired
+    public void setEventoService(EventoService eventoService) {
+        this.eventoService = eventoService;
+    }
 
     @Autowired
     public void setUsuarioeventosService(UsuarioeventosService usuarioeventosService) {
@@ -46,7 +55,9 @@ public class UsuarioeventosController {
     }
 
     @GetMapping("/evento/id/{id}")
-    public String doInfoEvento(){
-        return null;
+    public String doInfoEvento(@PathVariable("id") Integer id, Model model){
+        EventoDTO evento = this.eventoService.findEvento(id);
+        model.addAttribute("evento", evento);
+        return "InfoEvento";
     }
 }

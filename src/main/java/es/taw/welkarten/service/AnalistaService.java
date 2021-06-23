@@ -4,6 +4,7 @@ import es.taw.welkarten.dao.EstudioRepository;
 import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dto.EstudioDTO;
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Estudio;
 import es.taw.welkarten.entity.Evento;
@@ -60,6 +61,14 @@ public class AnalistaService {
     }
 
     public List<Evento> findAllEventos(){return this.eventoRepository.findAll();}
+    public List<EventoDTO> findAllEventosDTO(){
+        List<EventoDTO> res = new ArrayList<>();
+        for(Evento e : findAllEventos()){
+            res.add(e.getDTO());
+        }
+        return res;
+
+    }
     public EstudioDTO findByIdDTO(Integer id){return this.estudioRepository.findById(id).get().getDTO();}
     public Estudio findById(Integer id){return this.estudioRepository.findById(id).get();}
 
@@ -91,7 +100,8 @@ public class AnalistaService {
         Estudio estudio;
         if(estudioDTO.getId() == null){
              estudio = new Estudio();
-             estudio.setAnalista((Usuario) session.getAttribute("usuario"));
+             UsuarioDTO u =(UsuarioDTO) session.getAttribute("usuario");
+             estudio.setAnalista(this.usuarioRepository.findById(u.getId()).get());
              estudio.setResultado(doConsulta(estudioDTO));
         }
         else{
