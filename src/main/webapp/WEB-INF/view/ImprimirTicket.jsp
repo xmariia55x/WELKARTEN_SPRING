@@ -7,9 +7,10 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Entrada"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.welkarten.entity.Entrada" %>
+<%@ page import="es.taw.welkarten.dto.EntradaDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,11 +19,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles2.css" rel="stylesheet">
-        <link href="stylesImprimirTicket.css" rel="stylesheet">
+        <link href="/css/styles2.css" rel="stylesheet">
+        <link href="/css/stylesImprimirTicket.css" rel="stylesheet">
     </head>
     <%
-        List<Entrada> listaEntradas = (List<Entrada>) request.getAttribute("listaEntradas");
+        List<EntradaDTO> listaEntradas = (List<EntradaDTO>) request.getAttribute("listaEntradas");
         Integer compra = (Integer) request.getAttribute("compra");
         Boolean hayFilas = listaEntradas.get(0).getFila() != null;
 
@@ -35,7 +36,7 @@
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="jsImprimirTicket.js" defer></script>
+        <script src="/js/jsImprimirTicket.js" defer></script>
 
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -81,10 +82,10 @@
         </br>
         </br>
     <!-- TICKETS -->
-    <% for (Entrada e : listaEntradas) {%>
+    <% for (EntradaDTO e : listaEntradas) {%>
         <div class="cardWrap">
             <div class="card cardLeft">
-                <img src="images/logo_pequeno.png" width="200" height="45" id="titulo">
+                <img src="/images/logo_pequeno.png" width="200" height="45" id="titulo">
                 <div class="title">
                     <h2><%=e.getEvento().getTitulo()%></h2>
                     <span>evento</span>
@@ -125,7 +126,7 @@
             </div>
             <div class="card cardRight">
                 <div class="number">
-                    <img src="images/ticket.png" width="80" height="80">
+                    <img src="/images/ticket.png" width="80" height="80">
                 </div>
                 <div class="precio"><%=String.format("%.2f", e.getEvento().getCosteEntrada())%>€</div>
                 <div class="barcode"></div>

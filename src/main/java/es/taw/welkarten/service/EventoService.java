@@ -5,6 +5,7 @@ import es.taw.welkarten.dto.ConversacionDTO;
 import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Evento;
+import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,5 +71,4 @@ public class EventoService {
             return null;
         }
     }
-
 }
