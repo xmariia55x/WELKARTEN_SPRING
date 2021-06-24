@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -69,8 +70,9 @@ public class AdministradorController {
     }
 
     @PostMapping("/guardarEvento")
-    public String doGuardarNuevoEvento(Model model, @ModelAttribute("eventoDTO") EventoDTO eventoDTO){
+    public String doGuardarNuevoEvento(Model model, @ModelAttribute("eventoDTO") EventoDTO eventoDTO, HttpSession session){
         String strError = "";
+        UsuarioDTO creador = (UsuarioDTO) session.getAttribute("usuario");
         if(eventoDTO.getSeleccionAsientos().equals("S")){
             if(eventoDTO.getFilas() == null && eventoDTO.getAsientosFila() == null){
                 strError = "seleccionIncorrecta";
@@ -81,19 +83,20 @@ public class AdministradorController {
                 strError = "seleccionIncorrecta";
                 return "redirect:/crearEventoAdministrador";
             }
-        } else if (eventoDTO.getFechaReserva().compareTo(eventoDTO.getFechaInicio()) > 0){
+        }
+        if (eventoDTO.getFechaReservaString().compareTo(eventoDTO.getFechaInicioString()) > 0){
             strError = "fechasIncorrectas";
             return "redirect:/crearEventoAdministrador";
-        } else if (eventoDTO.getEtiquetaseventoList().size() < 1 || eventoDTO.getEtiquetaseventoList().size() > 2){
+        }  else if (eventoDTO.getEtiquetas().size() < 1 || eventoDTO.getEtiquetas().size() > 2){
             strError = "etiquetasIncorrectas";
             return "redirect:/crearEventoAdministrador";
         } else {
             //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
-            this.eventoService.guardarEvento(eventoDTO);
-            System.out.println(eventoDTO.getEtiquetas().toString());
+            this.eventoService.guardarEvento(eventoDTO, creador);
             return "redirect:/administrador/";
+
         }
-        return "redirect:/administrador/";
+
     }
 
 }

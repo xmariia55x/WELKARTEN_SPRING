@@ -3,6 +3,7 @@ package es.taw.welkarten.service;
 import es.taw.welkarten.dao.EtiquetaRepository;
 import es.taw.welkarten.dao.EtiquetaseventoRepository;
 import es.taw.welkarten.dao.EventoRepository;
+import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dto.*;
 import es.taw.welkarten.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class EventoService {
     private EventoRepository eventoRepository;
     private EtiquetaseventoRepository etiquetaseventoRepository;
     private EtiquetaRepository etiquetaRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     public void setEtiquetaRepository(EtiquetaRepository etiquetaRepository) {
@@ -35,6 +37,11 @@ public class EventoService {
     @Autowired
     public void setEtiquetaseventoRepository(EtiquetaseventoRepository etiquetaseventoRepository) {
         this.etiquetaseventoRepository = etiquetaseventoRepository;
+    }
+
+    @Autowired
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<EventoDTO> findEventos(){
@@ -105,15 +112,14 @@ public class EventoService {
     }
 
 
-    public void guardarEvento (EventoDTO dto) {
-
-        Evento evento;
+    public void guardarEvento (EventoDTO dto, UsuarioDTO creador) {
+        Usuario usuario = this.usuarioRepository.findById(creador.getId()).get();
+        Evento evento = new Evento();
         if (dto.getId() == null) {
-            evento = new Evento();
             evento.setId(0);
-        } else {
+        } /*else {
             evento = this.eventoRepository.findById(dto.getId()).orElse(new Evento());
-        }
+        }*/
 
         evento.setAforo(dto.getAforo());
         if(dto.getSeleccionAsientos().equals("N")){
@@ -124,22 +130,12 @@ public class EventoService {
             evento.setFilas(dto.getFilas());
         }
 
-        evento.setCreador(dto.getCreador());
+
         evento.setDescripcion(dto.getDescripcion());
         evento.setCosteEntrada(dto.getCosteEntrada());
         evento.setEntradaList(new ArrayList<>()); // no hay entradas compradas aun
         evento.setEntradasMax(dto.getEntradasMax());
 
-        List<Etiquetasevento> etiquetaseventos = new ArrayList<>();
-        for(String etq : dto.getEtiquetas()){
-            Etiquetasevento etiqueta = new Etiquetasevento();
-            etiqueta.setEtiqueta(etiquetaRepository.findByNombre(etq));
-            etiqueta.setEvento(evento);
-            etiqueta.setId(0);
-            this.etiquetaseventoRepository.save(etiqueta);
-            etiquetaseventos.add(etiqueta);
-        }
-        evento.setEtiquetaseventoList(etiquetaseventos);
         DateFormat formateo = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date fechaInicio = formateo.parse(dto.getFechaInicioString());
@@ -153,7 +149,6 @@ public class EventoService {
 
         evento.setTitulo(dto.getTitulo());
 
-
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
         try {
             evento.setHora(formatoHora.parse(dto.getHoraString()));
@@ -162,8 +157,23 @@ public class EventoService {
         }
 
         evento.setLugar(dto.getLugar());
+        evento.setCreador(usuario);
 
         this.eventoRepository.save(evento);
+        Integer maxId = this.eventoRepository.findMaxId();
+        Evento eventoExtraido = this.eventoRepository.findById(maxId).get();
+        List<Etiquetasevento> etiquetaseventos = new ArrayList<>();
+        for(String etq : dto.getEtiquetas()){
+            Etiquetasevento etiqueta = new Etiquetasevento();
+            etiqueta.setEtiqueta(etiquetaRepository.findByNombre(etq));
+            etiqueta.setEvento(eventoExtraido);
+            etiqueta.setId(0);
+            this.etiquetaseventoRepository.save(etiqueta);
+            etiquetaseventos.add(etiqueta);
+        }
+        evento.setEtiquetaseventoList(etiquetaseventos);
+
+        this.eventoRepository.save(eventoExtraido);
     }
 
 

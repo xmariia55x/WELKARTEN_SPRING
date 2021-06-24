@@ -131,7 +131,7 @@ and open the template in the editor.
     </div>
 
     <div class="form-check" style="text-align: left">
-        <form:checkboxes items = "${listaEtiquetas}" itemLabel="nombre" path = "etiquetas" />
+        <form:checkboxes items = "${listaEtiquetas}" itemLabel="nombre" itemValue="nombre" path = "etiquetas"/>
     </div>
 
     <br>
