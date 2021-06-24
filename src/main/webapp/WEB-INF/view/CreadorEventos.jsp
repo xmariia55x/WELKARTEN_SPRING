@@ -26,7 +26,8 @@ and open the template in the editor.
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"> 
         <link href="styles2.css" rel="stylesheet">    
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/"> 
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
+
 
 
         <style>
@@ -108,7 +109,7 @@ and open the template in the editor.
 
     <%
 
-        UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
+
         List<UsuarioDTO> creadores = (List) request.getAttribute("creadores");
         List<EventoDTO> eventosFiltrados = (List) request.getAttribute("eventosFiltrados");
         List<EventoDTO> eventosProximos = (List) request.getAttribute("eventosProximos");
@@ -140,7 +141,7 @@ and open the template in the editor.
 
         <!-- CONTENIDO -->
 
-        <form:form modelAttribute="busqueda" action="/creadoreventos/busquedaavanzada" method="post">
+        <form:form modelAttribute="busqueda" action="/creadoreventos/busquedaavanzada" method="POST">
             <section class="intro">
                 <div class="bg-image h-100">
                     <div class="mask d-flex align-items-center h-100">
@@ -220,8 +221,9 @@ and open the template in the editor.
 
         <div id="divfix">
             <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Crear nuevo Evento</button> -->
-            <a href="/creadoreventos/nuevoEvento" class="btn btn-primary">Crear nuevo Evento</a>
+            <a href="/creadoreventos/nuevoEvento"  class="btn btn-primary mb-3 btn-lg">Crear Nuevo Evento</a>
         </div>
+
 
 
 

@@ -23,15 +23,9 @@ public class CreadoreventosController {
 
 
     private EventoService eventoService;
-
-
-
     private BusquedaAvanzadaService busquedaAvanzadaService;
-
     private EtiquetaService etiquetaService;
-
     private UsuarioService usuarioService;
-
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
@@ -46,9 +40,6 @@ public class CreadoreventosController {
     public void setBusquedaAvanzadaService(BusquedaAvanzadaService busquedaAvanzadaService) {
         this.busquedaAvanzadaService = busquedaAvanzadaService;
     }
-
-
-
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -83,29 +74,75 @@ public class CreadoreventosController {
         return "CreadorEventos";
     }
 
-    @GetMapping("/editarEvento/{id}")
-    public String doEditar (@PathVariable("id") Integer id, Model model) {
 
-        EventoDTO evento = this.eventoService.buscarEvento(id);
-        List<EtiquetaDTO> etiquetas = this.etiquetaService.findEtiquetas();
-        model.addAttribute("etiquetas", etiquetas);
-        model.addAttribute("evento", evento);
 
+    @GetMapping("/nuevoEvento")
+    public String doNuevoEvento(Model model, String error, Integer id){
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        EventoDTO eventoDTO;
+        if(id != null){
+            eventoDTO = this.eventoService.getEventoDTO(id);
+            Boolean editar = true;
+            model.addAttribute("editar", editar);
+        } else {
+            eventoDTO = new EventoDTO();
+        }
+
+
+        if(error != null) {
+            model.addAttribute("error", error);
+        }
+
+        model.addAttribute("etiquetas", listaEtiquetas);
+        model.addAttribute("eventoDTO", eventoDTO);
         return "CrearEditarEventoCreador";
     }
 
-    @GetMapping("/nuevoEvento")
-    public String doNuevoEvento (Model model) {
-        List<EtiquetaDTO> etiquetas = this.etiquetaService.findEtiquetas();
-        EventoDTO evento = new EventoDTO();
-        model.addAttribute("evento", evento);
-        return "CrearEditarEventoCreador";
+    @GetMapping("/eliminarEvento/{id}")
+    public String doBorrar (@PathVariable("id") Integer id) {
+        this.eventoService.eliminarEvento(id);
+        return "redirect:/creadoreventos/";
     }
 
     @PostMapping("/guardar")
-    public String doGuardar (@ModelAttribute("evento") EventoDTO evento) {
-       // this.eventoService.guardarCliente(evento);
-        return "redirect:/customer/";
+    public String doGuardar (Model model, @ModelAttribute("eventoDTO") EventoDTO eventoDTO, HttpSession session) {
+
+        String strError = "";
+        UsuarioDTO creador = (UsuarioDTO) session.getAttribute("usuario");
+        if(eventoDTO.getSeleccionAsientos().equals("S")){
+            if(eventoDTO.getFilas() == null && eventoDTO.getAsientosFila() == null){
+                strError = "seleccionIncorrecta";
+                return doNuevoEvento(model, strError, eventoDTO.getId());
+            }
+        } else if (eventoDTO.getSeleccionAsientos().equals("N")){
+            if(eventoDTO.getFilas() != null && eventoDTO.getAsientosFila() != null){
+                strError = "seleccionIncorrecta";
+                return doNuevoEvento(model, strError, eventoDTO.getId());
+            }
+        }
+        if (eventoDTO.getFechaReservaString().compareTo(eventoDTO.getFechaInicioString()) > 0){
+            strError = "fechasIncorrectas";
+            return doNuevoEvento(model, strError, eventoDTO.getId());
+        }  else if (eventoDTO.getEtiquetas().size() < 1 || eventoDTO.getEtiquetas().size() > 2){
+            strError = "etiquetasIncorrectas";
+            return doNuevoEvento(model, strError, eventoDTO.getId());
+        } else {
+            //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
+            this.eventoService.guardarEvento(eventoDTO, creador);
+            return "redirect:/creadoreventos/";
+
+        }
+    }
+
+    @GetMapping("/editarEvento/{id}")
+    public String doRedirigirEditarEvento(@PathVariable("id") Integer id, Model model){
+        EventoDTO eventoDTO = this.eventoService.getEventoDTO(id);
+        Boolean editar = true;
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        model.addAttribute("etiquetas", listaEtiquetas);
+        model.addAttribute("eventoDTO", eventoDTO);
+        model.addAttribute("editar", editar);
+        return "CrearEditarEventoCreador";
     }
 
 
