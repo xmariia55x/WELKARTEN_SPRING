@@ -52,7 +52,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/usuario/verPerfil">Mi perfil</a></li>
-                        <li><a class="dropdown-item" href="ServletMisEventos">Mis eventos</a></li>
+                        <li><a class="dropdown-item" href="/usuarioeventos/miseventos">Mis eventos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/usuario/cerrarSesion">
                                 Salir
