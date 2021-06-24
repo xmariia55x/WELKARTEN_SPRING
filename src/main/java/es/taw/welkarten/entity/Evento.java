@@ -12,6 +12,7 @@ import es.taw.welkarten.dto.EtiquetaseventoDTO;
 import es.taw.welkarten.dto.EventoDTO;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -272,6 +273,7 @@ public class Evento implements Serializable {
         }
 
         eventoDTO.setEtiquetaseventoList(lista);
+
         eventoDTO.setFechaInicio(this.getFechaInicio());
         eventoDTO.setFechaReserva(this.getFechaReserva());
         eventoDTO.setFilas(this.getFilas());
@@ -289,4 +291,41 @@ public class Evento implements Serializable {
         return eventoDTO;
     }
 
+    @Transient
+    public EventoDTO getDTOfechaString(){
+        EventoDTO eventoDTO = new EventoDTO();
+        eventoDTO.setAforo(this.getAforo());
+        eventoDTO.setAsientosFila(this.getAsientosFila());
+        eventoDTO.setCosteEntrada(this.getCosteEntrada());
+        eventoDTO.setCreador(this.getCreador());
+        eventoDTO.setDescripcion(this.getDescripcion());
+        eventoDTO.setEntradasMax(this.getEntradasMax());
+
+        List<EtiquetaseventoDTO> lista = new ArrayList<>();
+        for(Etiquetasevento etq : this.getEtiquetaseventoList()){
+            lista.add(etq.getDTO());
+        }
+
+        eventoDTO.setEtiquetaseventoList(lista);
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+
+        eventoDTO.setFechaInicioString(formatoFecha.format(this.getFechaInicio()));
+        eventoDTO.setFechaReservaString(formatoFecha.format(this.getFechaReserva()));
+        eventoDTO.setHoraString(formatoHora.format(this.getHora()));
+
+        eventoDTO.setFilas(this.getFilas());
+        eventoDTO.setLugar(this.getLugar());
+        eventoDTO.setId(this.getId());
+        eventoDTO.setTitulo(this.getTitulo());
+
+        List<EntradaDTO> listaEntradas = new ArrayList<>();
+        for (Entrada e : this.getEntradaList()){
+            listaEntradas.add(e.getDTOSinEventoyUsuario());
+        }
+        eventoDTO.setEntradaList(listaEntradas);
+        eventoDTO.setEtiquetas(new ArrayList<>());
+        return eventoDTO;
+    }
 }

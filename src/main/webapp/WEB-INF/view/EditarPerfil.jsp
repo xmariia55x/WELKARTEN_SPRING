@@ -10,6 +10,7 @@
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioeventosDTO" %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -34,6 +35,8 @@
 <div class="global_editar_perfil_usuario_eventos">
     <%
         UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        UsuarioeventosDTO usuarioeventosDTO = null;
+        if(usuario.getUsuarioeventos() != null) usuarioeventosDTO = usuario.getUsuarioeventos();
         String strError = (String) request.getAttribute("error");
         boolean esUsuarioEventos = false;
         if (strError != null) {
@@ -94,7 +97,7 @@
         <div class="mb-3">
             <label class="form-label">Fecha de nacimiento</label>
 
-            <form:input type="date" path="usuarioeventos.fechaNacimiento" class="form-control" required="required"></form:input>
+            <form:input type="date" value="<%=usuarioeventosDTO.getFechaNacimiento()%>" path="usuarioeventos.fechaNacimientoFake" class="form-control" required="required"></form:input>
         </div>
 
         <div class="mb-3">

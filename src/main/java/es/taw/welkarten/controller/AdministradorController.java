@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -66,5 +68,32 @@ public class AdministradorController {
         return "CrearEditarEventoAdministrador";
     }
 
+    @PostMapping("/guardarEvento")
+    public String doGuardarNuevoEvento(Model model, @ModelAttribute("eventoDTO") EventoDTO eventoDTO){
+        String strError = "", strTo = "";
+        if(eventoDTO.getSeleccionAsientos().equals("S")){
+            if(eventoDTO.getFilas() == null && eventoDTO.getAsientosFila() == null){
+                strError = "seleccionIncorrecta";
+                strTo = "redirect:/crearEventoAdministrador";
+            }
+        } else if (eventoDTO.getSeleccionAsientos().equals("N")){
+            if(eventoDTO.getFilas() != null && eventoDTO.getAsientosFila() != null){
+                strError = "seleccionIncorrecta";
+                strTo = "redirect:/crearEventoAdministrador";
+            }
+        } else if (eventoDTO.getFechaReserva().compareTo(eventoDTO.getFechaInicio()) > 0){
+            strError = "fechasIncorrectas";
+            strTo = "redirect:/crearEventoAdministrador";
+        } else if (eventoDTO.getEtiquetaseventoList().size() < 1 || eventoDTO.getEtiquetaseventoList().size() > 2){
+            strError = "etiquetasIncorrectas";
+            strTo = "redirect:/crearEventoAdministrador";
+        } else {
+            //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
+            this.eventoService.guardarEvento(eventoDTO);
+            System.out.println(eventoDTO.getEtiquetas().toString());
+            strTo = "redirect:/administrador/";
+        }
+        return strTo;
+    }
 
 }

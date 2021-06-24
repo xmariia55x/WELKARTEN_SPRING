@@ -1,19 +1,17 @@
 package es.taw.welkarten.service;
 
 import es.taw.welkarten.dao.EtiquetaRepository;
+import es.taw.welkarten.dao.EtiquetaseventoRepository;
 import es.taw.welkarten.dao.EventoRepository;
-import es.taw.welkarten.dto.ConversacionDTO;
-import es.taw.welkarten.dto.EtiquetaseventoDTO;
-import es.taw.welkarten.dto.EventoDTO;
-import es.taw.welkarten.dto.UsuarioDTO;
-import es.taw.welkarten.entity.Conversacion;
-import es.taw.welkarten.entity.Etiqueta;
-import es.taw.welkarten.entity.Evento;
-import es.taw.welkarten.entity.Usuario;
+import es.taw.welkarten.dto.*;
+import es.taw.welkarten.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -21,22 +19,29 @@ import java.util.*;
 @Service
 public class EventoService {
     private EventoRepository eventoRepository;
-    @Autowired
+    private EtiquetaseventoRepository etiquetaseventoRepository;
     private EtiquetaRepository etiquetaRepository;
 
-
+    @Autowired
+    public void setEtiquetaRepository(EtiquetaRepository etiquetaRepository) {
+        this.etiquetaRepository = etiquetaRepository;
+    }
 
     @Autowired
     public void setEventoRepository(EventoRepository eventoRepository) {
         this.eventoRepository = eventoRepository;
     }
 
+    @Autowired
+    public void setEtiquetaseventoRepository(EtiquetaseventoRepository etiquetaseventoRepository) {
+        this.etiquetaseventoRepository = etiquetaseventoRepository;
+    }
 
     public List<EventoDTO> findEventos(){
         List<EventoDTO> eventosDTO = new ArrayList<>();
         List<Evento> eventos = this.eventoRepository.findAll();
         for (Evento event : eventos) {
-            eventosDTO.add(event.getDTO());
+            eventosDTO.add(event.getDTOfechaString());
         }
         return eventosDTO;
     }
@@ -105,31 +110,58 @@ public class EventoService {
         Evento evento;
         if (dto.getId() == null) {
             evento = new Evento();
+            evento.setId(0);
         } else {
             evento = this.eventoRepository.findById(dto.getId()).orElse(new Evento());
         }
 
         evento.setAforo(dto.getAforo());
-        evento.setAsientosFila(dto.getAsientosFila());
+        if(dto.getSeleccionAsientos().equals("N")){
+            evento.setAsientosFila(null);
+            evento.setFilas(null);
+        } else {
+            evento.setAsientosFila(dto.getAsientosFila());
+            evento.setFilas(dto.getFilas());
+        }
+
         evento.setCreador(dto.getCreador());
         evento.setDescripcion(dto.getDescripcion());
         evento.setCosteEntrada(dto.getCosteEntrada());
-        evento.setEntradaList(dto.getCreador().getEntradaList()); // chungo
+        evento.setEntradaList(new ArrayList<>()); // no hay entradas compradas aun
         evento.setEntradasMax(dto.getEntradasMax());
-        //evento.setEtiquetaseventoList(dto.getEtiquetaseventoList());
-        evento.setFechaInicio(dto.getFechaInicio());
-        evento.setFechaReserva(dto.getFechaReserva());
+
+        List<Etiquetasevento> etiquetaseventos = new ArrayList<>();
+        for(String etq : dto.getEtiquetas()){
+            Etiquetasevento etiqueta = new Etiquetasevento();
+            etiqueta.setEtiqueta(etiquetaRepository.findByNombre(etq));
+            etiqueta.setEvento(evento);
+            etiqueta.setId(0);
+            this.etiquetaseventoRepository.save(etiqueta);
+            etiquetaseventos.add(etiqueta);
+        }
+        evento.setEtiquetaseventoList(etiquetaseventos);
+        DateFormat formateo = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date fechaInicio = formateo.parse(dto.getFechaInicioString());
+            evento.setFechaInicio(fechaInicio);
+
+            Date fechaReserva = formateo.parse(dto.getFechaReservaString());
+            evento.setFechaReserva(fechaReserva);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         evento.setTitulo(dto.getTitulo());
-        evento.setFilas(dto.getFilas());
-        evento.setHora(dto.getHora());
-        evento.setId(dto.getId());
+
+
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        try {
+            evento.setHora(formatoHora.parse(dto.getHoraString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         evento.setLugar(dto.getLugar());
-
-
-
-
-
-
 
         this.eventoRepository.save(evento);
     }

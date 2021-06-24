@@ -7,6 +7,8 @@
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaDTO" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -23,9 +25,9 @@ and open the template in the editor.
         <link href="/css/styles.css" rel="stylesheet">
     </head>
     <%
-        List<Etiqueta> listaEtiquetas = (List<Etiqueta>) request.getAttribute("listaEtiquetas");
+
         //String error = (String) request.getAttribute("error");
-        Evento evento = (Evento)request.getAttribute("evento");
+        EventoDTO evento = (EventoDTO)request.getAttribute("eventoDTO");
         //Usuario usuario = (Usuario)session.getAttribute("usuario");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
@@ -91,12 +93,12 @@ and open the template in the editor.
 
     <div class="mb-3" style="text-align: left">
         <label class="form-label">Fecha del evento</label>
-        <form:input type="date" path="fechaInicio" class="form-control" required="required"></form:input>
+        <form:input type="date" path="fechaInicioString" class="form-control" required="required"></form:input>
     </div>
 
     <div class="mb-3" style="text-align: left">
         <label class="form-label">Hora del evento</label>
-        <form:input type="time" path="hora" class="form-control" required="required"></form:input>
+        <form:input type="time" path="horaString" class="form-control" required="required"></form:input>
     </div>
 
     <div class="mb-3" style="text-align: left">
@@ -106,7 +108,7 @@ and open the template in the editor.
 
     <div class="mb-3" style="text-align: left">
         <label class="form-label">Fecha límite para comprar entradas</label>
-        <form:input type="date" class="form-control" path="fechaReserva" required="required"></form:input>
+        <form:input type="date" class="form-control" path="fechaReservaString" required="required"></form:input>
     </div>
 
     <div class="mb-3" style="text-align: left">
@@ -129,13 +131,7 @@ and open the template in the editor.
     </div>
 
     <div class="form-check" style="text-align: left">
-        <%
-            for(Etiqueta etiqueta:listaEtiquetas){
-        %>
-            <form:checkbox path="listaEtiquetas" value="<%=etiqueta.getId()%>" class="form-check-input" /><%=etiqueta.getNombre()%><br>
-        <%
-            }
-        %>
+        <form:checkboxes items = "${listaEtiquetas}" itemLabel="nombre" path = "etiquetas" />
     </div>
 
     <br>
