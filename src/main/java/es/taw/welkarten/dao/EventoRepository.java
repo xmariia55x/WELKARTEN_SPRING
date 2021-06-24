@@ -29,4 +29,7 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     //Eventos de un creadorEventos
     @Query("SELECT e FROM Evento e WHERE e.creador.id = :creador")
     public List<Evento> findByCreadorEventos(@Param("creador") Integer creador);
+
+    @Query("SELECT MAX(e.id) FROM Evento e")
+    public Integer findMaxId();
 }

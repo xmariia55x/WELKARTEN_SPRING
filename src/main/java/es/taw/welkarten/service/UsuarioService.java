@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class UsuarioService {
         List<Usuario> lista = this.usuarioRepository.findAll();
         for(Usuario usuario : lista){
             listaUsuarios.add(usuario.getDTO());
+
         }
 
         return listaUsuarios;
@@ -98,17 +100,19 @@ public class UsuarioService {
 
         if (usuarioDTO.getId() == null) {
             usuario = new Usuario();
+            usuario.setId(0);
+            usuario.setRol(usuarioDTO.getRol());
         } else {
             usuario = this.usuarioRepository.findById(usuarioDTO.getId()).orElse(new Usuario());
         }
         // Crear el usuario
 
-        usuario.setId(0);
+
         usuario.setCorreo(usuarioDTO.getCorreo());
         usuario.setNif(usuarioDTO.getNif());
         usuario.setNombre(usuarioDTO.getNombre());
         usuario.setPassword(usuarioDTO.getPassword());
-        usuario.setRol(usuarioDTO.getRol());
+
 
         //Se guarda el usuario nuevo
         this.usuarioRepository.save(usuario);
@@ -118,6 +122,7 @@ public class UsuarioService {
         UsuarioDTO usuarioDTOdevuelto = usuarioExtraido.getDTO();
         if(usuarioExtraido.getUsuarioeventos() != null && usuarioExtraido.getRol() == 4){
             Usuarioeventos usuarioEventos = usuarioExtraido.getUsuarioeventos();
+
             usuarioEventos.setApellidos(usuarioDTO.getUsuarioeventos().getApellidos());
             usuarioEventos.setDomicilio(usuarioDTO.getUsuarioeventos().getDomicilio());
             usuarioEventos.setCiudad(usuarioDTO.getUsuarioeventos().getCiudad());
@@ -125,8 +130,13 @@ public class UsuarioService {
             //usuario.setId(usuarioNormal.getId());
             usuarioEventos.setId(usuarioExtraido.getId());
 
-            Date fechaNacimiento = usuarioDTO.getUsuarioeventos().getFechaNacimiento();
-            usuarioEventos.setFechaNacimiento(fechaNacimiento);
+            DateFormat formateo = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date fechaNacimiento = formateo.parse(usuarioDTO.getUsuarioeventos().getFechaNacimientoFake());
+                usuarioEventos.setFechaNacimiento(fechaNacimiento);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             usuarioEventos.setSexo(usuarioDTO.getUsuarioeventos().getSexo());
             usuarioEventos.setUsuario(usuarioExtraido);
             usuarioExtraido.setUsuarioeventos(usuarioEventos);

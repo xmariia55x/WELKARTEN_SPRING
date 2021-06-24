@@ -83,7 +83,7 @@ public class UsuarioController {
         if(usuarioDTO.getPassword().equals(usuarioDTO.getContraseniaRepetida())){
             UsuarioDTO usuario = this.usuarioService.guardarUsuario(usuarioDTO);
             session.setAttribute("usuario",usuario);
-            strTo = "redirect:/verPerfil";
+            strTo = "redirect:/usuario/verPerfil";
         } else {
             strError = "contraseniaNoCoincide";
             model.addAttribute("error", strError);
