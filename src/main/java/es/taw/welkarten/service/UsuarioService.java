@@ -5,11 +5,7 @@ import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
 import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
-import es.taw.welkarten.entity.Entrada;
-import es.taw.welkarten.entity.Conversacion;
-import es.taw.welkarten.entity.Evento;
-import es.taw.welkarten.entity.Usuario;
-import es.taw.welkarten.entity.Usuarioeventos;
+import es.taw.welkarten.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -182,5 +178,13 @@ public class UsuarioService {
         } else  {
             return null;
         }
+    }
+
+    public void eliminarUsuario(Integer id) {
+        Usuario usuario = this.usuarioRepository.findById(id).get();
+        if(usuario.getUsuarioeventos() != null){
+            this.usuarioeventosRepository.delete(usuario.getUsuarioeventos());
+        }
+        this.usuarioRepository.delete(usuario);
     }
 }

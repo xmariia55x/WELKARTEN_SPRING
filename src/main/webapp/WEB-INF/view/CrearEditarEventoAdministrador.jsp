@@ -27,13 +27,18 @@ and open the template in the editor.
     <%
 
         String error = (String) request.getAttribute("error");
-        //EventoDTO evento = (EventoDTO)request.getAttribute("eventoDTO");
+        Boolean editar = (Boolean) request.getAttribute("editar");
         //Usuario usuario = (Usuario)session.getAttribute("usuario");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
         String textoBtn = "Guardar cambios";
 
         Boolean edicion = false;
+        if(editar){
+            edicion = true;
+        }
+
+
         //if(evento != null){ // edicion
            /* textoBtn = "Editar";
             filasAsiento = String.valueOf(evento.getFilas());
@@ -144,15 +149,16 @@ and open the template in the editor.
             <label for="N" class="btn btn-outline-primary">No</label>
         </div>
     </div>
-    <div class="mb-3" style="text-align: left">
-        <label class="form-label" >Número de filas de asientos</label>
-        <form:input type="text" path="filas" class="form-control" ></form:input>
-    </div>
+        <div class="mb-3" style="text-align: left">
+            <label class="form-label" >Número de filas de asientos</label>
+            <form:input type="text" path="filas" readonly="<%=edicion%>" class="form-control" ></form:input>
+        </div>
 
-    <div class="mb-3" style="text-align: left">
-        <label class="form-label" >Número de asientos por fila del evento</label>
-        <form:input type="text" path="asientosFila" class="form-control" ></form:input>
-    </div>
+        <div class="mb-3" style="text-align: left">
+            <label class="form-label" >Número de asientos por fila del evento</label>
+            <form:input type="text" path="asientosFila" readonly="<%=edicion%>" class="form-control" ></form:input>
+        </div>
+
     <div class="d-grid gap-2 col-6 mx-auto">
         <button type="submit" class="btn btn-primary btn-lg"><%= textoBtn%></button>
     </div>

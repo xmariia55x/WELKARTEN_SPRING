@@ -95,8 +95,8 @@
                         <span class="small text-muted"><%=rol%></span><br>
 
                         <ul class="social mb-0 list-inline mt-3">
-                            <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarUsuario/id'"/></li>
-                            <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarUsuario/id'"/></li>
+                            <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarUsuario/id/<%=user.getId()%>'"/></li>
+                            <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarUsuario/id/<%=user.getId()%>'"/></li>
                         </ul>
                     </div>
                 </div>

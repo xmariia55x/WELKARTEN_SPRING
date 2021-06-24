@@ -62,6 +62,8 @@ public class AdministradorController {
         EventoDTO eventoDTO;
         if(id != null){
             eventoDTO = this.eventoService.getEventoDTO(id);
+            Boolean editar = true;
+            model.addAttribute("editar", editar);
         } else {
             eventoDTO = new EventoDTO();
         }
@@ -110,14 +112,22 @@ public class AdministradorController {
     public String doRedirigirEditarEvento(@PathVariable("id") Integer id, Model model){
         EventoDTO eventoDTO = this.eventoService.getEventoDTO(id);
         List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        Boolean editar = true;
         model.addAttribute("listaEtiquetas", listaEtiquetas);
         model.addAttribute("eventoDTO", eventoDTO);
+        model.addAttribute("editar", editar);
         return "CrearEditarEventoAdministrador";
     }
 
     @GetMapping("/eliminarEvento/id/{id}")
     public String doEliminarEvento(@PathVariable("id") Integer id){
         this.eventoService.eliminarEvento(id);
+        return "redirect:/administrador/";
+    }
+
+    @GetMapping("/eliminarUsuario/id/{id}")
+    public String doEliminarUsuario(@PathVariable("id") Integer id){
+        this.usuarioService.eliminarUsuario(id);
         return "redirect:/administrador/";
     }
 }
