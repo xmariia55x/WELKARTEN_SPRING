@@ -61,6 +61,11 @@ public class EventoService {
         return null;
     }
 
+    public List<EventoDTO> findEventosByLugarOrNombre(String filtro){
+        List<Evento> listaEventos = this.eventoRepository.findByEventosNombreOrLugar("%"+filtro+"%");
+        return convertirAListaDTO(listaEventos);
+    }
+
     public List<EventoDTO> findEventosNoCaducados(){
         List<Evento> listaEventos = this.eventoRepository.findByEventosNoCaducados(new Date(), new Time(Calendar.getInstance().getTime().getTime()));
         return convertirAListaDTO(listaEventos);
@@ -98,9 +103,6 @@ public class EventoService {
             return null;
         }
     }
-
-
-
 
     public EventoDTO buscarEvento (Integer id) {
         Evento cliente = this.eventoRepository.findById(id).orElse(null);

@@ -32,4 +32,7 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     @Query("SELECT MAX(e.id) FROM Evento e")
     public Integer findMaxId();
+
+    @Query("SELECT DISTINCT e FROM Evento e WHERE e.titulo LIKE :filtro OR e.lugar LIKE :filtro")
+    public List<Evento> findByEventosNombreOrLugar(@Param("filtro") String filtro);
 }
