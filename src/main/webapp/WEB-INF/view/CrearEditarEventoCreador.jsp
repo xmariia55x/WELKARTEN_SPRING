@@ -8,6 +8,7 @@
 <%@ page import="es.taw.welkarten.entity.Etiqueta" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -26,7 +27,7 @@ and open the template in the editor.
 
 
     <%
-        List<Etiqueta> listaEtiquetas = (List<Etiqueta>) request.getAttribute("listaEtiquetas");
+        List<EtiquetaDTO> listaEtiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
         String error = (String) request.getAttribute("error");
         Evento evento = (Evento)request.getAttribute("evento");
         //Usuario usuario = (Usuario)session.getAttribute("usuario");
@@ -152,7 +153,7 @@ and open the template in the editor.
 
 
                 <%
-                    for (Etiqueta etiqueta : listaEtiquetas) {
+                    for (EtiquetaDTO etiqueta : listaEtiquetas) {
                         String seleccion = "";
                         for(Etiquetasevento etiquetaEv : etiquetasEvento){
                            if(etiquetaEv.getEtiqueta().equals(etiqueta)) {

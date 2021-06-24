@@ -5,9 +5,11 @@ import es.taw.welkarten.dao.EventoRepository;
 import es.taw.welkarten.dto.ConversacionDTO;
 import es.taw.welkarten.dto.EtiquetaseventoDTO;
 import es.taw.welkarten.dto.EventoDTO;
+import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
+import es.taw.welkarten.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +30,6 @@ public class EventoService {
     public void setEventoRepository(EventoRepository eventoRepository) {
         this.eventoRepository = eventoRepository;
     }
-
-
 
 
     public List<EventoDTO> findEventos(){
@@ -69,6 +69,12 @@ public class EventoService {
         return convertirAListaDTO(listaEventos);
     }
 
+
+    public List<EventoDTO> findByCreador(Integer id){
+        List<Evento> eventosDelCreador = this.eventoRepository.findByCreadorEventos(id);
+        return convertirAListaDTO(eventosDelCreador);
+    }
+
     private List<EventoDTO> convertirAListaDTO(List<Evento> lista){
         if(lista != null) {
             List<EventoDTO> listaDTO = new ArrayList<>();
@@ -80,6 +86,8 @@ public class EventoService {
             return null;
         }
     }
+
+
 
 
     public EventoDTO buscarEvento (Integer id) {

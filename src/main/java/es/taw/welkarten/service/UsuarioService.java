@@ -3,8 +3,10 @@ package es.taw.welkarten.service;
 import es.taw.welkarten.dao.ConversacionRepository;
 import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.entity.Conversacion;
+import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.entity.Usuarioeventos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +86,12 @@ public class UsuarioService {
         return listaTeleoperadores;
     }
 
+    public List<UsuarioDTO> findCreadores(){
+        List<Usuario> creadores = this.usuarioRepository.findByRol(2);
+        return convertirAListaDTO(creadores);
+    }
+
+
     public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario;
 
@@ -144,5 +152,18 @@ public class UsuarioService {
 
         String done = "Conversación creada con éxito";
         return done;
+    }
+
+
+    private List<UsuarioDTO> convertirAListaDTO(List<Usuario> lista){
+        if(lista != null) {
+            List<UsuarioDTO> listaDTO = new ArrayList<>();
+            for(Usuario e : lista) {
+                listaDTO.add(e.getDTO());
+            }
+            return listaDTO;
+        } else  {
+            return null;
+        }
     }
 }

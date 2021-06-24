@@ -2,6 +2,7 @@ package es.taw.welkarten.service;
 
 
 import es.taw.welkarten.dao.EventoRepository;
+import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.entity.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class BusquedaAvanzadaService {
         this.eventoRepository = eventoRepository;
     }
 
-    public List<Evento> findByBusquedaAvanzada(String nombre, Integer aforo, Double precio, Integer creador) {
+    public List<EventoDTO> findByBusquedaAvanzada(String nombre, Integer aforo, Double precio, Integer creador) {
 
         List<Evento> eventosFiltrados = this.eventoRepository.findAll();
         List<Evento> eliminados = new ArrayList();
@@ -81,8 +82,20 @@ public class BusquedaAvanzadaService {
         }
         eliminados = new ArrayList();
 
-        return eventosFiltrados;
+        return convertirAListaDTO(eventosFiltrados);
 
+    }
+
+    private List<EventoDTO> convertirAListaDTO(List<Evento> lista){
+        if(lista != null) {
+            List<EventoDTO> listaDTO = new ArrayList<>();
+            for(Evento e : lista) {
+                listaDTO.add(e.getDTO());
+            }
+            return listaDTO;
+        } else  {
+            return null;
+        }
     }
 
 }

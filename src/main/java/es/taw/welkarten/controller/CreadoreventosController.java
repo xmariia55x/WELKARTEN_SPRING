@@ -7,10 +7,7 @@ import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
-import es.taw.welkarten.service.BusquedaAvanzadaService;
-import es.taw.welkarten.service.EtiquetaService;
-import es.taw.welkarten.service.EventoService;
-import es.taw.welkarten.service.UsuarioeventosService;
+import es.taw.welkarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +24,18 @@ public class CreadoreventosController {
 
     private EventoService eventoService;
 
-    private UsuarioRepository usuarioRepository;
+
 
     private BusquedaAvanzadaService busquedaAvanzadaService;
 
     private EtiquetaService etiquetaService;
+
+    private UsuarioService usuarioService;
+
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @Autowired
     public void setEtiquetaService(EtiquetaService etiquetaService) {
@@ -43,10 +47,8 @@ public class CreadoreventosController {
         this.busquedaAvanzadaService = busquedaAvanzadaService;
     }
 
-    @Autowired
-    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
+
+
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -67,11 +69,11 @@ public class CreadoreventosController {
     public String doBusquedaAvanzada(@ModelAttribute("busqueda") BusquedaAvanzadaEvento busqueda, Model model, HttpSession session) {
 
         UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
-        List<Evento> listaEventosEstaSemana = this.eventoService.findEventosEstaSemana();
-        List<Evento> listaEventosPropios = this.eventoService.findEventosCreadorEventos(usuario.getId());
-        List<Usuario> creadores = this.usuarioRepository.findByRol(2);
+        List<EventoDTO> listaEventosPropios = this.eventoService.findByCreador(usuario.getId());
+        List<EventoDTO> listaEventosEstaSemana = this.eventoService.findEventosEstaSemana();
+        List<UsuarioDTO> creadores = this.usuarioService.findCreadores();
 
-        List<Evento> eventosFiltrados = this.busquedaAvanzadaService.findByBusquedaAvanzada(busqueda.getNombre(), busqueda.getAforo(), busqueda.getPrecio(), busqueda.getCreador());
+        List<EventoDTO> eventosFiltrados = this.busquedaAvanzadaService.findByBusquedaAvanzada(busqueda.getNombre(), busqueda.getAforo(), busqueda.getPrecio(), busqueda.getCreador());
 
         model.addAttribute("eventosFiltrados", eventosFiltrados);
         model.addAttribute("busqueda", busqueda);
