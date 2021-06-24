@@ -26,7 +26,7 @@ and open the template in the editor.
     </head>
     <%
 
-        //String error = (String) request.getAttribute("error");
+        String error = (String) request.getAttribute("error");
         EventoDTO evento = (EventoDTO)request.getAttribute("eventoDTO");
         //Usuario usuario = (Usuario)session.getAttribute("usuario");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,26 +58,26 @@ and open the template in the editor.
         <div class="global_nuevo_evento">
 <form:form method="POST" action="/administrador/guardarEvento" modelAttribute="eventoDTO">
     <%
-        //if (error != null && error.equals("etiquetasIncorrectas")) {
+        if (error != null && error.equals("etiquetasIncorrectas")) {
     %>
 
     <div class="alert alert-danger" role="alert">
         Seleccione como mínimo 1 etiqueta y como máximo 2 etiquetas.
     </div>
     <%
-        //} else if (error != null && error.equals("fechasIncorrectas")) {
+        } else if (error != null && error.equals("fechasIncorrectas")) {
     %>
     <div class="alert alert-danger" role="alert">
         ERROR: La fecha límite para comprar entradas debe ser anterior a la fecha del evento.
     </div>
     <%
-        //} else if (error != null && error.equals("seleccionIncorrecta")) {
+        } else if (error != null && error.equals("seleccionIncorrecta")) {
     %>
     <div class="alert alert-danger" role="alert">
         ERROR: Introduzca correctamente el numero de asientos y filas.
     </div>
     <%
-        // }
+         }
     %>
     <form:hidden path="id"></form:hidden>
 

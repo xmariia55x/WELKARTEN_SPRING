@@ -60,9 +60,13 @@ public class AdministradorController {
     }
 
     @GetMapping("/crearEventoAdministrador")
-    public String doRedirigirCrearEvento(Model model){
+    public String doRedirigirCrearEvento(Model model, String error){
         List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
         EventoDTO eventoDTO = new EventoDTO();
+
+        if(error != null) {
+            model.addAttribute("error", error);
+        }
 
         model.addAttribute("listaEtiquetas", listaEtiquetas);
         model.addAttribute("eventoDTO", eventoDTO);
@@ -76,20 +80,20 @@ public class AdministradorController {
         if(eventoDTO.getSeleccionAsientos().equals("S")){
             if(eventoDTO.getFilas() == null && eventoDTO.getAsientosFila() == null){
                 strError = "seleccionIncorrecta";
-                return "redirect:/crearEventoAdministrador";
+                return doRedirigirCrearEvento(model, strError);
             }
         } else if (eventoDTO.getSeleccionAsientos().equals("N")){
             if(eventoDTO.getFilas() != null && eventoDTO.getAsientosFila() != null){
                 strError = "seleccionIncorrecta";
-                return "redirect:/crearEventoAdministrador";
+                return doRedirigirCrearEvento(model, strError);
             }
         }
         if (eventoDTO.getFechaReservaString().compareTo(eventoDTO.getFechaInicioString()) > 0){
             strError = "fechasIncorrectas";
-            return "redirect:/crearEventoAdministrador";
+            return doRedirigirCrearEvento(model, strError);
         }  else if (eventoDTO.getEtiquetas().size() < 1 || eventoDTO.getEtiquetas().size() > 2){
             strError = "etiquetasIncorrectas";
-            return "redirect:/crearEventoAdministrador";
+            return doRedirigirCrearEvento(model, strError);
         } else {
             //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
             this.eventoService.guardarEvento(eventoDTO, creador);
