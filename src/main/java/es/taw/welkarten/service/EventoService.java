@@ -167,6 +167,16 @@ public class EventoService {
             eventoExtraido = this.eventoRepository.findById(maxId).get();
         } else {
             eventoExtraido = this.eventoRepository.findById(dto.getId()).get();
+
+            //Sacar las etiquetas de la BD para borrarlas
+            List<Etiquetasevento> etiquetas = etiquetaseventoRepository.getEtiquetasEventoById(eventoExtraido.getId());
+
+            if(etiquetas != null && !etiquetas.isEmpty()){
+                for(Etiquetasevento etq : etiquetas){
+                    this.etiquetaseventoRepository.delete(etq);
+                }
+            }
+            eventoExtraido.setEtiquetaseventoList(new ArrayList<>());
         }
 
         List<Etiquetasevento> etiquetaseventos = new ArrayList<>();
@@ -178,7 +188,7 @@ public class EventoService {
             this.etiquetaseventoRepository.save(etiqueta);
             etiquetaseventos.add(etiqueta);
         }
-        evento.setEtiquetaseventoList(etiquetaseventos);
+        eventoExtraido.setEtiquetaseventoList(etiquetaseventos);
 
         this.eventoRepository.save(eventoExtraido);
     }

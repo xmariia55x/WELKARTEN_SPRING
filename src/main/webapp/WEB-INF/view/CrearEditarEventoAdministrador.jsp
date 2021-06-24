@@ -28,30 +28,12 @@ and open the template in the editor.
 
         String error = (String) request.getAttribute("error");
         Boolean editar = (Boolean) request.getAttribute("editar");
-        //Usuario usuario = (Usuario)session.getAttribute("usuario");
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
-        String textoBtn = "Guardar cambios";
 
         Boolean edicion = false;
-        if(editar){
+        if(editar != null && editar){
             edicion = true;
         }
 
-
-        //if(evento != null){ // edicion
-           /* textoBtn = "Editar";
-            filasAsiento = String.valueOf(evento.getFilas());
-            asientosPorFila = String.valueOf(evento.getAsientosFila());
-            if(!filasAsiento.equals("null") && !asientosPorFila.equals("null")){
-                asientoS = "checked";
-            } else {
-                asientoN = "checked";
-            }
-            */
-        //}else{ // creación
-        //    edicion = false;
-        //}
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -160,7 +142,7 @@ and open the template in the editor.
         </div>
 
     <div class="d-grid gap-2 col-6 mx-auto">
-        <button type="submit" class="btn btn-primary btn-lg"><%= textoBtn%></button>
+        <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
     </div>
 </form:form>
         </div>

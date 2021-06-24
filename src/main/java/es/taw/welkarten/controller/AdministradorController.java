@@ -52,8 +52,30 @@ public class AdministradorController {
     }
 
     @GetMapping("/crearUsuarioAdministrador")
-    public String doRedirigirCrearUsuario(){
-        return "CrearUsuarioAdministrador";
+    public String doRedirigirCrearUsuario(Model model, String error, Integer id){
+        UsuarioDTO usuarioDTO;
+        if(id != null){
+            usuarioDTO = this.usuarioService.getUsuarioDTO(id);
+            Boolean editar = true;
+            model.addAttribute("editar", editar);
+        } else {
+            usuarioDTO = new UsuarioDTO();
+        }
+
+        if(error != null) {
+            model.addAttribute("error", error);
+        }
+        model.addAttribute("usuarioDTO", usuarioDTO);
+        return "CrearEditarUsuario";
+    }
+
+    @GetMapping("/editarUsuario/id/{id}")
+    public String doEditarUsuario(@PathVariable("id") Integer id, Model model){
+        UsuarioDTO usuarioDTO = this.usuarioService.getUsuarioDTO(id);
+        Boolean editar = true;
+        model.addAttribute("usuarioDTO", usuarioDTO);
+        model.addAttribute("editar", editar);
+        return "CrearEditarUsuario";
     }
 
     @GetMapping("/crearEventoAdministrador")
@@ -68,13 +90,23 @@ public class AdministradorController {
             eventoDTO = new EventoDTO();
         }
 
-
         if(error != null) {
             model.addAttribute("error", error);
         }
 
         model.addAttribute("listaEtiquetas", listaEtiquetas);
         model.addAttribute("eventoDTO", eventoDTO);
+        return "CrearEditarEventoAdministrador";
+    }
+
+    @GetMapping("/editarEvento/id/{id}")
+    public String doRedirigirEditarEvento(@PathVariable("id") Integer id, Model model){
+        EventoDTO eventoDTO = this.eventoService.getEventoDTO(id);
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        Boolean editar = true;
+        model.addAttribute("listaEtiquetas", listaEtiquetas);
+        model.addAttribute("eventoDTO", eventoDTO);
+        model.addAttribute("editar", editar);
         return "CrearEditarEventoAdministrador";
     }
 
@@ -108,16 +140,7 @@ public class AdministradorController {
 
     }
 
-    @GetMapping("/editarEvento/id/{id}")
-    public String doRedirigirEditarEvento(@PathVariable("id") Integer id, Model model){
-        EventoDTO eventoDTO = this.eventoService.getEventoDTO(id);
-        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
-        Boolean editar = true;
-        model.addAttribute("listaEtiquetas", listaEtiquetas);
-        model.addAttribute("eventoDTO", eventoDTO);
-        model.addAttribute("editar", editar);
-        return "CrearEditarEventoAdministrador";
-    }
+
 
     @GetMapping("/eliminarEvento/id/{id}")
     public String doEliminarEvento(@PathVariable("id") Integer id){
@@ -125,9 +148,27 @@ public class AdministradorController {
         return "redirect:/administrador/";
     }
 
+    @PostMapping("/guardarUsuario")
+    public String doGuardarNuevoUsuario(Model model, @ModelAttribute("usuarioDTO") UsuarioDTO usuarioDTO){
+        String strError = "";
+        //UsuarioDTO creador = (UsuarioDTO) session.getAttribute("usuario");
+        if(!usuarioDTO.getContraseniaRepetida().equals(usuarioDTO.getPassword())){
+            strError = "contraseniaIncorrecta";
+            return doRedirigirCrearUsuario(model, strError,usuarioDTO.getId());
+
+        } else {
+            //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
+            this.usuarioService.guardarUsuario(usuarioDTO);
+            return "redirect:/administrador/";
+        }
+
+    }
+
     @GetMapping("/eliminarUsuario/id/{id}")
     public String doEliminarUsuario(@PathVariable("id") Integer id){
         this.usuarioService.eliminarUsuario(id);
         return "redirect:/administrador/";
     }
+
+
 }

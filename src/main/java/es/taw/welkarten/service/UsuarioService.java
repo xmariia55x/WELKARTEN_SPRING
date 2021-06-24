@@ -97,13 +97,14 @@ public class UsuarioService {
         if (usuarioDTO.getId() == null) {
             usuario = new Usuario();
             usuario.setId(0);
-            usuario.setRol(usuarioDTO.getRol());
+
         } else {
             usuario = this.usuarioRepository.findById(usuarioDTO.getId()).orElse(new Usuario());
+
         }
         // Crear el usuario
 
-
+        usuario.setRol(usuarioDTO.getRol());
         usuario.setCorreo(usuarioDTO.getCorreo());
         usuario.setNif(usuarioDTO.getNif());
         usuario.setNombre(usuarioDTO.getNombre());
@@ -186,5 +187,10 @@ public class UsuarioService {
             this.usuarioeventosRepository.delete(usuario.getUsuarioeventos());
         }
         this.usuarioRepository.delete(usuario);
+    }
+
+    public UsuarioDTO getUsuarioDTO(Integer id) {
+        Usuario user = this.usuarioRepository.findById(id).get();
+        return user.getDTO();
     }
 }
