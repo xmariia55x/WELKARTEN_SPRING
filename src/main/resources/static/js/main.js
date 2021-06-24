@@ -7,6 +7,8 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
+var usuarioId = document.querySelector('#usuarioId');
+var conversacionId = document.querySelector('#conversacionId');
 
 var stompClient = null;
 var username = null;
@@ -59,6 +61,8 @@ function send(event) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
+            idConversacion: conversacionId.value,
+            idUsuario: usuarioId.value,
             type: 'CHAT'
         };
 

@@ -119,8 +119,28 @@ public class ConversacionService {
 
         this.mensajeRepository.save(m);
 
-        conversacion.getMensajeList().add(m);
+        List<Mensaje> listaMensajes = conversacion.getMensajeList();
+
+        if(listaMensajes == null || listaMensajes.isEmpty()) {
+            listaMensajes = new ArrayList<>();
+            listaMensajes.add(m);
+            conversacion.setMensajeList(listaMensajes);
+        } else {
+            listaMensajes.add(m);
+        }
         this.conversacionRepository.save(conversacion);
+
+        List<Mensaje> listaMensajesUsuario = this.mensajeRepository.findByEmisor(idUsuario);
+
+        if(listaMensajesUsuario ==null || listaMensajesUsuario.isEmpty()) {
+            listaMensajesUsuario = new ArrayList<>();
+            listaMensajesUsuario.add(m);
+            usuario.setMensajeList(listaMensajesUsuario);
+        } else {
+            listaMensajesUsuario.add(m);
+        }
+
+        this.usuarioRepository.save(usuario);
     }
 
     public List<ConversacionDTO> convertirAListaDTO(List<Conversacion> lista) {

@@ -154,6 +154,9 @@ public class UsuarioService {
         usuario.getConversacionList1().add(conversacion);
         teleoperador.getConversacionList().add(conversacion);
 
+        this.usuarioRepository.save(usuario);
+        this.usuarioRepository.save(usuario);
+
         String done = "Conversación creada con éxito";
         return done;
     }

@@ -7,11 +7,13 @@ package es.taw.welkarten.entity;
 
 import es.taw.welkarten.dto.ConversacionDTO;
 import es.taw.welkarten.dto.MensajeDTO;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,7 +41,7 @@ public class Conversacion implements Serializable {
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conversacion")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conversacion", fetch = FetchType.EAGER)
     private List<Mensaje> mensajeList;
     
     public Conversacion() {

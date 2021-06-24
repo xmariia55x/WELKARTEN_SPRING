@@ -1,9 +1,13 @@
 package es.taw.welkarten.model;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class ChatMessage {
     private String content;
     private String sender;
     private MessageType type;
+    private Integer idConversacion;
+    private Integer idUsuario;
 
     public enum MessageType {
         CHAT, LEAVE, JOIN
@@ -31,5 +35,21 @@ public class ChatMessage {
 
     public void setType(MessageType type) {
         this.type = type;
+    }
+
+    public Integer getIdConversacion() {
+        return idConversacion;
+    }
+
+    public void setIdConversacion(Integer idConversacion) {
+        this.idConversacion = idConversacion;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
