@@ -5,6 +5,7 @@ import es.taw.welkarten.dao.UsuarioRepository;
 import es.taw.welkarten.dao.UsuarioeventosRepository;
 import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
+import es.taw.welkarten.entity.Entrada;
 import es.taw.welkarten.entity.Conversacion;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
@@ -115,7 +116,7 @@ public class UsuarioService {
         //Se extrae el usuario que hemos guardado
         Usuario usuarioExtraido = this.usuarioRepository.findByCorreo(usuarioDTO.getCorreo());
         UsuarioDTO usuarioDTOdevuelto = usuarioExtraido.getDTO();
-        if(usuarioExtraido.getUsuarioeventos() != null){
+        if(usuarioExtraido.getUsuarioeventos() != null && usuarioExtraido.getRol() == 4){
             Usuarioeventos usuarioEventos = usuarioExtraido.getUsuarioeventos();
             usuarioEventos.setApellidos(usuarioDTO.getUsuarioeventos().getApellidos());
             usuarioEventos.setDomicilio(usuarioDTO.getUsuarioeventos().getDomicilio());
@@ -149,6 +150,9 @@ public class UsuarioService {
         conversacion.setTeleoperador(teleoperador);
         conversacion.setUsuario(usuario);
         this.conversacionRepository.save(conversacion);
+
+        usuario.getConversacionList1().add(conversacion);
+        teleoperador.getConversacionList().add(conversacion);
 
         String done = "Conversación creada con éxito";
         return done;

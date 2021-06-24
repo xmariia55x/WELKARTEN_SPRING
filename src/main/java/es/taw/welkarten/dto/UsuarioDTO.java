@@ -13,6 +13,8 @@ public class UsuarioDTO {
     private int rol;
     private UsuarioeventosDTO usuarioeventos;
     private String contraseniaRepetida;
+    private List<Entrada> listaEntradas;
+
     public UsuarioDTO() {
 
     }
@@ -79,5 +81,13 @@ public class UsuarioDTO {
 
     public void setUsuarioeventos(UsuarioeventosDTO usuarioeventos) {
         this.usuarioeventos = usuarioeventos;
+    }
+
+    public List<Entrada> getListaEntradas() {
+        return listaEntradas;
+    }
+
+    public void setListaEntradas(List<Entrada> listaEntradas) {
+        this.listaEntradas = listaEntradas;
     }
 }

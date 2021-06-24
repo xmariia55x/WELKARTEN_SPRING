@@ -107,7 +107,7 @@
     <!-- 3. Si el evento tiene asientos, no aparece el selector del número de tickets y le redirige a una ventana de selección de asientos -->
     <div class="comprarTicket">
         <div class ="infoEvento">
-            <form action="ServletReservarTicketEvento">
+            <form action="/usuarioeventos/evento/comprarTickets" method="POST">
                 <input type="hidden" name="idEvento" value="<%=evento.getId()%>" />
                 <strong>Fecha del evento:  </strong><label><%=fecha%></label><br><br>
                 <strong>Hora:  </strong><label><%=formatoHora.format(evento.getHora())%></label><br><br>
