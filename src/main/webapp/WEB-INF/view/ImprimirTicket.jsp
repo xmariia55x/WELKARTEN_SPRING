@@ -11,6 +11,9 @@
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.welkarten.entity.Entrada" %>
 <%@ page import="es.taw.welkarten.dto.EntradaDTO" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.entity.Usuario" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,7 +35,9 @@
         String strEtiqueta = "";
         
         Date fechaHoy = new Date();
-        boolean reservaValida = listaEntradas.get(0).getEvento().getFechaReserva().after(fechaHoy);
+        EventoDTO evento = (EventoDTO) request.getAttribute("evento");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        boolean reservaValida = evento.getFechaReserva().after(fechaHoy);
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -82,29 +87,31 @@
         </br>
         </br>
     <!-- TICKETS -->
+    <form id="formTicket" method="post">
+        <input type="hidden" value="<%=evento.getId()%>" name="idEvento">
     <% for (EntradaDTO e : listaEntradas) {%>
         <div class="cardWrap">
             <div class="card cardLeft">
                 <img src="/images/logo_pequeno.png" width="200" height="45" id="titulo">
                 <div class="title">
-                    <h2><%=e.getEvento().getTitulo()%></h2>
+                    <h2><%=evento.getTitulo()%></h2>
                     <span>evento</span>
                 </div>
                 <div class="name">
-                    <h2><%=e.getUsuario().getNombre() + " " + e.getUsuario().getUsuarioeventos().getApellidos()%></h2>
+                    <h2><%=usuario.getNombre() + " " + usuario.getUsuarioeventos().getApellidos()%></h2>
                     <span>nombre</span>
                 </div>
                 <div class="name">
-                    <h2><%=e.getEvento().getLugar()%></h2>
+                    <h2><%=evento.getLugar()%></h2>
                     <span>lugar</span>
                 </div>
                 <div class="informacion_mini">
                     <div class="time">
-                        <h2><%=formatoFecha.format(e.getEvento().getFechaInicio())%></h2>
+                        <h2><%=formatoFecha.format(evento.getFechaInicio())%></h2>
                         <span>fecha</span>
                     </div>
                     <div class="time">
-                        <h2><%=formatoHora.format(e.getEvento().getHora())%></h2>
+                        <h2><%=formatoHora.format(evento.getHora())%></h2>
                         <span>hora</span>
                     </div>
 
@@ -128,7 +135,7 @@
                 <div class="number">
                     <img src="/images/ticket.png" width="80" height="80">
                 </div>
-                <div class="precio"><%=String.format("%.2f", e.getEvento().getCosteEntrada())%>€</div>
+                <div class="precio"><%=String.format("%.2f", evento.getCosteEntrada())%>€</div>
                 <div class="barcode"></div>
             </div>
 
@@ -140,5 +147,6 @@
         <% } } %>
         </br>
         </br>
+    </form>
 </body>
 </html>

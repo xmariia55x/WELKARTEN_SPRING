@@ -7,7 +7,7 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,30 +16,28 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles2.css" rel="stylesheet">
-        <link href="stylesComprarTicket.css" rel="stylesheet">
+        <link href="/css/styles2.css" rel="stylesheet">
+        <link href="/css/stylesComprarTicket.css" rel="stylesheet">
     </head>
     <%
-        Evento evento = (Evento) request.getAttribute("evento");
+        EventoDTO evento = (EventoDTO) request.getAttribute("evento");
 
         List<Integer> listaEntradas = (List<Integer>) request.getAttribute("listaEntradas");
         boolean hayEntradasCompradas = listaEntradas != null;
-        String[] entradasId = (String[]) request.getAttribute("entradasId");
-
-        Integer nEntradas = entradasId.length;
+        List<Integer> entradasId = (List<Integer>) request.getAttribute("entradasSeleccionadas");
     %>
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="jsModificarTicket.js" defer></script>
+        <script src="/js/jsModificarTicket.js" defer></script>
 
         <div class="cabecera2" style="float:none">
             <div class="welkarten">
-                <img src="images/ticket.png" width="150" height="150" >
+                <img src="/images/ticket.png" width="150" height="150" >
             </div>
         </div>
 
-        <form action="ServletEditarEntrada?entradas=<%=Arrays.asList(entradasId)%>" id="formulario">
-            <% for (String s : entradasId) { %>
+        <form action="/usuarioeventos/misentradas/guardartickets" method="post" id="formulario">
+            <% for (Integer s : entradasId) { %>
                 <input type="hidden" value="<%=s%>" name="entradas"/>
             <% } %>
             <div class="plane">

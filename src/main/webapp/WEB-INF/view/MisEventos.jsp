@@ -5,10 +5,10 @@
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="GestorEventos2021.entity.Etiquetasevento"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.welkarten.entity.Evento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,11 +17,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles2.css" rel="stylesheet">
+        <link href="/css/styles2.css" rel="stylesheet">
     </head>
     <%
-        List<Evento> listaEventosRecientes = (List<Evento>) request.getAttribute("listaEventosRecientes");
-        List<Evento> listaEventosFinalizados = (List<Evento>) request.getAttribute("listaEventosFinalizados");
+        List<EventoDTO> listaEventosRecientes = (List<EventoDTO>) request.getAttribute("listaEventosRecientes");
+        List<EventoDTO> listaEventosFinalizados = (List<EventoDTO>) request.getAttribute("listaEventosFinalizados");
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
@@ -53,13 +53,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Evento e : listaEventosRecientes) { %>
+                        <% for (EventoDTO e : listaEventosRecientes) { %>
                             <tr>
                                 <td><%=e.getTitulo()%></td>
                                 <td><%=e.getLugar()%></td>
                                 <td><%=formatoFecha.format(e.getFechaInicio())%></td>
                                 <td><%=formatoHora.format(e.getHora())%></td>
-                                <td><input type="button" class="btn btn-outline-primary" onclick="location.href = 'ServletMisEntradas?eventoid=<%=e.getId()%>'" value="Ver mis entradas" /></td>
+                                <td><input type="button" class="btn btn-outline-primary" onclick="location.href = '/usuarioeventos/misentradas/<%=e.getId()%>'" value="Ver mis entradas" /></td>
                             </tr>
                 <% 
                             }
@@ -88,13 +88,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Evento e : listaEventosFinalizados) { %>
+                        <% for (EventoDTO e : listaEventosFinalizados) { %>
                             <tr>
                                 <td><%=e.getTitulo()%></td>
                                 <td><%=e.getLugar()%></td>
                                 <td><%=formatoFecha.format(e.getFechaInicio())%></td>
                                 <td><%=formatoHora.format(e.getHora())%></td>
-                                <td><input type="button" class="btn btn-outline-primary" onclick="location.href = 'ServletMisEntradas?eventoid=<%=e.getId()%>'" value="Ver mis entradas" /></td>
+                                <td><input type="button" class="btn btn-outline-primary" onclick="location.href = '/usuarioeventos/misentradas/<%=e.getId()%>'" value="Ver mis entradas" /></td>
                             </tr>
                 <% 
                             }

@@ -4,6 +4,7 @@ import es.taw.welkarten.dto.EntradaDTO;
 import es.taw.welkarten.dto.EventoDTO;
 import es.taw.welkarten.dto.UsuarioDTO;
 import es.taw.welkarten.dto.UsuarioeventosDTO;
+import es.taw.welkarten.entity.Entrada;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
 import es.taw.welkarten.service.EntradaService;
@@ -147,9 +148,64 @@ public class UsuarioeventosController {
             this.entradaService.guardarEntradasNuevas(listaEntradas, usuario, evento);
 
             model.addAttribute("listaEntradas", listaEntradas);
+            model.addAttribute("evento", evento);
             model.addAttribute("compra", 1);
         }
 
         return strTo;
+    }
+
+    @GetMapping("/miseventos")
+    public String doMisEventos(Model model, HttpSession session){
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        List<EventoDTO> listaEventosRecientes = this.entradaService.listaEventosDeUnUsuarioRecientes(usuario);
+        List<EventoDTO> listaEventosFinalizados = this.entradaService.listaEventosDeUnUsuarioFinalizados(usuario);
+
+        model.addAttribute("listaEventosRecientes", listaEventosRecientes);
+        model.addAttribute("listaEventosFinalizados", listaEventosFinalizados);
+
+        return "MisEventos";
+    }
+
+    @GetMapping("/misentradas/{eventoId}")
+    public String doMisEntradas(@PathVariable("eventoId") Integer eventoId, Model model, HttpSession session){
+        EventoDTO eventoDTO = this.eventoService.findEvento(eventoId);
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("usuario");
+        List<EntradaDTO> listaEntradas = this.entradaService.listaEntradaDeUnUsuarioYEvento(usuarioDTO, eventoDTO);
+
+        model.addAttribute("listaEntradas", listaEntradas);
+        model.addAttribute("evento", eventoDTO);
+        return "ImprimirTicket";
+    }
+
+    @PostMapping("/misentradas/eliminartickets")
+    public String doEliminarEntradas(@RequestParam("idEvento") Integer idEvento,
+                                     @RequestParam("entradasSeleccionadas") List<Integer> entradasSeleccionadas,
+                                     Model model, HttpSession session){
+        EventoDTO eventoDTO = this.eventoService.findEvento(idEvento);
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("usuario");
+
+        this.entradaService.eliminarEntradas(entradasSeleccionadas, usuarioDTO, eventoDTO);
+
+        return "redirect:/usuarioeventos/miseventos";
+    }
+
+    @PostMapping("/misentradas/modificartickets")
+    public String doModificarEntradas(@RequestParam("idEvento") Integer idEvento,
+                                     @RequestParam("entradasSeleccionadas") List<Integer> entradasSeleccionadas,
+                                     Model model){
+        EventoDTO eventoDTO = this.eventoService.findEvento(idEvento);
+        List<Integer> listaEntradas = this.entradaService.findListaEntradaGetNumeroDeUnEvento(eventoDTO.getId());
+        model.addAttribute("evento", eventoDTO);
+        model.addAttribute("listaEntradas", listaEntradas);
+        model.addAttribute("entradasSeleccionadas", entradasSeleccionadas);
+        return "ModificarAsientos";
+    }
+
+    @PostMapping("/misentradas/guardartickets")
+    public String doGuardarTicketsEditados(@RequestParam("entradas") List<Integer> entradasIdAntiguas,
+                                           @RequestParam("asientosSeleccionados") List<Integer> seleccionados){
+        this.entradaService.modificarEntradas(entradasIdAntiguas, seleccionados);
+        return "redirect:/usuarioeventos/miseventos";
     }
 }
