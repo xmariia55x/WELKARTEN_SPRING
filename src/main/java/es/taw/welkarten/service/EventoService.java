@@ -117,9 +117,9 @@ public class EventoService {
         Evento evento = new Evento();
         if (dto.getId() == null) {
             evento.setId(0);
-        } /*else {
+        } else {
             evento = this.eventoRepository.findById(dto.getId()).orElse(new Evento());
-        }*/
+        }
 
         evento.setAforo(dto.getAforo());
         if(dto.getSeleccionAsientos().equals("N")){
@@ -160,8 +160,15 @@ public class EventoService {
         evento.setCreador(usuario);
 
         this.eventoRepository.save(evento);
-        Integer maxId = this.eventoRepository.findMaxId();
-        Evento eventoExtraido = this.eventoRepository.findById(maxId).get();
+
+        Evento eventoExtraido;
+        if (dto.getId() == null) {
+            Integer maxId = this.eventoRepository.findMaxId();
+            eventoExtraido = this.eventoRepository.findById(maxId).get();
+        } else {
+            eventoExtraido = this.eventoRepository.findById(dto.getId()).get();
+        }
+
         List<Etiquetasevento> etiquetaseventos = new ArrayList<>();
         for(String etq : dto.getEtiquetas()){
             Etiquetasevento etiqueta = new Etiquetasevento();
@@ -177,4 +184,16 @@ public class EventoService {
     }
 
 
+    public EventoDTO getEventoDTO(Integer id) {
+        Evento evt = this.eventoRepository.findById(id).get();
+        return evt.getDTOfechaString();
+    }
+
+    public void eliminarEvento(Integer id) {
+        Evento evt = this.eventoRepository.findById(id).get();
+        for(Etiquetasevento etiquetasevento : evt.getEtiquetaseventoList()){
+            this.etiquetaseventoRepository.delete(etiquetasevento);
+        }
+        this.eventoRepository.delete(evt);
+    }
 }

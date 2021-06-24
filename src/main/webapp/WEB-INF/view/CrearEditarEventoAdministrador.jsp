@@ -27,12 +27,11 @@ and open the template in the editor.
     <%
 
         String error = (String) request.getAttribute("error");
-        EventoDTO evento = (EventoDTO)request.getAttribute("eventoDTO");
+        //EventoDTO evento = (EventoDTO)request.getAttribute("eventoDTO");
         //Usuario usuario = (Usuario)session.getAttribute("usuario");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
-        String filasAsiento = "", asientosPorFila = "", asientoS="",
-                asientoN="",textoBtn = "Crear";
+        String textoBtn = "Guardar cambios";
 
         Boolean edicion = false;
         //if(evento != null){ // edicion
@@ -131,12 +130,12 @@ and open the template in the editor.
     </div>
 
     <div class="form-check" style="text-align: left">
-        <form:checkboxes items = "${listaEtiquetas}" itemLabel="nombre" itemValue="nombre" path = "etiquetas"/>
+        <form:checkboxes items = "${listaEtiquetas}" itemLabel="nombre" itemValue="nombre" path = "etiquetas" element="br"/>
     </div>
 
     <br>
     <div class="mb-3" style="text-align: left">
-        <label class="form-label" <% if(edicion){ %> readonly <%}%> >Asientos</label> <br/>
+        <label class="form-label">Asientos</label> <br/>
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <form:radiobutton path="seleccionAsientos" value="S" class="btn-check" id="S" />
             <label for="S" class="btn btn-outline-primary">Sí</label>
@@ -146,12 +145,12 @@ and open the template in the editor.
         </div>
     </div>
     <div class="mb-3" style="text-align: left">
-        <label class="form-label" <% if(edicion){ %> readonly <%}%> >Número de filas de asientos</label>
+        <label class="form-label" >Número de filas de asientos</label>
         <form:input type="text" path="filas" class="form-control" ></form:input>
     </div>
 
     <div class="mb-3" style="text-align: left">
-        <label class="form-label" <% if(edicion){ %> readonly <%}%> >Número de asientos por fila del evento</label>
+        <label class="form-label" >Número de asientos por fila del evento</label>
         <form:input type="text" path="asientosFila" class="form-control" ></form:input>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">

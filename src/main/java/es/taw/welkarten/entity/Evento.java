@@ -308,7 +308,7 @@ public class Evento implements Serializable {
 
         eventoDTO.setEtiquetaseventoList(lista);
 
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 
         eventoDTO.setFechaInicioString(formatoFecha.format(this.getFechaInicio()));
@@ -325,7 +325,22 @@ public class Evento implements Serializable {
             listaEntradas.add(e.getDTOSinEventoyUsuario());
         }
         eventoDTO.setEntradaList(listaEntradas);
-        eventoDTO.setEtiquetas(new ArrayList<>());
+        if(this.getEtiquetaseventoList() != null && !this.getEtiquetaseventoList().isEmpty()) {
+            List<String> etiquetas = new ArrayList<>();
+            for(Etiquetasevento etqEv : this.getEtiquetaseventoList()){
+                etiquetas.add(etqEv.getEtiqueta().getNombre());
+            }
+            eventoDTO.setEtiquetas(etiquetas);
+        } else {
+            eventoDTO.setEtiquetas(new ArrayList<>());
+        }
+
+        if(this.getAsientosFila() != null && this.getFilas() != null){
+            eventoDTO.setSeleccionAsientos("S");
+        } else {
+            eventoDTO.setSeleccionAsientos("N");
+        }
+
         return eventoDTO;
     }
 }

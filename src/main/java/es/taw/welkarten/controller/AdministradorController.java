@@ -12,10 +12,7 @@ import es.taw.welkarten.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -60,9 +57,15 @@ public class AdministradorController {
     }
 
     @GetMapping("/crearEventoAdministrador")
-    public String doRedirigirCrearEvento(Model model, String error){
+    public String doRedirigirCrearEvento(Model model, String error, Integer id){
         List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
-        EventoDTO eventoDTO = new EventoDTO();
+        EventoDTO eventoDTO;
+        if(id != null){
+            eventoDTO = this.eventoService.getEventoDTO(id);
+        } else {
+            eventoDTO = new EventoDTO();
+        }
+
 
         if(error != null) {
             model.addAttribute("error", error);
@@ -80,20 +83,20 @@ public class AdministradorController {
         if(eventoDTO.getSeleccionAsientos().equals("S")){
             if(eventoDTO.getFilas() == null && eventoDTO.getAsientosFila() == null){
                 strError = "seleccionIncorrecta";
-                return doRedirigirCrearEvento(model, strError);
+                return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
             }
         } else if (eventoDTO.getSeleccionAsientos().equals("N")){
             if(eventoDTO.getFilas() != null && eventoDTO.getAsientosFila() != null){
                 strError = "seleccionIncorrecta";
-                return doRedirigirCrearEvento(model, strError);
+                return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
             }
         }
         if (eventoDTO.getFechaReservaString().compareTo(eventoDTO.getFechaInicioString()) > 0){
             strError = "fechasIncorrectas";
-            return doRedirigirCrearEvento(model, strError);
+            return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
         }  else if (eventoDTO.getEtiquetas().size() < 1 || eventoDTO.getEtiquetas().size() > 2){
             strError = "etiquetasIncorrectas";
-            return doRedirigirCrearEvento(model, strError);
+            return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
         } else {
             //this.eventoService.guardarEvento(eventoDTO, eventoDTO.getEtiquetaseventoList());
             this.eventoService.guardarEvento(eventoDTO, creador);
@@ -103,4 +106,18 @@ public class AdministradorController {
 
     }
 
+    @GetMapping("/editarEvento/id/{id}")
+    public String doRedirigirEditarEvento(@PathVariable("id") Integer id, Model model){
+        EventoDTO eventoDTO = this.eventoService.getEventoDTO(id);
+        List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
+        model.addAttribute("listaEtiquetas", listaEtiquetas);
+        model.addAttribute("eventoDTO", eventoDTO);
+        return "CrearEditarEventoAdministrador";
+    }
+
+    @GetMapping("/eliminarEvento/id/{id}")
+    public String doEliminarEvento(@PathVariable("id") Integer id){
+        this.eventoService.eliminarEvento(id);
+        return "redirect:/administrador/";
+    }
 }

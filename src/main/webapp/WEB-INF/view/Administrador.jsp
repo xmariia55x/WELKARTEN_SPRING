@@ -133,8 +133,8 @@
                             <span class="small text-muted">Precio: <%=event.getCosteEntrada()%></span><br>
                             <span class="small text-muted">Aforo: <%=event.getAforo()%></span><br>
                             <ul class="social mb-0 list-inline mt-3">
-                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarEvento/id'"/></li>
-                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarEvento/id'"/></li>
+                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarEvento/id/<%=event.getId()%>'"/></li>
+                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarEvento/id/<%=event.getId()%>'"/></li>
                             </ul>
                         </div>
                     </div>
