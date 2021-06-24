@@ -10,6 +10,7 @@ public class UsuarioeventosDTO {
     private String domicilio;
     private String ciudad;
     private Date fechaNacimiento;
+    private String fechaNacimientoFake;
     private String sexo;
     private UsuarioDTO usuario;
     private String contraseniaRepetida;
@@ -81,5 +82,13 @@ public class UsuarioeventosDTO {
 
     public Date getFechaNacimiento(){
         return fechaNacimiento;
+    }
+
+    public String getFechaNacimientoFake() {
+        return fechaNacimientoFake;
+    }
+
+    public void setFechaNacimientoFake(String fechaNacimientoFake) {
+        this.fechaNacimientoFake = fechaNacimientoFake;
     }
 }

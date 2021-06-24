@@ -37,9 +37,7 @@ public class ChatController {
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        //ConversacionDTO c = (ConversacionDTO) session.getAttribute("conversacion");
-        //UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
-        //this.conversacionService.guardarMensaje(c.getId(),usuario.getId(), chatMessage.getContent());
+        this.conversacionService.guardarMensaje(chatMessage.getIdConversacion(),chatMessage.getIdUsuario(), chatMessage.getContent());
         return chatMessage;
     }
 }

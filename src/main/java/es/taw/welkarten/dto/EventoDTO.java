@@ -1,6 +1,8 @@
 package es.taw.welkarten.dto;
 
-import es.taw.welkarten.entity.Entrada;
+import es.taw.welkarten.entity.*;
+
+import javax.persistence.Basic;
 import es.taw.welkarten.entity.Etiquetasevento;
 import es.taw.welkarten.entity.Usuario;
 
@@ -8,9 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 public class EventoDTO {
+
     private Integer id;
     private String titulo;
     private String descripcion;
+    private String fechaInicioString;
+    private String fechaReservaString;
     private Date fechaInicio;
     private Date fechaReserva;
     private double costeEntrada;
@@ -18,10 +23,14 @@ public class EventoDTO {
     private int entradasMax;
     private Integer filas;
     private Integer asientosFila;
+    private String horaString;
     private Date hora;
     private String lugar;
     private List<EtiquetaseventoDTO> etiquetaseventoList;
+    private List<String> etiquetas;
     private Usuario creador;
+    private String seleccionAsientos;
+
     //private String seleccionAsientos;
     private List<EntradaDTO> entradaList;
 
@@ -53,21 +62,6 @@ public class EventoDTO {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaReserva() {
-        return fechaReserva;
-    }
-
-    public void setFechaReserva(Date fechaReserva) {
-        this.fechaReserva = fechaReserva;
-    }
 
     public double getCosteEntrada() {
         return costeEntrada;
@@ -109,13 +103,6 @@ public class EventoDTO {
         this.asientosFila = asientosFila;
     }
 
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
 
     public String getLugar() {
         return lugar;
@@ -133,7 +120,7 @@ public class EventoDTO {
         this.creador = creador;
     }
 
-    /* COMENTADO POR YERAY: ESTO PARA QUE? NO ESTA EN LA ENTIDAD
+    /* COMENTADO POR YERAY: ESTO PARA QUE? NO ESTA EN LA ENTIDAD */
     public String getSeleccionAsientos() {
         return seleccionAsientos;
     }
@@ -141,7 +128,7 @@ public class EventoDTO {
     public void setSeleccionAsientos(String seleccionAsientos) {
         this.seleccionAsientos = seleccionAsientos;
     }
-    */
+
 
     public List<EtiquetaseventoDTO> getEtiquetaseventoList() {
         return etiquetaseventoList;
@@ -157,5 +144,61 @@ public class EventoDTO {
 
     public void setEntradaList(List<EntradaDTO> entradaList) {
         this.entradaList = entradaList;
+    }
+
+    public String getFechaInicioString() {
+        return fechaInicioString;
+    }
+
+    public void setFechaInicioString(String fechaInicioString) {
+        this.fechaInicioString = fechaInicioString;
+    }
+
+    public String getFechaReservaString() {
+        return fechaReservaString;
+    }
+
+    public void setFechaReservaString(String fechaReservaString) {
+        this.fechaReservaString = fechaReservaString;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(Date fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public String getHoraString() {
+        return horaString;
+    }
+
+    public void setHoraString(String horaString) {
+        this.horaString = horaString;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
+    public List<String> getEtiquetas() {
+        return etiquetas;
+    }
+
+    public void setEtiquetas(List<String> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 }

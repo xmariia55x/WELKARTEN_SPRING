@@ -68,18 +68,18 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Fecha de nacimiento</label>
-                    <form:input type="date" path="fechaNacimiento" class="form-control" required="required"></form:input>
+                    <form:input type="date" path="fechaNacimientoFake" class="form-control" required="required"></form:input>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Domicilio</label>
-                    <form:input path="domicilio" class="form-control" maxlength="100" required="required"></form:input>
+                    <form:input type="text" path="domicilio" class="form-control" maxlength="100" required="required"></form:input>
 
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Ciudad</label>
-                    <form:input path="ciudad" class="form-control" maxlength="50" required="required"></form:input>
+                    <form:input type="text" path="ciudad" class="form-control" maxlength="50" required="required"></form:input>
                 </div>
 
                 <div class="mb-3">

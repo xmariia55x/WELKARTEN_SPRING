@@ -12,7 +12,6 @@
 <%
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
     ConversacionDTO conversacion = (ConversacionDTO) request.getAttribute("conversacion");
-    session.setAttribute("conversacion", conversacion);
 %>
 <body background="maxresdefault.jpg"
       style="background-position: center; background-repeat: no-repeat; background-size: cover;">
@@ -26,7 +25,6 @@
         <form id="usernameForm" name="usernameForm">
             <div class="form-group">
                 <br/>
-                <img src="/images/chatnombre.png">
                 <br/>
                 <input type="text" value="<%= usuario.getNombre() %>" id="name" placeholder="Nome"
                        autocomplete="off" class="form-control" readonly="readonly" />
@@ -37,6 +35,9 @@
         </form>
     </div>
 </div>
+
+<input type="hidden" id="usuarioId" value="<%= usuario.getId() %>">
+<input type="hidden" id="conversacionId" value="<%= conversacion.getId() %>">
 
 <div id="chat-page" class="hidden">
     <div class="chat-container">

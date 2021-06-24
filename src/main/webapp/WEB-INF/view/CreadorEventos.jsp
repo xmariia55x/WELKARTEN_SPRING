@@ -6,6 +6,9 @@
 <%@ page import="es.taw.welkarten.entity.Usuario" %>
 <%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaseventoDTO" %>
+<%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -105,11 +108,11 @@ and open the template in the editor.
 
     <%
 
-        Usuario usuario = (Usuario) request.getAttribute("usuario");
-        List<Usuario> creadores = (List) request.getAttribute("creadores");
-        List<Evento> eventosFiltrados = (List) request.getAttribute("eventosFiltrados");
-        List<Evento> eventosProximos = (List) request.getAttribute("eventosProximos");
-        List<Evento> misEventos = (List) request.getAttribute("misEventos");
+        UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
+        List<UsuarioDTO> creadores = (List) request.getAttribute("creadores");
+        List<EventoDTO> eventosFiltrados = (List) request.getAttribute("eventosFiltrados");
+        List<EventoDTO> eventosProximos = (List) request.getAttribute("eventosProximos");
+        List<EventoDTO> misEventos = (List) request.getAttribute("misEventos");
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
         HttpSession sesion = request.getSession();
@@ -185,13 +188,14 @@ and open the template in the editor.
                                             </form:select>
 
 
-
+                                                <button type="submit" class="btn btn-primary" style="margin-left: 130%">Buscar</button>
 
 
                                             </div>
+
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary" onclick="ServletBusquedaAvanzadaEventos">Buscar</button>
+
 
                                     </div>
                                 </div>
@@ -216,7 +220,7 @@ and open the template in the editor.
 
         <div id="divfix">
             <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Crear nuevo Evento</button> -->
-            <a href="/CrearEditarEvento" class="btn btn-primary">Crear nuevo Evento</a>
+            <a href="/creadoreventos/nuevoEvento" class="btn btn-primary">Crear nuevo Evento</a>
         </div>
 
 
@@ -234,8 +238,8 @@ and open the template in the editor.
                         if (eventosFiltrados == null || eventosFiltrados.isEmpty()) {
                     %> <h2> No hay resultados</h2><%
                     } else {
-                        for (Evento e : eventosFiltrados) {
-                            List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                        for (EventoDTO e : eventosFiltrados) {
+                            List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                             String etiquetas = "";
                             for (int i = 0; i < listaEtiquetas.size(); i++) {
                                 etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
@@ -250,14 +254,14 @@ and open the template in the editor.
 
                         <div class="carta">
                             <div class="card" style="width: 18rem;">
-                                <img src="images/ticket.png" class="card-img-top" alt="Evento"/>
+                                <img src="/images/ticket.png" class="card-img-top" alt="Evento"/>
                                 <div class="card-body">
                                     <h5 class="card-title"><%=e.getTitulo()%></h5>
                                     <p class="card-text"><%=e.getLugar()%></p>
                                     <p class="card-text"><%=formatoFecha.format(e.getFechaInicio()) + " " + formatoHora.format(e.getHora())%></p>
                                     <p class="card-text"><%=etiquetas%></p>
 
-                                    <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                    <a href="/creadoreventos/infoEvento/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                 </div>
                             </div>
                         </div>
@@ -283,8 +287,8 @@ and open the template in the editor.
                         <% if (misEventos == null || misEventos.isEmpty()) { %>
                         <h2>No hay resultados</h2>
                         <% } else {
-                            for (Evento e : misEventos) {
-                                List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                            for (EventoDTO e : misEventos) {
+                                List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                                 String etiquetas = "";
                                 for (int i = 0; i < listaEtiquetas.size(); i++) {
                                     etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
@@ -295,16 +299,18 @@ and open the template in the editor.
                         %>
                         <div class="carta">
                             <div class="card" style="width: 18rem;">
-                                <img src="images/ticket.png" class="card-img-top" alt="Evento"/> 
+                                <img src="/images/ticket.png" class="card-img-top" alt="Evento"/>
                                 <div class="card-body">
                                     <h5 class="card-title"><%=e.getTitulo()%></h5>
                                     <p class="card-text"><%=e.getLugar()%></p>
                                     <p class="card-text"><%=formatoFecha.format(e.getFechaInicio()) + " " + formatoHora.format(e.getHora())%></p>
                                     <p class="card-text"><%=etiquetas%></p>
-                                    <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                                    <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
-                                    <a href="ServletCargarEventoEditarAdministrador?id=<%=e.getId()%>" class="btn btn-primary">Editar</a>
-                                    <a href="ServletEliminarEventoAdministrador?id=<%=e.getId()%>" class="btn btn-primary">Borrar</a>
+
+
+
+                                    <a href="/creadoreventos/infoEvento/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                    <a href="/creadoreventos/editarEvento/<%=e.getId()%>" class="btn btn-primary">Editar</a>
+                                    <a href="/creadoreventos/eliminarEvento/<%=e.getId()%>" class="btn btn-primary">Borrar</a>
                                 </div>
                             </div>
                         </div>
@@ -331,8 +337,8 @@ and open the template in the editor.
                         <% if (eventosProximos == null || eventosProximos.isEmpty()) { %>
                         <h2>No hay resultados</h2>
                         <% } else {
-                            for (Evento e : eventosProximos) {
-                                List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+                            for (EventoDTO e : eventosProximos) {
+                                List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                                 String etiquetas = "";
                                 for (int i = 0; i < listaEtiquetas.size(); i++) {
                                     etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
@@ -343,14 +349,14 @@ and open the template in the editor.
                         %>
                         <div class="carta">
                             <div class="card" style="width: 18rem;">
-                                <img src="images/ticket.png" class="card-img-top" alt="Evento"/> 
+                                <img src="/images/ticket.png" class="card-img-top" alt="Evento"/>
                                 <div class="card-body">
                                     <h5 class="card-title"><%=e.getTitulo()%></h5>
                                     <p class="card-text"><%=e.getLugar()%></p>
                                     <p class="card-text"><%=formatoFecha.format(e.getFechaInicio()) + " " + formatoHora.format(e.getHora())%></p>
                                     <p class="card-text"><%=etiquetas%></p>
                                     <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                                    <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                                    <a href="/creadoreventos/infoEvento/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                                 </div>
                             </div>
                         </div>

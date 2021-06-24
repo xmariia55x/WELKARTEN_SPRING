@@ -38,7 +38,7 @@
             List<UsuarioDTO> usuarios = (List<UsuarioDTO>) request.getAttribute("listaUsuarios");
             List<EventoDTO> eventos = (List<EventoDTO>) request.getAttribute("listaEventos");
             List<EtiquetaDTO> etiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            //DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         %>
         <h4 class="display-4" style="text-align: center">Panel de control de usuarios y eventos</h4>
         <br>
@@ -122,19 +122,19 @@
             <%
                 if (eventos != null && !eventos.isEmpty()) {
                 for(EventoDTO event : eventos) {
-                    String fechaInicio = formatter.format(event.getFechaInicio());
-                    String fechaLimite = formatter.format(event.getFechaReserva());
+                    //String fechaInicio = formatter.format(event.getFechaInicio());
+                    //String fechaLimite = formatter.format(event.getFechaReserva());
             %>
                     <div class="col-xl-4 col-sm-6 mb-5">
                         <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://img.icons8.com/bubbles/75/000000/calendar.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
                             <h5 class="mb-0"><%=event.getTitulo()%></h5>
-                            <span class="small text-muted">Fecha de inicio: <%=fechaInicio%></span><br>
-                            <span class="small text-muted">Fecha limite entradas: <%=fechaLimite%></span><br>
+                            <span class="small text-muted">Fecha de inicio: <%=event.getFechaInicioString()%></span><br>
+                            <span class="small text-muted">Fecha limite entradas: <%=event.getFechaReservaString()%></span><br>
                             <span class="small text-muted">Precio: <%=event.getCosteEntrada()%></span><br>
                             <span class="small text-muted">Aforo: <%=event.getAforo()%></span><br>
                             <ul class="social mb-0 list-inline mt-3">
-                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarEvento/id'"/></li>
-                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarEvento/id'"/></li>
+                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/edit.png" onclick="location.href='/administrador/editarEvento/id/<%=event.getId()%>'"/></li>
+                                <li class="list-inline-item"><img src="https://img.icons8.com/bubbles/75/000000/delete-sign.png" onclick="location.href = '/administrador/eliminarEvento/id/<%=event.getId()%>'"/></li>
                             </ul>
                         </div>
                     </div>
