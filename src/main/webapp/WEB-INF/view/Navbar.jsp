@@ -34,7 +34,7 @@
                         <a class="nav-link active" href="/contactanos">Contáctanos</a>
                     </li>
                 </ul>
-                <form class="d-flex" style="margin-right: 2em" action="ServletFiltrarEvento">
+                <form class="d-flex" style="margin-right: 2em" action="/filtro" method="post">
                     <input class="form-control me-2" type="search" name="busqueda" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Buscar</button>
                 </form>

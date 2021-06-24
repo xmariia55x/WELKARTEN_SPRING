@@ -100,4 +100,12 @@ public class InicioController {
 
         return "contactanos";
     }
+
+    @PostMapping("/filtro")
+    public String doFiltrar(@RequestParam("busqueda") String busqueda, Model model){
+        List<EventoDTO> listaEventos = this.eventoService.findEventosByLugarOrNombre(busqueda);
+        model.addAttribute("listaEventos", listaEventos);
+        model.addAttribute("filtro", busqueda);
+        return "BusquedaEventos";
+    }
 }

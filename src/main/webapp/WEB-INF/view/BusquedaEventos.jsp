@@ -4,10 +4,11 @@
     Author     : yeray
 --%>
 
-<%@page import="GestorEventos2021.entity.Etiquetasevento"%>
 <%@page import="java.util.List"%>
-<%@page import="GestorEventos2021.entity.Evento"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@ page import="es.taw.welkarten.dto.EventoDTO" %>
+<%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
+<%@ page import="es.taw.welkarten.dto.EtiquetaseventoDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
         <link href="styles2.css" rel="stylesheet">
     </head>
     <%
-        List<Evento> listaEventos = (List<Evento>) request.getAttribute("listaEventos");
+        List<EventoDTO> listaEventos = (List<EventoDTO>) request.getAttribute("listaEventos");
         String filtro = (String) request.getAttribute("filtro");
         
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -38,8 +39,8 @@
             <h2>No hay resultados para la búsqueda</h2>
         <% } else { %>
         <div class="contenido">
-            <% for (Evento e : listaEventos) {
-                List<Etiquetasevento> listaEtiquetas = e.getEtiquetaseventoList();
+            <% for (EventoDTO e : listaEventos) {
+                List<EtiquetaseventoDTO> listaEtiquetas = e.getEtiquetaseventoList();
                 String etiquetas = "";
                 for (int i = 0; i < listaEtiquetas.size(); i++) {
                     etiquetas += listaEtiquetas.get(i).getEtiqueta().getNombre();
