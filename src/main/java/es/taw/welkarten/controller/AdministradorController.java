@@ -220,6 +220,7 @@ public class AdministradorController {
         return doInicializarAdmin(model, filtroUsuariosDTO, null);
     }
 
+    /* FILTRO ROL USUARIO */
     @PostMapping("/filtrarRolUsuario")
     public String doFiltrarRolUsuario(Model model, @ModelAttribute("filtroUsuariosDTO") FiltroUsuariosDTO filtroUsuariosDTO){
         List<UsuarioDTO> listaNombres = new ArrayList<>();
