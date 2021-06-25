@@ -1,7 +1,9 @@
 package es.taw.welkarten.dao;
 
 import es.taw.welkarten.entity.Etiquetasevento;
+import es.taw.welkarten.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
