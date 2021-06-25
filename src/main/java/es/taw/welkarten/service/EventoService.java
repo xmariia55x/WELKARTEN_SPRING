@@ -218,4 +218,25 @@ public class EventoService {
 
         return eventoDTOS;
     }
+
+    public List<EventoDTO> findByCategoriasEvento(List<String> etiquetasSeleccionadas) {
+        List<Integer> idEtiquetas = new ArrayList<>();
+        for(String etiqueta : etiquetasSeleccionadas){
+            switch (etiqueta){
+                case "MUSICA": idEtiquetas.add(1); break;
+                case "DEPORTES": idEtiquetas.add(2); break;
+                case "ENTRETENIMIENTO": idEtiquetas.add(3); break;
+                case "CULTURA": idEtiquetas.add(4); break;
+                default: idEtiquetas.add(5); break;
+            }
+        }
+        List<Evento> eventos = this.eventoRepository.findByEtiquetas(idEtiquetas);
+
+        List<EventoDTO> eventoDTOS = new ArrayList<>();
+        for(Evento e : eventos){
+            eventoDTOS.add(e.getDTOfechaString());
+        }
+
+        return eventoDTOS;
+    }
 }

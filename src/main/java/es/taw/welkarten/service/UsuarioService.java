@@ -199,4 +199,21 @@ public class UsuarioService {
 
         return this.convertirAListaDTO(usuarios);
     }
+
+    public List<UsuarioDTO> findByRolUsuario(List<String> rolesSeleccionados) {
+        List<Integer> idRol = new ArrayList<>();
+        for(String rol : rolesSeleccionados){
+            switch (rol){
+                case "Administrador": idRol.add(1); break;
+                case "Creador de eventos": idRol.add(2); break;
+                case "Analista de eventos": idRol.add(3); break;
+                case "Usuario de eventos": idRol.add(4); break;
+                default: idRol.add(5); break;
+            }
+
+        }
+        List<Usuario> usuarios = this.usuarioRepository.findByRolUsuario(idRol);
+
+        return this.convertirAListaDTO(usuarios);
+    }
 }

@@ -158,7 +158,7 @@
                           <div class="card-body p-4">
                               <div class="col-md-4 mb-3">
 
-                                  Categoría del evento:
+                                  Categoria del evento:
                                   <br>
                                   <form:checkboxes items = "${etiquetas}" path = "etiquetasSeleccionadas" element="br"/>
 

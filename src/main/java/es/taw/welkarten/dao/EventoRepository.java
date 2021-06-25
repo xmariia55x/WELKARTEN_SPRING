@@ -38,4 +38,7 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     @Query("SELECT e FROM Evento e WHERE e.titulo LIKE %:nombre%")
     List<Evento> findByNombreEvento(@Param("nombre") String nombreEvento);
+
+    @Query("SELECT distinct e FROM Evento e JOIN e.etiquetaseventoList et WHERE e.id = et.evento.id and et.etiqueta.id IN :tag")
+    List<Evento> findByEtiquetas(@Param("tag") List<Integer> idEtiquetas);
 }

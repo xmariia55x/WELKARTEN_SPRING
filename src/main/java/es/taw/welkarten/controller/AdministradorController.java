@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -47,8 +49,8 @@ public class AdministradorController {
         } else {
             if(filtro.getUsuariosFiltrados() != null && !filtro.getUsuariosFiltrados().isEmpty()){
                 model.addAttribute("listaUsuarios", filtro.getUsuariosFiltrados());
-
             }
+
         }
 
         if(filtroEventosDTO == null || filtroEventosDTO.isEmpty()){
@@ -73,7 +75,12 @@ public class AdministradorController {
 
         List<String> etiquetas = new ArrayList<>();
         for(EtiquetaDTO etq : listaEtiquetas){
-            etiquetas.add(etq.getNombre());
+            if(etq.getNombre().startsWith("M")){
+                etiquetas.add("MUSICA");
+            } else {
+                etiquetas.add(etq.getNombre());
+            }
+
         }
 
         model.addAttribute("listaEtiquetas", listaEtiquetas);
@@ -158,6 +165,7 @@ public class AdministradorController {
                 return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
             }
         }
+
         if (eventoDTO.getFechaReservaString().compareTo(eventoDTO.getFechaInicioString()) > 0){
             strError = "fechasIncorrectas";
             return doRedirigirCrearEvento(model, strError, eventoDTO.getId());
@@ -212,6 +220,16 @@ public class AdministradorController {
         return doInicializarAdmin(model, filtroUsuariosDTO, null);
     }
 
+    @PostMapping("/filtrarRolUsuario")
+    public String doFiltrarRolUsuario(Model model, @ModelAttribute("filtroUsuariosDTO") FiltroUsuariosDTO filtroUsuariosDTO){
+        List<UsuarioDTO> listaNombres = new ArrayList<>();
+        if(filtroUsuariosDTO.getRolesSeleccionados() != null && !filtroUsuariosDTO.getRolesSeleccionados().isEmpty()){
+            listaNombres = this.usuarioService.findByRolUsuario(filtroUsuariosDTO.getRolesSeleccionados());
+        }
+        filtroUsuariosDTO.setUsuariosFiltrados(listaNombres);
+        return doInicializarAdmin(model, filtroUsuariosDTO, null);
+    }
+
     @PostMapping("/filtrarNombreEvento")
     public String doFiltrarNombreEvento(Model model, @ModelAttribute("filtroEventosDTO") FiltroEventosDTO filtro){
         List<EventoDTO> listaEventos = new ArrayList<>();
@@ -221,4 +239,15 @@ public class AdministradorController {
         filtro.setEventosFiltrados(listaEventos);
         return doInicializarAdmin(model, null, filtro);
     }
+
+    @PostMapping("/filtrarCategoriaEvento")
+    public String doFiltrarCategoriaEvento(Model model, @ModelAttribute("filtroEventosDTO") FiltroEventosDTO filtro){
+        List<EventoDTO> eventos = new ArrayList<>();
+        if(filtro.getEtiquetasSeleccionadas() != null && !filtro.getEtiquetasSeleccionadas().isEmpty()){
+            eventos = this.eventoService.findByCategoriasEvento(filtro.getEtiquetasSeleccionadas());
+        }
+        filtro.setEventosFiltrados(eventos);
+        return doInicializarAdmin(model, null, filtro);
+    }
 }
+
