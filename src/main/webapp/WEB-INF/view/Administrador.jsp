@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : Administrador
     Created on : 25-abr-2021, 13:29:58
     Author     : maria
@@ -6,13 +7,10 @@
 --%>
 
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
+
 
 <%@page import="java.util.List"%>
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Evento" %>
-<%@ page import="es.taw.welkarten.entity.Etiqueta" %>
+
 <%@ page import="es.taw.welkarten.dto.UsuarioeventosDTO" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
@@ -38,7 +36,7 @@
             List<UsuarioDTO> usuarios = (List<UsuarioDTO>) request.getAttribute("listaUsuarios");
             List<EventoDTO> eventos = (List<EventoDTO>) request.getAttribute("listaEventos");
             List<EtiquetaDTO> etiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
-            //DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
         %>
         <h4 class="display-4" style="text-align: center">Panel de control de usuarios y eventos</h4>
         <br>
@@ -46,6 +44,36 @@
 
 
         <div class="usuarios">
+            <form:form method="POST" action="/administrador/filtrarNombreUsuario" modelAttribute="filtroUsuariosDTO">
+                <div class="col-auto">
+                    <form:input type="text" class="form-control" path="nombreUsuario" placeholder="Escribe el nombre del usuario aqui"></form:input>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Buscar usuarios</button>
+                </div>
+                </form:form>
+                <form:form method="POST" action="/administrador/filtrarRolUsuario" modelAttribute="filtroUsuariosDTO">
+                <div class="row-auto">
+                    <label class="accordion">Filtrar usuarios</label>
+                    <div class="panel">
+                        <div class="card-body p-4">
+                            <div class="col-md-4 mb-3">
+
+                                Rol del usuario:
+                                <br>
+                                <form:checkboxes items = "${roles}" path = "rolesSeleccionados" element="br"/>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filtrar
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                </form:form>
             <!-- BOTONACO DE CREAR USUARIOS -->
             <div class="row-auto">
                 <input type="submit" class="btn btn-primary mb-3 btn-lg" value="Crear usuario" onclick="location.href = '/administrador/crearUsuarioAdministrador'"/>
@@ -122,8 +150,6 @@
             <%
                 if (eventos != null && !eventos.isEmpty()) {
                 for(EventoDTO event : eventos) {
-                    //String fechaInicio = formatter.format(event.getFechaInicio());
-                    //String fechaLimite = formatter.format(event.getFechaReserva());
             %>
                     <div class="col-xl-4 col-sm-6 mb-5">
                         <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://img.icons8.com/bubbles/75/000000/calendar.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
@@ -153,7 +179,7 @@
 
 
         </div>
-        <!--<script>
+        <script>
             var acc = document.getElementsByClassName("accordion");
             var i;
 
@@ -168,6 +194,6 @@
                     }
                 });
             }
-        </script> -->
+        </script>
     </body>
 </html>

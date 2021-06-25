@@ -1,8 +1,6 @@
 package es.taw.welkarten.controller;
 
-import es.taw.welkarten.dto.EtiquetaDTO;
-import es.taw.welkarten.dto.EventoDTO;
-import es.taw.welkarten.dto.UsuarioDTO;
+import es.taw.welkarten.dto.*;
 import es.taw.welkarten.entity.Etiqueta;
 import es.taw.welkarten.entity.Evento;
 import es.taw.welkarten.entity.Usuario;
@@ -15,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,14 +39,31 @@ public class AdministradorController {
     }
 
     @GetMapping("/")
-    public String doInicializarAdmin(Model model){
-        List<UsuarioDTO> listaUsuarios = this.usuarioService.findUsuarios();
+    public String doInicializarAdmin(Model model, FiltroUsuariosDTO filtro){
+        if(filtro == null || filtro.isEmpty()){
+            List<UsuarioDTO> listaUsuarios = this.usuarioService.findUsuarios();
+            model.addAttribute("listaUsuarios", listaUsuarios);
+            filtro = new FiltroUsuariosDTO();
+        } else {
+            if(filtro.getUsuariosFiltrados() != null && !filtro.getUsuariosFiltrados().isEmpty())
+            model.addAttribute("listaUsuarios", filtro.getUsuariosFiltrados());
+        }
+
+        List<String> roles = new ArrayList<>();
+        roles.add("Administrador");
+        roles.add("Creador de eventos");
+        roles.add("Analista de eventos");
+        roles.add("Usuario de eventos");
+        roles.add("Teleoperador");
+        filtro.setRoles(roles);
+
         List<EventoDTO> listaEventos = this.eventoService.findEventos();
         List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
 
-        model.addAttribute("listaUsuarios", listaUsuarios);
         model.addAttribute("listaEventos", listaEventos);
         model.addAttribute("listaEtiquetas", listaEtiquetas);
+        model.addAttribute("roles", roles);
+        model.addAttribute("filtroUsuariosDTO", filtro);
         return "Administrador";
     }
 
@@ -140,8 +156,6 @@ public class AdministradorController {
 
     }
 
-
-
     @GetMapping("/eliminarEvento/id/{id}")
     public String doEliminarEvento(@PathVariable("id") Integer id){
         this.eventoService.eliminarEvento(id);
@@ -171,4 +185,13 @@ public class AdministradorController {
     }
 
 
+    @PostMapping("/filtrarNombreUsuario")
+    public String doFiltrarNombreUsuario(Model model, @ModelAttribute("filtroUsuariosDTO") FiltroUsuariosDTO filtroUsuariosDTO){
+        List<UsuarioDTO> listaNombres = new ArrayList<>();
+        if(filtroUsuariosDTO.getNombreUsuario() != null && !filtroUsuariosDTO.getNombreUsuario().isEmpty()){
+            listaNombres = this.usuarioService.findByNombreUsuario(filtroUsuariosDTO.getNombreUsuario());
+        }
+        filtroUsuariosDTO.setUsuariosFiltrados(listaNombres);
+        return doInicializarAdmin(model, filtroUsuariosDTO);
+    }
 }
