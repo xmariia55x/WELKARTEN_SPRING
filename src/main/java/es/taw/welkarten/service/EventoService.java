@@ -208,4 +208,14 @@ public class EventoService {
         }
         this.eventoRepository.delete(evt);
     }
+
+    public List<EventoDTO> findByNombreEvento(String nombreEvento) {
+        List<Evento> eventos = this.eventoRepository.findByNombreEvento(nombreEvento);
+        List<EventoDTO> eventoDTOS = new ArrayList<>();
+        for(Evento e : eventos){
+            eventoDTOS.add(e.getDTOfechaString());
+        }
+
+        return eventoDTOS;
+    }
 }

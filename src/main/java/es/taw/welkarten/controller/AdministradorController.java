@@ -39,16 +39,27 @@ public class AdministradorController {
     }
 
     @GetMapping("/")
-    public String doInicializarAdmin(Model model, FiltroUsuariosDTO filtro){
+    public String doInicializarAdmin(Model model, FiltroUsuariosDTO filtro, FiltroEventosDTO filtroEventosDTO){
         if(filtro == null || filtro.isEmpty()){
             List<UsuarioDTO> listaUsuarios = this.usuarioService.findUsuarios();
             model.addAttribute("listaUsuarios", listaUsuarios);
             filtro = new FiltroUsuariosDTO();
         } else {
-            if(filtro.getUsuariosFiltrados() != null && !filtro.getUsuariosFiltrados().isEmpty())
-            model.addAttribute("listaUsuarios", filtro.getUsuariosFiltrados());
+            if(filtro.getUsuariosFiltrados() != null && !filtro.getUsuariosFiltrados().isEmpty()){
+                model.addAttribute("listaUsuarios", filtro.getUsuariosFiltrados());
+
+            }
         }
 
+        if(filtroEventosDTO == null || filtroEventosDTO.isEmpty()){
+            List<EventoDTO> listaEventos = this.eventoService.findEventos();
+            model.addAttribute("listaEventos", listaEventos);
+            filtroEventosDTO = new FiltroEventosDTO();
+        } else {
+            if(filtroEventosDTO.getEventosFiltrados() != null && !filtroEventosDTO.getEventosFiltrados().isEmpty()){
+                model.addAttribute("listaEventos", filtroEventosDTO.getEventosFiltrados());
+            }
+        }
         List<String> roles = new ArrayList<>();
         roles.add("Administrador");
         roles.add("Creador de eventos");
@@ -57,13 +68,19 @@ public class AdministradorController {
         roles.add("Teleoperador");
         filtro.setRoles(roles);
 
-        List<EventoDTO> listaEventos = this.eventoService.findEventos();
+
         List<EtiquetaDTO> listaEtiquetas = this.etiquetaService.findEtiquetas();
 
-        model.addAttribute("listaEventos", listaEventos);
+        List<String> etiquetas = new ArrayList<>();
+        for(EtiquetaDTO etq : listaEtiquetas){
+            etiquetas.add(etq.getNombre());
+        }
+
         model.addAttribute("listaEtiquetas", listaEtiquetas);
         model.addAttribute("roles", roles);
+        model.addAttribute("etiquetas", etiquetas);
         model.addAttribute("filtroUsuariosDTO", filtro);
+        model.addAttribute("filtroEventosDTO", filtroEventosDTO);
         return "Administrador";
     }
 
@@ -192,6 +209,16 @@ public class AdministradorController {
             listaNombres = this.usuarioService.findByNombreUsuario(filtroUsuariosDTO.getNombreUsuario());
         }
         filtroUsuariosDTO.setUsuariosFiltrados(listaNombres);
-        return doInicializarAdmin(model, filtroUsuariosDTO);
+        return doInicializarAdmin(model, filtroUsuariosDTO, null);
+    }
+
+    @PostMapping("/filtrarNombreEvento")
+    public String doFiltrarNombreEvento(Model model, @ModelAttribute("filtroEventosDTO") FiltroEventosDTO filtro){
+        List<EventoDTO> listaEventos = new ArrayList<>();
+        if(filtro.getNombreEvento() != null && !filtro.getNombreEvento().isEmpty()){
+            listaEventos = this.eventoService.findByNombreEvento(filtro.getNombreEvento());
+        }
+        filtro.setEventosFiltrados(listaEventos);
+        return doInicializarAdmin(model, null, filtro);
     }
 }

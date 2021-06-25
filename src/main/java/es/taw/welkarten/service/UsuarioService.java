@@ -197,10 +197,6 @@ public class UsuarioService {
     public List<UsuarioDTO> findByNombreUsuario(String nombreUsuario) {
         List<Usuario> usuarios = this.usuarioRepository.findByNombreUsuario(nombreUsuario);
 
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
-        for(Usuario usuario : usuarios){
-            usuarioDTOS.add(usuario.getDTO());
-        }
-        return usuarioDTOS;
+        return this.convertirAListaDTO(usuarios);
     }
 }

@@ -35,7 +35,7 @@
             UsuarioDTO administrador = (UsuarioDTO) session.getAttribute("usuario");
             List<UsuarioDTO> usuarios = (List<UsuarioDTO>) request.getAttribute("listaUsuarios");
             List<EventoDTO> eventos = (List<EventoDTO>) request.getAttribute("listaEventos");
-            List<EtiquetaDTO> etiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
+            //List<EtiquetaDTO> etiquetas = (List<EtiquetaDTO>) request.getAttribute("listaEtiquetas");
 
         %>
         <h4 class="display-4" style="text-align: center">Panel de control de usuarios y eventos</h4>
@@ -142,6 +142,37 @@
         </div>
 
           <div class="eventos">
+        <form:form method="POST" action="/administrador/filtrarNombreEvento" modelAttribute="filtroEventosDTO">
+            <div class="col-auto">
+                <form:input type="text" class="form-control" path="nombreEvento" placeholder="Escribe el nombre del evento aqui"></form:input>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Buscar eventos</button>
+            </div>
+        </form:form>
+        <form:form method="POST" action="/administrador/filtrarCategoriaEvento" modelAttribute="filtroEventosDTO">
+                  <div class="row-auto">
+
+                      <label class="accordion">Filtrar eventos</label>
+                      <div class="panel">
+                          <div class="card-body p-4">
+                              <div class="col-md-4 mb-3">
+
+                                  Categoría del evento:
+                                  <br>
+                                  <form:checkboxes items = "${etiquetas}" path = "etiquetasSeleccionadas" element="br"/>
+
+                              </div>
+                              <button type="submit" class="btn btn-primary">Filtrar
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                  </svg>
+                              </button>
+                          </div>
+
+                      </div>
+                  </div>
+        </form:form>
               <div class="row-auto">
                   <input type="submit" class="btn btn-primary mb-3 btn-lg" value="Crear evento" onclick="location.href = '/administrador/crearEventoAdministrador'"/>
               </div>

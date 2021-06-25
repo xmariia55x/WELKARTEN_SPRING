@@ -35,4 +35,7 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     @Query("SELECT DISTINCT e FROM Evento e WHERE e.titulo LIKE :filtro OR e.lugar LIKE :filtro")
     public List<Evento> findByEventosNombreOrLugar(@Param("filtro") String filtro);
+
+    @Query("SELECT e FROM Evento e WHERE e.titulo LIKE %:nombre%")
+    List<Evento> findByNombreEvento(@Param("nombre") String nombreEvento);
 }
