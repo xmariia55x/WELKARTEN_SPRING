@@ -187,7 +187,7 @@ public class EventoService {
             etiqueta.setEtiqueta(etiquetaRepository.findByNombre(etq));
             etiqueta.setEvento(eventoExtraido);
             etiqueta.setId(0);
-            this.etiquetaseventoRepository.save(etiqueta);
+            //this.etiquetaseventoRepository.save(etiqueta);
             etiquetaseventos.add(etiqueta);
         }
         eventoExtraido.setEtiquetaseventoList(etiquetaseventos);

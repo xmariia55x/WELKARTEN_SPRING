@@ -75,6 +75,12 @@ public class CreadoreventosController {
     }
 
 
+    @GetMapping("/infoEvento/{id}")
+    public String doInfoEvento(@PathVariable("id") Integer id, Model model){
+        EventoDTO evento = this.eventoService.findEvento(id);
+        model.addAttribute("evento", evento);
+        return "InfoEvento";
+    }
 
     @GetMapping("/nuevoEvento")
     public String doNuevoEvento(Model model, String error, Integer id){
