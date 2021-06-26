@@ -1,8 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@page import="java.util.List"%>
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <!DOCTYPE html>
@@ -19,7 +17,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
         <title>Crear Estudio</title>
     </head>
     
@@ -94,7 +92,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                 </div>
                  
                  <div class="mb-3" >
-                    <label  class="form-label">Introduce la descripci�n del estudio:</label>
+                    <label  class="form-label">Introduce la descripci&oacute;n del estudio:</label>
                      <form:input path="descripcion" type="text" width="20" name="descripcion" class="form-control" required="true"></form:input>
                 </div>
                 

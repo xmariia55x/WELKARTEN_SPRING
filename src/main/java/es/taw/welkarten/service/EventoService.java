@@ -119,6 +119,7 @@ public class EventoService {
         Evento evento = new Evento();
         if (dto.getId() == null) {
             evento.setId(0);
+            evento.setCreador(usuario);
         } else {
             evento = this.eventoRepository.findById(dto.getId()).orElse(new Evento());
         }
@@ -159,7 +160,7 @@ public class EventoService {
         }
 
         evento.setLugar(dto.getLugar());
-        evento.setCreador(usuario);
+
 
         this.eventoRepository.save(evento);
 

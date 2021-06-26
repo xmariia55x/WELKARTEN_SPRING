@@ -42,6 +42,7 @@
 
         <form class="contenido2" action="/usuarioeventos/evento/guardarTickets" method="post">
             <input type="hidden" name="idEvento" value="<%=evento.getId()%>" />
+            <input type="hidden" name="asientosSeleccionados" value="">
             <input type="hidden" name="nEntradas" value="<%=nEntradas%>" />
             <div class="credit-card-div2">
                 <div class="panel panel-default" >
@@ -71,7 +72,7 @@
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <span class="help-block text-muted small-font" >  CVV</span>
-                                    <input type="text" class="form-control" placeholder="CCV" maxlength="4" />
+                                    <input type="text" class="form-control" placeholder="CVV" maxlength="4" />
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-3" style="margin-top: -10px;">
                                     <img src="/images/cvv.png" width="80" height="80"/>
@@ -94,7 +95,7 @@
                 </div>
             </div>
             <div style="float: right; margin-right: 10%">
-                <input type="button" class="btn btn-light btn-lg" value="Cancelar" onclick="location.href='ServletEventoInfo?id=<%=evento.getId()%>'" />
+                <input type="button" class="btn btn-light btn-lg" value="Cancelar" onclick="location.href='/usuarioeventos/evento/id/<%=evento.getId()%>'" />
                 <input type="submit" class="btn btn-primary btn-lg" value="Confirmar"/>
             </div>
         </form>

@@ -1,4 +1,4 @@
-<%@ page import="es.taw.welkarten.entity.Conversacion" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="es.taw.welkarten.dto.ConversacionDTO" %><%--
     Document   : PeticionesTeleoperador

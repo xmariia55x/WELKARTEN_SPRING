@@ -40,7 +40,7 @@
         <div class="card mb-3" style="max-width: 1200px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="images/conversation2.jpg" alt="..." style="max-width: 400px;">
+                    <img src="/images/conversation2.jpg" alt="..." style="max-width: 400px;">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body" style="padding:2% 20%; text-align: left">

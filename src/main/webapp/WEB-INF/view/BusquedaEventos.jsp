@@ -17,7 +17,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles2.css" rel="stylesheet">
+        <link href="/css/styles2.css" rel="stylesheet">
     </head>
     <%
         List<EventoDTO> listaEventos = (List<EventoDTO>) request.getAttribute("listaEventos");
@@ -56,7 +56,7 @@
                         <p class="card-text"><%=formatoFecha.format(e.getFechaInicio()) + " " + formatoHora.format(e.getHora())%></p>
                         <p class="card-text"><%=etiquetas%></p>
                         <!-- Cambiar id 1 por //evento.getEventoId()// -->
-                        <a href="ServletEventoInfo?id=<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
+                        <a href="/usuarioeventos/evento/id/<%=e.getId()%>" class="btn btn-primary">Ver evento</a>
                     </div>
                 </div>
             </div>

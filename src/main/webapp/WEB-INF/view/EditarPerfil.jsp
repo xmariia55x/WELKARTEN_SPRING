@@ -5,10 +5,6 @@
     Author     : maria
 --%>
 
-<%@page import="java.text.SimpleDateFormat" %>
-<%@page import="java.text.DateFormat" %>
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Usuarioeventos" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioeventosDTO" %>
 

@@ -7,8 +7,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
-<%@ page import="es.taw.welkarten.entity.Evento" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

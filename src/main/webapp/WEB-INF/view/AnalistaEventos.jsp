@@ -18,7 +18,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="styles.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
         <title>Analista Eventos</title>
     </head>
     
@@ -50,11 +50,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
             
                 <br>
                 <br>
-
-        <form>
-            
             <div style="padding: 0% 10%;" class="analistaGlobal">
-                <!-- TABLA DE CONVERSACIONES -->
                 <table  class="table">
                         <thead class = "table-primary">
                             <tr>
@@ -77,7 +73,7 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                                     <td><button class="btn btn-outline-primary copia" type="button" onclick="location.href = '/analista/copiar/<%=e.getId()%>'">  Hacer copia</button></td>
                                     <td><button class="btn btn-outline-primary modificar" type="button" onclick="location.href = '/analista/modificar/<%=e.getId()%>'">  Modificar</button></td>
                                     <td><button class="btn btn-outline-primary info" type="button" onclick="location.href = '/analista/info/<%=e.getId()%>'">Info</button></td>
-                                    <td><button class="btn btn-outline-danger eliminar" type="button" onclick="location.href = '/analista/eliminar/<%=e.getId()%>'">Eliminar</button></td>>
+                                    <td><button class="btn btn-outline-danger eliminar" type="button" onclick="location.href = '/analista/eliminar/<%=e.getId()%>'">Eliminar</button></td>
                                 </tr>
                                 <%
                                 }
@@ -89,6 +85,5 @@ and open the template in the editor.fcxddxdnjnjjnjnj
                     <button type="button" class="btn btn-primary btn-lg" onclick="location.href = '/analista/crear'">Crear estudio</button>
                 </div>
             </div>
-        </form>
     </body>
 </html>

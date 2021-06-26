@@ -2,8 +2,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
-<%@ page import="es.taw.welkarten.entity.Evento" %>
-<%@ page import="es.taw.welkarten.entity.Etiquetasevento" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
 <%@ page import="es.taw.welkarten.dto.EtiquetaseventoDTO" %>
 <!DOCTYPE html>

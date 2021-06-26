@@ -81,7 +81,7 @@
             </div>
             </br>
             <div style="float:left; padding-left: 10%;">
-                <input type="button" class="btn btn-secondary btn-lg" value="Cancelar" onclick="location.href = 'ServletMisEventos'" />
+                <input type="button" class="btn btn-secondary btn-lg" value="Cancelar" onclick="location.href = '/usuarioeventos/miseventos'" />
             </div>
             <div style="float: right; padding-right: 10%;">
                 <input type="button" class="btn btn-primary btn-lg" value="Confirmar" onclick="enviar()" />

@@ -9,10 +9,10 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@ page import="es.taw.welkarten.entity.Entrada" %>
+
 <%@ page import="es.taw.welkarten.dto.EntradaDTO" %>
 <%@ page import="es.taw.welkarten.dto.EventoDTO" %>
-<%@ page import="es.taw.welkarten.entity.Usuario" %>
+
 <%@ page import="es.taw.welkarten.dto.UsuarioDTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

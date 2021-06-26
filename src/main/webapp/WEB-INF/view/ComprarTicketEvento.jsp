@@ -163,7 +163,7 @@
             </div>
             </br>
             <div style="float:left">
-                <input type="button" class="btn btn-secondary btn-lg" id="cancelarBtn" value="Cancelar" onclick="location.href='ServletEventoInfo?id=<%=evento.getId()%>'" />
+                <input type="button" class="btn btn-secondary btn-lg" id="cancelarBtn" value="Cancelar" onclick="location.href='/usuarioeventos/evento/id/<%=evento.getId()%>'" />
             </div>
             <div style="float: right">
                 <input type="button" class="btn btn-info btn-lg" id="prevBtn" value="Anterior" onclick="nextPrev(-1)" />
