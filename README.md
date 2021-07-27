@@ -73,4 +73,4 @@ Analista de eventos:
 
 ## 2 Tecnología empleada
 Para desarrollar este proyecto se ha empleado Spring, HTML, CSS, JavaScript y Booststrap.
-En otra versión anterior ([que se encuentra en este repositorio] (https://github.com/xmariia55x/WELKARTEN.git)) se hizo el mismo proyecto pero esta vez usando Java EE. 
+En otra versión anterior ( [que se encuentra en este repositorio](https://github.com/xmariia55x/WELKARTEN.git) ) se hizo el mismo proyecto pero esta vez usando Java EE. 
