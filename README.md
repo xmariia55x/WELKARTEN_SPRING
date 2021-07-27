@@ -52,7 +52,7 @@ Usuario de eventos:
 - Un usuario de eventos podrá eliminar un evento de sus eventos.
 - Un usuario de eventos podrá filtrar sus eventos según el nombre.
 
-Teleoperadores:
+Teleoperador:
 - Un teleoperador permitirá que un usuario de eventos se comunique con ellos directamente a través de un chat.
 - Un teleoperador podrá enviar mensajes al chat.
 - Un teleoperador podrá listar las conversaciones de todos los teleoperadores.
@@ -63,7 +63,7 @@ Teleoperadores:
 - Un teleoperador podrá aceptar una petición de conversación. 
 - Un teleoperador podrá visualizar la lista de peticiones de conversación. 
 
-Analistas de eventos:
+Analista de eventos:
 - Un analista de eventos podrá diseñar estudios estadísticos sobre los datos de la BD y almacenarlos. 
 - Un analista de eventos podrá visualizar los estudios que tiene diseñados y acceder a los datos resultantes.
 - Un analista de eventos podrá crear una copia de un estudio y realizar modificaciones sobre él, como si se tratara de uno nuevo. 
